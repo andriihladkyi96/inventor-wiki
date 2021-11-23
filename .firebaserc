@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "project-26c91": {
+      "hosting": {
+        "inventor-wiki": [
+          "project-26c91"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "project-26c91"
+  }
+}

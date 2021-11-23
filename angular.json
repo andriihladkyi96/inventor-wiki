@@ -105,6 +105,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "inventor-wiki:build:production",
+            "firebaseProject": "project-26c91",
+            "firebaseHostingSite": "project-26c91"
+          }
         }
       }
     }

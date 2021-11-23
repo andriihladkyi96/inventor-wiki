@@ -13,6 +13,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 
 @NgModule({
   declarations: [
@@ -31,7 +37,12 @@ import { MatSliderModule } from '@angular/material/slider';
     MatTableModule,
     MatIconModule,
     MatSelectModule,
-    MatSliderModule
+    MatSliderModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideRemoteConfig(() => getRemoteConfig())
   ],
   providers: [],
   bootstrap: [AppComponent]
