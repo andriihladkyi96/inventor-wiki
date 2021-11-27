@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -8,20 +9,33 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
-
-  // loginGroup = this.fb.group({
-  //   email: '',
-  //   password: ''
-  // })
+  constructor(private authService: AuthService) { }
 
   loginGroup = new FormGroup({
-    email: new FormControl(' '),
-    password: new FormControl('')
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
   })
 
-  ngOnInit(): void {
 
+  get email() {
+    return this.loginGroup.get('email') as FormControl
+  }
+
+  get password() {
+    return this.loginGroup.get('password') as FormControl
+  }
+
+
+  logIn() {
+    const { email, password } = this.loginGroup.value
+    this.authService.signIn(email, password)
+  }
+
+  logInAsGuest() {
+    this.authService.signInAsGuest()
+  }
+
+  ngOnInit(): void {
   }
 
 }

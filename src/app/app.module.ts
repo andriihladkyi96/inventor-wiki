@@ -20,13 +20,17 @@ import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-confi
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
+import { RegisterFormComponent } from './components/login/register-form/register-form.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { TestComponent } from './components/login/test/test.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent
-
+    LoginFormComponent,
+    RegisterFormComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -42,11 +46,7 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
     MatIconModule,
     MatSelectModule,
     MatSliderModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideRemoteConfig(() => getRemoteConfig()),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
