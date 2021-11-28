@@ -1,0 +1,48 @@
+<div class="page">
+    <div class="form__container">
+        <h2 class="form__title">Sign In</h2>
+        <form class="form" [formGroup]="loginGroup">
+
+
+            <mat-form-field appearance="legacy" color="accent">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput placeholder="Type your email" formControlName="email">
+                <mat-icon matPrefix>mail_outline</mat-icon>
+
+                <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <mat-error *ngIf="email.errors?.required">Field is required</mat-error>
+                    <mat-error *ngIf="email.errors?.email">Invalid email</mat-error>
+                </mat-error>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="legacy" color="accent">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Type your Password" formControlName="password">
+                <mat-icon matPrefix>lock</mat-icon>
+
+                <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                    <mat-error *ngIf="password.errors?.required">Field is required</mat-error>
+                    <mat-error *ngIf="password.errors?.minlength">Min length is 6 characters</mat-error>
+                    <mat-error *ngIf="password.errors?.maxlength">Max length is 20 characters</mat-error>
+                </mat-error>
+
+            </mat-form-field>
+
+            <!-- <mat-error>The password is invalid or the user does not have a password.</mat-error> -->
+
+
+            <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
+                type="submit">LOGIN</button>
+
+            <button class="form__btn" routerLink="/" mat-button type="button" (click)="logInAsGuest()">SIGN IN AS A
+                GUEST</button>
+        </form>
+
+        <div class="form__link">
+            <a mat-button routerLink="/register" href="#">SIGN UP</a>
+        </div>
+
+    </div>
+</div>

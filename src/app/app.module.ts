@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,14 +12,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { environment } from '../environments/environment';
-import { AngularFireModule} from '@angular/fire/compat'
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AppComponent } from './app.component';
+import { LoginFormComponent } from './components/login/login-form/login-form.component';
+import { RegisterFormComponent } from './components/login/register-form/register-form.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { TestComponent } from './components/login/test/test.component';
+
 
 @NgModule({
-  declarations: [		
-      AppComponent
-   ],
+  declarations: [
+    AppComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
+    TestComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
