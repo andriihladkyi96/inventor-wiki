@@ -30,7 +30,7 @@
 
             </mat-form-field>
 
-            <!-- <mat-error>The password is invalid or the user does not have a password.</mat-error> -->
+
 
 
             <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
@@ -38,6 +38,8 @@
 
             <button class="form__btn" routerLink="/" mat-button type="button" (click)="logInAsGuest()">SIGN IN AS A
                 GUEST</button>
+
+            <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
         </form>
 
         <div class="form__link">
