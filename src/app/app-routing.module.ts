@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: '', component: TestComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
   { path: 'login', component: LoginFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } },
   { path: 'register', component: RegisterFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } }
-
 ];
 
 @NgModule({
