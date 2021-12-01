@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="navigation-group">
+    <div *ngFor="let post of posts" class="navigation-group__item">
+      <div class="post-item" [ngClass]="{'inFocus': post.id === postInFocus.id}" (click)="isInFocus(post)">
+        <div class="post-item__content">
+          <a class="post-item__title">{{post.title}}</a>
+        </div>
+        <div class="post-item__menu">
+          <button class="post-item__menu-icon" [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu class="mat-menu" #menu="matMenu">
+            <button *ngIf="!isPostEdit(post.id)" (click)="toogleIsEditPost(post.id)" mat-menu-item class="mat-menu__item">
+              <mat-icon class="mat-icon">
+                edit_note
+              </mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item class="mat-menu__item" (click)="deletePost(post.id)">
+              <mat-icon class="mat-icon">
+                delete
+              </mat-icon>
+              <span>Delete</span>
+            </button>
+            <button mat-menu-item class="mat-menu__item" (click)="deletePost(post.id)">
+              <mat-icon class="mat-icon">
+                visibility_off
+              </mat-icon>
+              <span>Hide post</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="mat-divider__navigation"></mat-divider>
+    <button class="create-btn" (click)="addPost()">
+      <mat-icon>
+        post_add
+      </mat-icon>
+      <span>New post</span>
+    </button>
+  </div>
+  <div class="form-group">
+    <div class="form-group__title">
+      <input class="form-group__title-input" [(ngModel)]="title" type="text">
+    </div>
+    <div class="category">
+      <!-- випадаючий список -->
+    </div>
+    <mat-divider class="mat-divider"></mat-divider>
+    <div class="content">
+      <angular-editor class="angular-editor" [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+    </div>
+    <div class="btn-group">
+      <button *ngIf="isPostEdit(postInFocus.id)" (click)="updatePost()" class="btn-group__item save-btn">
+        Save post
+      </button>
+      <button *ngIf="!isPostEdit(postInFocus.id)" (click)="toogleIsEditPost(postInFocus.id)" class="btn-group__item edit-btn">
+        Edit post
+      </button>
+    </div>
+    <div class="btn-group">
+      <button *ngIf="postInFocusId !== 0" (click)="prevPost()" [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusId !== posts.length - 1}">
+        <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
+        <span>Previous</span>
+      </button>
+      <button *ngIf="postInFocusId !== posts.length - 1" (click)="nextPost()" [ngClass]="{'btn-group__item': true,'btn-next':postInFocusId !== 0}">
+        <span>Next</span>
+        <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
