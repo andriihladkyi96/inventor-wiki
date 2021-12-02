@@ -1,3 +1,60 @@
-<p>
-  user-posts works!
-</p>
+<div class="container">
+  <div class="navigation-group">
+    <div *ngFor="let post of posts" class="navigation-group__item">
+      <div class="post-item" [ngClass]="{'inFocus': post.id === postInFocus.id}" (click)="isInFocus(post)">
+        <div class="post-item__content">
+          <a class="post-item__title">{{post.title}}</a>
+        </div>
+        <div class="post-item__menu">
+          <button class="post-item__menu-icon" [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu class="mat-menu" #menu="matMenu">
+            <button (click)="toogleIsEdit(true)" mat-menu-item
+              class="mat-menu__item">
+              <mat-icon class="mat-icon">
+                edit_note
+              </mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item class="mat-menu__item" (click)="deletePost(post)">
+              <mat-icon class="mat-icon">
+                delete
+              </mat-icon>
+              <span>Delete</span>
+            </button>
+            <!-- <button mat-menu-item class="mat-menu__item" (click)="">
+              <mat-icon class="mat-icon">
+                visibility_off
+              </mat-icon>
+              <span>Hide post</span>
+            </button> -->
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="mat-divider__navigation"></mat-divider>
+    <button class="create-btn" (click)="addPost()">
+      <mat-icon class="create-btn__icon">
+        post_add
+      </mat-icon>
+      <span class="create-btn__text">New post</span>
+    </button>
+  </div>
+  <div class="content-group">
+    <app-post-view *ngIf="!isEdit" [post]="postInFocus"></app-post-view>
+    <app-post-form *ngIf="isEdit" [post]="postInFocus"  (postSaved)="postSaved($event)"></app-post-form>
+    <div class="btn-group">
+      <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
+        [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
+        <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
+        <span>Previous</span>
+      </button>
+      <button *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
+        [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0}">
+        <span>Next</span>
+        <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

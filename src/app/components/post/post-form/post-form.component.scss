@@ -74,17 +74,13 @@
     }
 }
 
-.form-group {
-    flex-basis: 75%;
-    padding: 19px 90px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(243, 245, 246);
+.form{
     font-family: "Segoe", Helvetica, Arial, sans-serif;
 
-    &__title {
+    &-title {
         padding: 16px 0px;
         width: 100%;
-        &-input {
+        &__input {
             display: block;
             width: 100%;
             border: none;
@@ -97,7 +93,7 @@
             }
         }
     }
-    .category {
+    &-category {
         color: rgb(136, 153, 168);
         line-height: 24px;
         font-weight: 400;
@@ -186,24 +182,5 @@
     }
     span {
         color: white;
-    }
-}
-
-.content-container{
-    position: relative;
-    .arrow-btn{
-        background-color: inherit;
-        border: none;
-        z-index: 10;
-    } 
-    .btn-next{
-        position: absolute;
-        top: 50%;
-        right: 10px;
-    }
-    .btn-prev{
-        position: absolute;
-        top: 50%;
-        left: 10px;
     }
 }

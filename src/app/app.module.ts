@@ -27,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
+import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MatDividerModule } from '@angular/material/divider';
     UserPostsComponent,
     PostViewComponent,
     PostFormComponent,
+    WarningDialogComponent
   ],
   imports: [
     BrowserModule,
