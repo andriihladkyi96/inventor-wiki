@@ -1,1 +1,14 @@
 <button mat-raised-button (click)="logOut()"> LogOut</button>
+
+<div class="user" *ngIf="currentUser; let user">
+    <h1>User</h1>
+    <div>{{user.firstName}}</div>
+    <div>{{user.lastName}}</div>
+    <div>{{user.role}}</div>
+</div>
+
+<div class="users" *ngIf="users$ | async; let users">
+    <div *ngFor="let user of users">
+        <p>{{user.email}}</p>
+    </div>
+</div>

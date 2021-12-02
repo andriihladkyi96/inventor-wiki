@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/User';
@@ -51,18 +51,32 @@ export class RegisterFormComponent implements OnInit {
     return this.registerForm.get('confirmPassword') as FormControl
   }
 
-
+  isError: boolean = false
+  errorMessage: string = ''
 
   createUser() {
 
-    const { email, password } = this.registerForm.value
+    const { email, password, firstName, lastName } = this.registerForm.value
     const user: User = {
-      ...this.registerForm.value,
+      email,
+      password,
+      firstName,
+      lastName,
       role: 'User'
     }
 
-    this.usersService.addUser(user)
-    this.authService.registerUser(email, password)
+    this.authService.registerUser(email, password).subscribe(
+      (u) => {
+        user.id = u.user?.uid
+        this.usersService.addUser(user)
+        this.authService.signIn(email, password)
+      },
+      (err) => {
+        this.isError = true
+        this.errorMessage = err.message
+      }
+    )
+
   }
 
   ngOnInit(): void {

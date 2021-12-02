@@ -77,6 +77,10 @@
                 Passwords must be matched
             </mat-error>
 
+            <mat-error *ngIf="isError">
+                {{errorMessage}}
+            </mat-error>
+
             <button class="form__btn" mat-button type="submit" [disabled]="registerForm.invalid"
                 (click)="createUser()">REGISTER</button>
 

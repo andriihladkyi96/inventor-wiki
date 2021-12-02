@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { User } from '@firebase/auth';
+import { from, Observable } from 'rxjs';
+
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(public auth: AngularFireAuth, public router: Router) { }
+  constructor(private auth: AngularFireAuth, private router: Router, private usersService: UsersService) { }
+
 
   signIn(email: string, password: string) {
-    this.auth.signInWithEmailAndPassword(email, password)
+    return from(this.auth.signInWithEmailAndPassword(email, password)
       .then(
-        () => {
-          this.router.navigate(['/'])
-        }).catch(err => console.log(err))
+        (u) => {
+          this.usersService.getUser(u.user?.uid).subscribe(
+            u => {
+              this.usersService.setCurrentUser(u)
+              this.router.navigate(['/'])
+            }
+          )
+        }))
+
   }
 
   signInAsGuest() {
@@ -31,7 +39,7 @@ export class AuthService {
       .then(() => this.router.navigate(['login']))
   }
 
-  registerUser(email: string, password: string) {
-    this.auth.createUserWithEmailAndPassword(email, password)
+  registerUser(email: string, password: string): Observable<any> {
+    return from(this.auth.createUserWithEmailAndPassword(email, password))
   }
 }

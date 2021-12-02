@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -25,10 +26,24 @@ export class LoginFormComponent implements OnInit {
     return this.loginGroup.get('password') as FormControl
   }
 
+  isError: boolean = false
+  errorMessage: string = ''
+
 
   logIn() {
     const { email, password } = this.loginGroup.value
     this.authService.signIn(email, password)
+
+      .subscribe(
+        () => {
+          this.isError = false
+        },
+        (err) => {
+          this.password.setValue('')
+          this.isError = true
+          this.errorMessage = err.message
+        }
+      )
   }
 
   logInAsGuest() {
