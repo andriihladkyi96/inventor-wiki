@@ -1,15 +1,29 @@
-<div class="form">
-  <div class="form-title">
-    <input class="form-title__input" [(ngModel)]="post.title" type="text">
-  </div>
-  <div class="form-category"></div>
-  <mat-divider class="mat-divider"></mat-divider>
-  <div class="content">
-    <angular-editor class="angular-editor" [(ngModel)]="post.content" [config]="config"></angular-editor>
-  </div>
-  <div class="btn-group">
-    <button class="btn-group__item save-btn" (click)="updatePost()">
-      Save post
-    </button>
+<div class="container">
+  <div class="form">
+    <div class="form-title">
+      <input class="form-title__input" [(ngModel)]="post.title" type="text">
+    </div>
+    <div class="form-category">
+      <span  [matMenuTriggerFor]="menu">{{post.category}} </span>
+      <div class="post-item__menu">
+        <mat-menu class="mat-menu" #menu="matMenu">
+          <div mat-menu-item class="mat-menu__item" (click)="toogleCategory(category)" *ngFor="let category of categories">
+            <mat-icon class="mat-icon">
+                category
+            </mat-icon>
+            <span>{{category.name}}</span>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+    <mat-divider class="mat-divider"></mat-divider>
+    <div class="content">
+      <angular-editor class="angular-editor" [(ngModel)]="post.content" [config]="config"></angular-editor>
+    </div>
+    <div class="btn-group">
+      <button class="btn-group__item save-btn" (click)="updatePost()">
+        Save post
+      </button>
+    </div>
   </div>
 </div>

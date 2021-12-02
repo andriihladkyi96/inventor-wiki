@@ -90,7 +90,7 @@ export class UserPostsComponent implements OnInit {
   }
 
   addPost() {
-    this.postsService.createPost({ id: "", title: "New post title", category: "Category", content: "Content", authorId: this.userId })
+    this.postsService.createPost({ id: "", title: "New post title", category: "New post category", content: "New post content", authorId: this.userId })
       .then(() => {
         this.isInFocus(this.posts[this.posts.length - 1]);
         this.toogleIsEdit(true);

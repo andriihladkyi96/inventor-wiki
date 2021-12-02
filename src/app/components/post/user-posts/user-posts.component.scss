@@ -77,38 +77,15 @@
 
 .content-group {
     flex-basis: 75%;
-    padding: 19px 90px;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(243, 245, 246);
-    font-family: "Segoe", Helvetica, Arial, sans-serif;
-
-    &__title {
-        padding: 16px 0px;
-        width: 100%;
-        &-input {
-            display: block;
-            width: 100%;
-            border: none;
-            color: rgb(59, 69, 78);
-            font-size: 48px;
-            font-weight: bold;
-            line-height: 56px;
-            &:focus {
-                outline: none;
-            }
-        }
-    }
-    .category {
-        color: rgb(136, 153, 168);
-        line-height: 24px;
-        font-weight: 400;
-        font-size: 16px;
-    }
-    
 }
 
 .btn-group {
     display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0px 90px;
     flex-direction: row;
     &__item {
         display: block;
@@ -116,7 +93,6 @@
         box-shadow: rgb(0 0 0 / 12%) 0px 1px 2px;
         margin-bottom: 8px;
         margin-right: 0px;
-        margin-top: 16px;
         flex-shrink: 1;
         flex-grow: 1;
         flex-basis: 0%;
@@ -153,27 +129,6 @@
         top:16px;
         right: 10px;
     }
-}
-
-// .html-header {
-//     margin: 15px 0 5px;
-// }
-
-// .html {
-//     border: 1px solid #ddd;
-//     border-radius: 4px;
-//     padding: 0.5rem;
-//     background-color: #f1f1f1;
-//     min-height: 20px;
-//     max-height: 10rem;
-//     overflow: auto;
-//     &:focus{
-//         outline: none;
-//     }
-// }
-
-.mat-divider {
-    margin: 16px 0px;
 }
 
 .mat-divider__navigation {

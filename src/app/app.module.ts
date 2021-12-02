@@ -28,6 +28,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { WarningDialogComponent } from './components/post/post-dialogs/warning-d
     UserPostsComponent,
     PostViewComponent,
     PostFormComponent,
-    WarningDialogComponent
+    WarningDialogComponent,
+    CategoriesComponent 
   ],
   imports: [
     BrowserModule,

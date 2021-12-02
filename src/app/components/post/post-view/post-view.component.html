@@ -1,8 +1,7 @@
 <div class="container">
   <h1 class="title">{{post.title}}</h1>
   <div class="subtitle">
-    <span class="author">{{post.authorId}}</span>
-    <span class="category">{{post.category}}</span>
+    <span class="category">Category: {{post.category}}</span>
   </div>
   <div class="content" [innerHTML]="post.content"></div>
 </div>

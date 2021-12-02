@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Categorys</h1>
+  <div class="form">
+    <mat-form-field class="form-group full-width" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput class="form-control" name="name" [(ngModel)]="category.name" required #name="ngModel" />
+      <mat-error *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+        <span *ngIf="name.errors.required">Title is required. </span>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-group">
+      <button class="btn" (click)="addCategory()">
+        Додати
+      </button>
+    </div>
+  </div>
+  <div class="categoryList" *ngFor="let category of categories$ | async">
+    <p>{{category.name}}</p>
+    <button (click)="deleteCategory(category.id)">
+      Видалити
+    </button>
+    <button (click)="updateCategory(category)">
+      Оновити
+    </button>
+  </div>
+</div>
