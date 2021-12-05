@@ -19,6 +19,15 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { TestComponent } from './components/login/test/test.component';
+import { UserPostsComponent } from './components/post/user-posts/user-posts.component';
+import { PostViewComponent } from './components/post/post-view/post-view.component';
+import { PostFormComponent } from './components/post/post-form/post-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDividerModule } from '@angular/material/divider';
+import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
 
 
 @NgModule({
@@ -26,7 +35,11 @@ import { TestComponent } from './components/login/test/test.component';
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    TestComponent
+    TestComponent,
+    UserPostsComponent,
+    PostViewComponent,
+    PostFormComponent,
+    WarningDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +57,12 @@ import { TestComponent } from './components/login/test/test.component';
     MatSliderModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatDialogModule,
+    MatMenuModule,
+    AngularEditorModule,
+    HttpClientModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
