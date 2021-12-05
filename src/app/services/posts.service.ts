@@ -57,7 +57,6 @@ export class PostsService implements OnInit {
 
   deletePost(id: string): Promise<void> {
     this.getPost(id);
-    debugger
     return this.postRef.remove();
   }
 
