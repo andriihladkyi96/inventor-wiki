@@ -9,7 +9,7 @@ import { UsersService } from './users.service';
 })
 export class AuthService {
 
-  constructor(public auth: AngularFireAuth, public router: Router, private usersService: UsersService) { }
+  constructor(private auth: AngularFireAuth, private router: Router, private usersService: UsersService) { }
 
   signIn(email: string, password: string) {
     return from(this.auth.signInWithEmailAndPassword(email, password)

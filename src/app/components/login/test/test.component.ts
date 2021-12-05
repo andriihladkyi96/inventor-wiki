@@ -10,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TestComponent implements OnInit {
 
-
   constructor(private authService: AuthService, private usersService: UsersService) {
   }
 
@@ -24,6 +23,10 @@ export class TestComponent implements OnInit {
 
   logOut() {
     this.authService.signOut()
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.usersService.getUserRole("SuperAdmin")
   }
 
 }
