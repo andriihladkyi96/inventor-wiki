@@ -1,0 +1,10 @@
+<div class="container">
+  <h2 class="title" mat-dialog-title>{{data.title}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <p class="message">{{data.message}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="btn-group">
+    <button class="btn-group__cancel btn-group__item"  mat-dialog-close>{{data.firstButtonText}}</button>
+    <button class="btn-group__continue btn-group__item" [mat-dialog-close]="true" cdkFocusInitial>{{data.secondButtonText}}</button>
+  </mat-dialog-actions>
+</div>

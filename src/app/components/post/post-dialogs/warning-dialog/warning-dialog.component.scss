@@ -1,0 +1,79 @@
+.container {
+    cursor: default;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    width: 420px;
+    max-height: 577px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.title {
+    line-height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    color: rgb(59, 69, 78);
+    font-family: "Segoe", Helvetica, Arial, sans-serif;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    &__item {
+        line-height: 24px;
+        font-weight: 400;
+        font-size: 16px;
+        font-family: "Segoe", Helvetica, Arial, sans-serif;
+        border: none;
+        height: 40px;
+        outline-style: none;
+        flex-grow: 0;
+        cursor: pointer;
+        user-select: none;
+        transition-property: opacity;
+        touch-action: manipulation;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        transition-duration: 0s;
+        align-items: center;
+        padding-left: 16px;
+        padding-right: 16px;
+        color: currentcolor;
+    }
+    &__cancel {
+        margin-right: 8px;
+        color: rgb(69, 69, 69);
+        box-shadow: rgb(227 232 237) 0px 0px 0px 1px inset;
+        background-color: rgb(255, 255, 255);
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: rgba(0, 0, 0, 0);
+        &:hover{
+            background-color: rgb(221, 212, 212);
+        }
+    }
+    &__continue {
+        background-color: rgb(211, 61, 61);
+        color: rgb(255, 255, 255);
+        border-radius: 4px;
+        border-width: 1px;
+        border-color: rgb(211, 61, 61);
+        &:hover{
+            background-color: rgb(165, 12, 12);
+        }
+    }
+}
+
+.message {
+    color: rgb(59, 69, 78);
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    font-family: "Segoe", Helvetica, Arial, sans-serif;
+    font: inherit;
+    white-space: inherit;
+}
