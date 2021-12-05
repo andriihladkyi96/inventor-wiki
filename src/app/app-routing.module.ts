@@ -6,14 +6,19 @@ import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from
 import { TestComponent } from './components/login/test/test.component';
 import { RolePageComponent } from './components/role/role-page/role-page.component';
 import { RoleGuard } from './guards/role.guard';
+import {MainPageComponent} from "./components/main-page/main-page.component";
+import {AddCategoryComponent} from "./components/add-category/add-category.component";
+import {UserPostsComponent} from "./components/post/user-posts/user-posts.component";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
 const redirectLoggedInToMain = () => redirectLoggedInTo([''])
 
 const routes: Routes = [
-  { path: '', component: TestComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
+  { path: '', component: MainPageComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
   { path: 'login', component: LoginFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } },
-  { path: 'register', component: RegisterFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } }, 
+  { path: 'register', component: RegisterFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } },
+  { path: 'add-category', component: AddCategoryComponent},
+  { path: 'posts', component: UserPostsComponent},
   { path: 'role', component: RolePageComponent, canActivate: [AngularFireAuthGuard, RoleGuard], data: { authGuardPipe: redirectUnauthorizedToLogin, role: "SuperAdmin" } }
 ];
 
