@@ -19,6 +19,9 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { TestComponent } from './components/login/test/test.component';
+import { RolePageComponent } from './components/role/role-page/role-page.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -26,7 +29,8 @@ import { TestComponent } from './components/login/test/test.component';
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    TestComponent
+    TestComponent,
+    RolePageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { TestComponent } from './components/login/test/test.component';
     MatIconModule,
     MatSelectModule,
     MatSliderModule,
+    MatCheckboxModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFirestoreModule

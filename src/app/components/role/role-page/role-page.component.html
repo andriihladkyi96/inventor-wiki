@@ -1,0 +1,69 @@
+<h2>role-page works!</h2>
+
+<div class="container" *ngIf="roles$ | async; let roles">
+  <div class="user" *ngFor="let role of roles">
+    <h2>Role: {{ role.role }}</h2>
+    <h4>Permissions:</h4>
+    <ul>
+      <li>create: {{ role.permissions.create }},</li>
+      <li>read: {{ role.permissions.read }},</li>
+      <li>update: {{ role.permissions.update }},</li>
+      <li>remove: {{ role.permissions.remove }},</li>
+    </ul>
+    <div class="btn__group">
+      <button class="" mat-button="submit">
+        change
+      </button>
+      <button class="" mat-button="submit">
+        delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="role__form__container">
+  <!-- <h2 class="role__form__title">Create new Role</h2> -->
+  <form class="role__form" [formGroup]="roleForm">
+    <mat-form-field>
+      <mat-label>Role Name</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Type Role Name"
+        formControlName="role"
+      />
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>permission list</mat-label>
+      <mat-select [formGroup]="roleForm" multiple formControlName="permissions">
+        <mat-option *ngFor="let permission of permissionList" [value]="permission">{{
+          permission
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    <section class="example-section">
+      <mat-checkbox formControlName="create" class="example-margin"
+        >Check me!</mat-checkbox
+      >
+      <mat-checkbox formControlName="read" class="example-margin"
+        >Check me!</mat-checkbox
+      >
+      <mat-checkbox formControlName="update" class="example-margin"
+        >Check me!</mat-checkbox
+      >
+      <mat-checkbox formControlName="remove" class="example-margin"
+        >Check me!</mat-checkbox
+      >
+    </section>
+
+    <button class="role__form__btn" mat-button="submit" (click)="onSubmit()">
+      Submit
+    </button>
+  </form>
+</div>
+
+
+<div  >
+  <h4>{{getRole$}}</h4>
+</div>

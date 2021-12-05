@@ -27,4 +27,8 @@ export class TestComponent implements OnInit {
     this.authService.signOut()
   }
 
+  get isSuperAdmin(): boolean {
+    return this.usersService.getUserRole("SuperAdmin")
+  }
+
 }
