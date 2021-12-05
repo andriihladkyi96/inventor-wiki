@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, AsyncValidatorFn } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { UsersService } from 'src/app/services/users.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -36,7 +37,9 @@ export class LoginFormComponent implements OnInit {
     this.authService.signIn(email, password)
 
       .subscribe(
-        () => { this.isError = false },
+        () => {
+          this.isError = false
+        },
         (err) => {
           this.password.setValue('')
           this.isError = true
