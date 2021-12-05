@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -30,6 +30,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
 import { RolePageComponent } from './components/role/role-page/role-page.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {AddCategoryComponent} from "./components/add-category/add-category.component";
+import {MainPageComponent} from "./components/main-page/main-page.component";
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -43,7 +46,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PostViewComponent,
     PostFormComponent,
     WarningDialogComponent,
-    RolePageComponent
+    RolePageComponent,
+    AddCategoryComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HttpClientModule,
     MatDividerModule,
     MatCheckboxModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
