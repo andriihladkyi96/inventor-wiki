@@ -45,4 +45,7 @@ export class UsersService {
     return user$
   }
 
+  getUserRole(userRole: string) {
+    return this.getCurrentUser().role === userRole
+  }
 }

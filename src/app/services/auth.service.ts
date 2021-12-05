@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
-
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -10,7 +9,9 @@ import { UsersService } from './users.service';
 })
 export class AuthService {
 
+
   constructor(private auth: AngularFireAuth, private router: Router, private usersService: UsersService) { }
+
 
 
   signIn(email: string, password: string) {

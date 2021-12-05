@@ -28,6 +28,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
+import { RolePageComponent } from './components/role/role-page/role-page.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -40,6 +43,7 @@ import { WarningDialogComponent } from './components/post/post-dialogs/warning-d
     PostViewComponent,
     PostFormComponent,
     WarningDialogComponent,
+    RolePageComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,7 @@ import { WarningDialogComponent } from './components/post/post-dialogs/warning-d
     AngularEditorModule,
     HttpClientModule,
     MatDividerModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

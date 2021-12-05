@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, ObservedValueOf } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -18,13 +19,16 @@ export class TestComponent implements OnInit {
 
   currentUser: User | undefined
 
-
   ngOnInit(): void {
     this.currentUser = this.usersService.getCurrentUser()
   }
 
   logOut() {
     this.authService.signOut()
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.usersService.getUserRole("SuperAdmin")
   }
 
 }
