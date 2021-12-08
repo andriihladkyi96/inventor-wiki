@@ -3,8 +3,9 @@ import { CategoriesService } from './../../../services/categories.service';
 import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Subscription } from 'rxjs';
+import { Editor, Toolbar, Validators } from 'ngx-editor';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-post-form',
@@ -17,20 +18,19 @@ export class PostFormComponent implements OnInit,OnDestroy{
   @Output() postSaved = new EventEmitter<boolean>();
   categories: Category[] = [];
   subscription: Subscription;
+  editor: Editor;
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
-  };
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+ 
 
   constructor(private postsService: PostsService, private categoriesService: CategoriesService) { }
 
@@ -38,11 +38,17 @@ export class PostFormComponent implements OnInit,OnDestroy{
     this.subscription = this.categoriesService.getCategoryList().subscribe(
       categories => this.categories = categories
     )
+    this.editor = new Editor();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
+    this.editor.destroy();
   }
+
+  form = new FormGroup({
+    editorContent: new FormControl('', Validators.required()),
+  })
 
   toogleCategory(category:Category){
     this.post.category = category.name;

@@ -24,7 +24,6 @@ import { PostViewComponent } from './components/post/post-view/post-view.compone
 import { PostFormComponent } from './components/post/post-form/post-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
@@ -33,6 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
+import { NgxEditorModule } from 'ngx-editor';
+import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
 
 
 
@@ -48,7 +49,8 @@ import {MatCardModule} from "@angular/material/card";
     WarningDialogComponent,
     RolePageComponent,
     AddCategoryComponent,
-    MainPageComponent
+    MainPageComponent,
+    SanitizeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -69,11 +71,11 @@ import {MatCardModule} from "@angular/material/card";
     AngularFirestoreModule,
     MatDialogModule,
     MatMenuModule,
-    AngularEditorModule,
     HttpClientModule,
     MatDividerModule,
     MatCheckboxModule,
     MatCardModule,
+    NgxEditorModule.forRoot(environment.editorConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]
