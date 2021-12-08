@@ -35,20 +35,18 @@ export class MainPageComponent implements OnInit {
       this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
   }
 
-  ngOnInit(): void {
-    this.loggedUser = this.userService.getCurrentUser()
-    if (this.loggedUser.role === 'Admin' || this.loggedUser.role === 'SuperAdmin') {
-       this.hidenButton = true
-    }
-    console.log(this.hidenButton)
-  }
-
-  logOut() {
-    this.authService.signOut()
-  }
+  ngOnInit(): void {}
 
   editPostForAdmin(id:any) {
     console.log(id)
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.userService.checkUserRole() === "SuperAdmin"
+  }
+
+  get isAdmin(): boolean {
+    return this.userService.checkUserRole() === "Admin"
   }
 
 }
