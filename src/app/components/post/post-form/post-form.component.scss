@@ -16,17 +16,18 @@
             margin-left: -3px;
             width: 100%;
             border: none;
-            color: rgb(59, 69, 78);
+            color: rgb(234, 242, 247);
             font-size: 48px;
             font-weight: bold;
             line-height: 56px;
+            background-color: inherit;
             &:focus {
                 outline: none;
             }
         }
     }
     &-category {
-        color: rgb(136, 153, 168);
+        color: rgb(162, 169, 185);
         line-height: 24px;
         font-weight: 400;
         font-size: 16px;
@@ -43,7 +44,7 @@
         font-family: "Open Sans", sans-serif;
         font-weight: 400;
     }
-    &:focus{
+    &:focus {
         border: none;
         outline: none;
     }
@@ -52,24 +53,24 @@
 .btn-group__item {
     display: block;
     width: 100%;
-    box-shadow: rgb(0 0 0 / 12%) 0px 1px 2px;
     margin-top: 16px;
     cursor: pointer;
-    background-color: rgb(255, 255, 255);
     padding: 14px;
-    border-color: rgb(227, 232, 237);
     border-radius: 4px;
     border-width: 1px;
-    color: rgb(59, 69, 78);
     line-height: 24px;
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
     font-family: "Open Sans", sans-serif;
     position: relative;
+    box-shadow: rgb(0 0 0 / 69%) 0px 1px 2px;
+    background-color: rgb(24, 28, 31);
+    border-color: rgb(43, 46, 57);
+    color: rgb(162, 169, 185);
     &:hover {
-        color: rgb(113, 153, 230);
-        border-color: rgb(113, 153, 230);
+        color: rgb(52, 109, 219);
+        border-color: rgb(52, 109, 219);
     }
 }
 
@@ -77,25 +78,70 @@
     margin: 10px 0px;
 }
 
-::ng-deep .mat-menu {
-    background-color: rgb(45, 50, 58);
-    .mat-icon {
-        color: rgb(52, 109, 219);
-    }
-    span {
-        color: white;
-    }
-}
-
 ::ng-deep {
+    .mat-menu {
+        background-color: rgb(45, 50, 58);
+        .mat-icon {
+            color: rgb(52, 109, 219);
+        }
+        span {
+            color: white;
+        }
+    }
     .NgxEditor {
         min-height: 100px;
         max-height: 400px;
-        // &__Content{
-        //     background-color: black;
-        //     color: white;
-        // }
-        overflow-y: scroll;
+        background-color: rgb(24 28 31) !important;
+        border: 1px solid #374151 !important;
+
+        &__MenuBar {
+            background-color: rgb(24 28 31) !important;
+            border: 1px solid #374151;
+            color: rgb(162, 169, 185);
+        }
+        &__Content {
+            line-height: 24px;
+            font-weight: 400;
+            font-size: 16px;
+            font-family: "Open Sans", sans-serif;
+            color: rgb(162, 169, 185);
+            border-radius: 4px;
+            border-width: 1px;
+        }
+        &__Seperator {
+            border-left: 1px solid #374151 !important;
+        }
+        &__MenuItem {
+            &--IconContainer {
+                &:hover {
+                    // border: 1px solid rgb(52, 109, 219);
+                    svg {
+                        fill: rgb(20, 24, 32);
+                    }
+                }
+            }
+            svg {
+                fill: rgb(162, 169, 185);
+            }
+        }
+        &__Popup {
+            background-color: rgb(45, 50, 58) !important;
+        }
+        &__Dropdown {
+            background-color: inherit !important;
+            &--Active {
+                background-color: rgb(24 28 31) !important;
+                border: 1px solid rgb(43, 46, 57);
+                color: rgb(52, 109, 219) !important;
+            }
+        }
+        &__Dropdown--Item {
+            background-color: rgb(24 28 31);
+            &:hover {
+                background-color: rgb(45, 50, 58) !important;
+                border: 1px solid rgb(52, 109, 219);
+            }
+        }
+        overflow-y: auto;
     }
 }
-

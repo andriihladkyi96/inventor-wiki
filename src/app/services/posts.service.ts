@@ -1,3 +1,4 @@
+import { filter, map } from 'rxjs/operators';
 import { Post } from '../models/Post';
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
@@ -33,6 +34,7 @@ export class PostsService implements OnInit {
 
   getPostList(): Observable<Post[]> {
     this.postsRef = this.db.list(this.basePath);
+    // .pipe(map(posts => posts.filter(post => post.isVisible)))
     return this.postsRef.valueChanges();
   }
 
@@ -40,10 +42,11 @@ export class PostsService implements OnInit {
     this.postsRef = this.db.list(this.basePath, ref => {
       return ref.orderByChild("category").equalTo(category)
     })
+    // .pipe(map(posts => posts.filter(post => post.isVisible)))
     return this.postsRef.valueChanges();
   }
 
-  getPostsByUserId(id: number): Observable<Post[]> {
+  getPostsByUserId(id: string): Observable<Post[]> {
     this.postsRef = this.db.list(this.basePath, ref => {
       return ref.orderByChild("authorId").equalTo(id)
     })

@@ -9,10 +9,6 @@ export class SanitizeHtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {
   }
 
-  /**
-   *
-   * @param- v
-   */
   transform(v: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(v);
   }

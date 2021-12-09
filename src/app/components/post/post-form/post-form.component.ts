@@ -12,9 +12,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss']
 })
-export class PostFormComponent implements OnInit,OnDestroy{
+export class PostFormComponent implements OnInit, OnDestroy {
 
-  @Input() post: Post = { id: "", title: "", category: "", content: "", authorId: 1 } ;
+  @Input() post: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation:"dara",dateLastModification:"data",isVisible:true};
   @Output() postSaved = new EventEmitter<boolean>();
   categories: Category[] = [];
   subscription: Subscription;
@@ -30,7 +30,7 @@ export class PostFormComponent implements OnInit,OnDestroy{
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
- 
+
 
   constructor(private postsService: PostsService, private categoriesService: CategoriesService) { }
 
@@ -50,11 +50,11 @@ export class PostFormComponent implements OnInit,OnDestroy{
     editorContent: new FormControl('', Validators.required()),
   })
 
-  toogleCategory(category:Category){
+  toogleCategory(category: Category) {
     this.post.category = category.name;
   }
 
-  updatePost(){ 
+  updatePost() {
     this.postsService.updatePost(this.post);
     this.postSaved.emit(true);
   }
