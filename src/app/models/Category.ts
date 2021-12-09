@@ -1,5 +1,10 @@
 export interface Category {
     id:string,
     name:string,
-    subCategories?:Array<any>
+    subCategories?:SubCategory[]
+}
+
+export interface SubCategory {
+  id:string,
+  name:string
 }

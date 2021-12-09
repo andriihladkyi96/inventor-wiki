@@ -9,6 +9,7 @@ import { RoleGuard } from './guards/role.guard';
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {UserPostsComponent} from "./components/post/user-posts/user-posts.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
 const redirectLoggedInToMain = () => redirectLoggedInTo([''])
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } },
   { path: 'register', component: RegisterFormComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectLoggedInToMain } },
   { path: 'add-category', component: AddCategoryComponent},
+  { path: 'add-category/:id', component: EditCategoryComponent},
   { path: 'posts', component: UserPostsComponent},
   { path: 'role', component: RolePageComponent, canActivate: [AngularFireAuthGuard, RoleGuard], data: { authGuardPipe: redirectUnauthorizedToLogin, role: "SuperAdmin" } }
 ];

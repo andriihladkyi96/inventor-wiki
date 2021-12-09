@@ -47,13 +47,19 @@ export class AddCategoryComponent implements OnInit {
 
   saveSubCategory(index: any): void {
     const subCategory = {id: this.generateId(), name: this.subCategoriesFormArray.value[index]}
+    console.log(subCategory)
 
     let category = this.allCategory.find(value => value.name === this.form.value.category)
+    console.log(category)
     if (category) {
+      if (!category.subCategories) {
+
+        category = {...category, subCategories:[]}
+      }
       category.subCategories?.push(subCategory)
       this.categoryService.updateCategory(category);
     } else {
-      return category
+      return
     }
   }
 
@@ -64,7 +70,7 @@ export class AddCategoryComponent implements OnInit {
       this.categoryService.createCategory({
         id: '',
         name: this.form.value.category,
-        subCategories: [{id: ''}]
+        subCategories: []
 
       })
       this.isHidenSaveCategoryBtn = !this.isHidenSaveCategoryBtn

@@ -34,7 +34,11 @@
       </button>
     </form>
     <button mat-flat-button color="accent" [routerLink]="''" style="margin-bottom: 10px ">Back</button>
+    <app-category-list *ngFor="let cat of allCategory " [category] = cat></app-category-list>
+
   </div>
   <div>
   </div>
 </div>
+<br>
+<br>

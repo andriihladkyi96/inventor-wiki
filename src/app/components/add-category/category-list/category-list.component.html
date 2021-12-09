@@ -1,1 +1,7 @@
-<p>category-list works!</p>
+<div>
+  <div>{{category.name}} <button  (click)="editCategory()">edit</button></div>
+  <span *ngIf="category.subCategories" >
+    <div style="padding-left: 20px" *ngFor="let c of category.subCategories">{{c.name}}</div>
+  </span>
+</div>
+
