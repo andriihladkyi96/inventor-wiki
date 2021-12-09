@@ -26,7 +26,7 @@ export class TestComponent implements OnInit {
   }
 
   get isSuperAdmin(): boolean {
-    return this.usersService.getUserRole("SuperAdmin")
+    return this.usersService.checkUserRole() === "SuperAdmin"
   }
 
 }

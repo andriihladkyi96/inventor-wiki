@@ -1,48 +1,4 @@
 <div class="main">
-  <div class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium"
-       data-duration="600" data-doc-height="1"
-       style="will-change:background; background-color: #1f2329">
-    <div class="container height-100 w-container">
-      <div class="nav-flex">
-        <a href="/" class="brand w-nav-brand">
-          <h2 style="width: 146px; height: 30px; color: white">InventorWiki</h2>
-        </a>
-        <nav class="nav-menu w-nav-menu">
-          <div class="nav-menu-content">
-            <div class="nav-links-wrapper">
-              <div class="wrapper-links__nav-bar">
-                <a [routerLink]="['/home']" class="nav-link-wrap w-inline-block w--current">
-                  <div>Home</div>
-                </a>
-                <a [routerLink]="['']" class="nav-link-wrap w-inline-block">
-                  <div>Users</div>
-                </a>
-                <a [routerLink]="['']" class="nav-link-wrap w-inline-block" style="opacity: 1;">
-                  <div>My posts</div>
-                </a>
-                <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block">
-                  <div>Posts</div>
-                </a>
-                <a [routerLink]="['/add-category']" class="nav-link-wrap w-inline-block">
-                  <div>Category</div>
-                </a>
-              </div>
-              <a href="/" class="filled-btn-arrow no-margin-top nonauth w-inline-block">
-                <div class="filled-btn-arrow-text">
-                  {{loggedUser.firstName}} {{loggedUser.lastName}}
-                </div>
-              </a>
-              <a href="/" class="nav-link-wrap nonauth w-inline-block" style="opacity: 1;">
-                <div (click)="logOut()">
-                  LogOut
-                </div>
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div>
-  </div>
   <div class="section blog wf-section">
     <div class="container w-container">
       <h2 class="purple-header">Powered by InventorWiki</h2>
@@ -68,11 +24,11 @@
               <mat-card-title-group style="flex-direction: column">
                 <mat-card-title>{{post.title}}
                   <div style="float: right" *ngIf="!hidenButton">
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!hidenButton"
+                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin"
                             (click)="editPostForAdmin(post.id)">
                       <mat-icon color="accent">edit</mat-icon>
                     </button>
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!hidenButton">
+                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin">
                       <mat-icon color="warn">delete_outline</mat-icon>
                     </button>
                   </div>

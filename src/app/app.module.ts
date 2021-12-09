@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
+import { HeaderComponent } from './components/header/header.component';
 
 
 
@@ -48,7 +49,8 @@ import {MatCardModule} from "@angular/material/card";
     WarningDialogComponent,
     RolePageComponent,
     AddCategoryComponent,
-    MainPageComponent
+    MainPageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
