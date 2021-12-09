@@ -16,7 +16,9 @@ export class UsersService {
   constructor(private database: AngularFireDatabase) {
     this.usersRef = this.database.list('users')
 
-    this.users$ = this.usersRef.valueChanges()
+    this.users$ = this.usersRef.snapshotChanges().pipe(       
+      map(changes => changes.map(u => 
+        ({ key: u.payload.key, ...u.payload.val() }))))
   }
 
   setCurrentUser(user: User | undefined) {
@@ -44,5 +46,23 @@ export class UsersService {
     )
     return user$
   }
+
+  updateUser(id: string , key: string, value: string) {
+    this.usersRef.update(id, { [key]: value })
+  }
+
+  // actualizarEmpleado(id: string, data:any): Promise<any> {
+  //   return this.usersRef.user(id).update(data);
+  // }
+
+  // updateProduct(user: User)
+  // {
+  //   this.usersRef.update(user, {
+  //     firstName: user.firstName,
+  //     lastName: user.lastName,
+  //     password: user.password,
+  //     role: user.role
+  //   });
+  // }
 
 }
