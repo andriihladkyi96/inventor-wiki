@@ -7,9 +7,9 @@
         <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
       </mat-form-field>
       <button class="button hover_add" (click)="addSubCategory()" [hidden]="!isHidenSaveCategoryBtn">+</button>
-      <button class="button hover_remove" (click)="deleteCategory('')" [hidden]="!isHidenSaveCategoryBtn"
-              style="color: red !important">-
-      </button>
+<!--      <button class="button hover_remove" (click)="removeControl(form.value.indexOf(0))" [hidden]="!isHidenSaveCategoryBtn"-->
+<!--              style="color: red !important">- -->
+<!--      </button>-->
       <div formArrayName="subCategories" style="margin-left: 100px">
         <div class="address-row" *ngFor="let control of subCategoriesFormArray.controls; let i = index">
           <mat-form-field hintLabel="Min 3 characters, Max 20" appearance="fill" style="margin-bottom: 20px">
@@ -23,7 +23,7 @@
           <button class="sub_button" mat-flat-button color="accent" type="submit" (click)="saveSubCategory(i)"
                   style="color:green">Save
           </button>
-          <button class="sub_button" mat-flat-button color="warn" type="submit" (click)="deleteSubCategory(i)">Remove
+          <button class="sub_button" mat-flat-button color="warn" type="submit" (click)="removeControl(i)">Remove
           </button>
         </div>
 

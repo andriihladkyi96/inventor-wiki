@@ -5,6 +5,5 @@ export interface Category {
 }
 
 export interface SubCategory {
-  id:string,
   name:string
 }

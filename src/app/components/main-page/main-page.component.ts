@@ -50,5 +50,4 @@ export class MainPageComponent implements OnInit {
   editPostForAdmin(id:any) {
     console.log(id)
   }
-
 }

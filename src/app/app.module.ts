@@ -33,6 +33,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
+import { CategoryListComponent } from './components/add-category/category-list/category-list.component';
+import {MatTreeModule} from "@angular/material/tree";
+import { EditCategoryComponent } from './components/add-category/edit-category/edit-category.component';
 
 
 
@@ -48,7 +51,9 @@ import {MatCardModule} from "@angular/material/card";
     WarningDialogComponent,
     RolePageComponent,
     AddCategoryComponent,
-    MainPageComponent
+    MainPageComponent,
+    CategoryListComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +79,7 @@ import {MatCardModule} from "@angular/material/card";
     MatDividerModule,
     MatCheckboxModule,
     MatCardModule,
+    MatTreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

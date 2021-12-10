@@ -1,0 +1,85 @@
+
+
+
+
+
+
+
+<div>
+  <form [formGroup]="form">
+      <input  placeholder="category" formControlName="category">
+    <button class="button hover_add" (click)="addSubCategory()" >+</button>
+
+    <span *ngIf="categoryInfo.subCategories">
+      <div formArrayName="subCategories" style="margin-left: 100px">
+        <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
+                    <label>subcategory {{i + 1}}
+                      <input
+                              [formControlName]="i"><button (click)="removeSubCategories(i)">x</button>
+                    </label>
+        </div>
+      </div>
+    </span>
+    <button mat-flat-button color="primary" (click)="updateCategory()">Update
+    </button>
+    <button mat-flat-button color="primary" [routerLink]="'/add-category'"
+            (click)="deleteCategory(categoryInfo.id)">Delete Category
+    </button>
+  </form>
+</div>
+
+
+
+
+<!--<div>-->
+<!--  <form #myForm (ngSubmit)="updateCategory(myForm.value)">-->
+<!--    <input #categoryName='ngModel' type="text" name="category" ngModel-->
+<!--           placeholder="categoryName"-->
+<!--           [(ngModel)]="categoryInfo.name"-->
+<!--    >-->
+<!--    <button type="button" [routerLink]="['/add-category']" (click)="deleteCategory(categoryInfo.id)">Delete</button>-->
+
+<!--    <span *ngIf="categoryInfo.subCategories">-->
+<!-- <div *ngFor="let c of categoryInfo.subCategories; let i = index">-->
+
+<!--   <label> subcategory {{i + 1}}-->
+<!--     <input  type="text"-->
+
+<!--            name="subcategory"-->
+<!--            placeholder="subcategoryName"-->
+<!--            [value]="c.name"-->
+<!--            >-->
+
+<!--  </label>-->
+<!--   </div>-->
+<!--   </span>-->
+<!--    <button type="submit">update</button>-->
+<!--  </form>-->
+<!--</div>-->
+<!--<button mat-flat-button color="accent" [routerLink]="'/add-category'">Back</button>-->
+
+
+<!--<div>-->
+<!--  <form #myForm (ngSubmit)="updateCategory(myForm)">-->
+<!--    <input  type="text" name="category"-->
+<!--           placeholder="categoryName"-->
+<!--           value="{{categoryInfo.name}}"-->
+<!--           >-->
+<!--    <button type="button" [routerLink]="['/add-category']" (click)="deleteCategory(categoryInfo.id)">Delete</button>-->
+
+<!--    <span *ngIf="categoryInfo.subCategories">-->
+<!--    <div *ngFor="let c of categoryInfo.subCategories; let i = index">-->
+
+<!--      <label> subcategory {{i + 1}}<input type="text"-->
+<!--                                          name="subcategory"-->
+<!--                                          placeholder="subcategoryName"-->
+<!--                                          value="{{c.name}}"-->
+<!--                                          > &lt;!&ndash;[(ngModel)]="category.subCategories[i]"&ndash;&gt;-->
+<!--      </label>-->
+<!--    </div>-->
+<!--</span>-->
+<!--    <button type="submit" (click)="submit(myForm)">update</button>-->
+<!--  </form>-->
+<!--</div>-->
+<!--<button mat-flat-button color="accent" [routerLink]="'/add-category'">Back</button>-->
+

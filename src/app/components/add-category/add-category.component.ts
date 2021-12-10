@@ -46,7 +46,7 @@ export class AddCategoryComponent implements OnInit {
 
 
   saveSubCategory(index: any): void {
-    const subCategory = {id: this.generateId(), name: this.subCategoriesFormArray.value[index]}
+    const subCategory = { name: this.subCategoriesFormArray.value[index]}
     console.log(subCategory)
 
     let category = this.allCategory.find(value => value.name === this.form.value.category)
@@ -75,8 +75,7 @@ export class AddCategoryComponent implements OnInit {
       })
       this.isHidenSaveCategoryBtn = !this.isHidenSaveCategoryBtn
     }
-
-  }
+    }
 
   addSubCategory() {
     this.subCategoriesFormArray.push(new FormControl(null));
@@ -89,9 +88,5 @@ export class AddCategoryComponent implements OnInit {
 
   deleteSubCategory(index: any) {
     (<FormArray>this.form.controls.subCategories).removeAt(index)
-  }
-
-  deleteCategory(ev: any) {
-
   }
 }
