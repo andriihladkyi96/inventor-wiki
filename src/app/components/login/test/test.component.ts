@@ -10,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class TestComponent implements OnInit {
 
-
   constructor(private authService: AuthService, private usersService: UsersService) {
   }
 
@@ -18,13 +17,16 @@ export class TestComponent implements OnInit {
 
   currentUser: User | undefined
 
-
   ngOnInit(): void {
     this.currentUser = this.usersService.getCurrentUser()
   }
 
   logOut() {
     this.authService.signOut()
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.usersService.checkUserRole() === "SuperAdmin"
   }
 
 }

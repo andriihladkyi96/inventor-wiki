@@ -57,7 +57,6 @@ export class UserEditFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as string;
-      // console.log(this.id);
       this.usersService.getUser(this.id).subscribe(
         (u) => this.user  = u
       )

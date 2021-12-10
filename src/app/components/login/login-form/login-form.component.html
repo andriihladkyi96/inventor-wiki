@@ -36,8 +36,9 @@
             <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
                 type="submit">LOGIN</button>
 
-            <button class="form__btn" routerLink="/" mat-button type="button" (click)="logInAsGuest()">SIGN IN AS A
-                GUEST</button>
+            <button class="form__btn" routerLink="/" mat-button type="button" >
+                <a mat-button routerLink="/" href="#">SIGN IN AS A GUEST</a>
+            </button>
 
             <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
         </form>

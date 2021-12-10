@@ -13,11 +13,8 @@ import { UsersService } from 'src/app/services/users.service';
 export class UsersPageComponent implements OnInit {
   public isShowForm: boolean = false;
 public  users:User[] = [];
-// id: string = "";
 public showForm(): void {
   this.isShowForm = true;
-    
-
 }
 
   identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -92,12 +89,6 @@ public showForm(): void {
 
 
   ngOnInit(): void {
-    this.usersService.getCurrentUser()
-      .subscribe(this.users$);
-    
-      // this.id = this.route.snapshot.paramMap.get('id') as string;
-      // console.log(this.id);
-      
   }
   
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private usersService: UsersService) { }
 
   loginGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -44,10 +46,6 @@ export class LoginFormComponent implements OnInit {
           this.errorMessage = err.message
         }
       )
-  }
-
-  logInAsGuest() {
-    this.authService.signInAsGuest()
   }
 
   ngOnInit(): void {

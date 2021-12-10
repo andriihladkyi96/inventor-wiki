@@ -51,18 +51,7 @@ export class UsersService {
     this.usersRef.update(id, { [key]: value })
   }
 
-  // actualizarEmpleado(id: string, data:any): Promise<any> {
-  //   return this.usersRef.user(id).update(data);
-  // }
-
-  // updateProduct(user: User)
-  // {
-  //   this.usersRef.update(user, {
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     password: user.password,
-  //     role: user.role
-  //   });
-  // }
-
+  checkUserRole() {
+    return this.getCurrentUser() ? this.getCurrentUser().role : false
+  }
 }

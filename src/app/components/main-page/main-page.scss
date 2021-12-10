@@ -1,0 +1,223 @@
+* {
+  box-sizing: border-box;
+
+}
+
+.main {
+  margin: 0;
+  min-height: 100%;
+  background-color: #1f2329;
+  font-family: Inter, sans-serif;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.section.blog {
+  padding-bottom: 40px;
+}
+
+.purple-header {
+  background-image: url("https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png");
+  margin-top: 0;
+  margin-bottom: 24px;
+  background-position: 0 15%;
+  background-size: cover;
+  font-size: 3.5rem;
+  line-height: 1.2em;
+  font-weight: 900;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.paragraph-580px.left-660px {
+  max-width: 660px;
+  float: none;
+}
+
+.paragraph-580px {
+  max-width: 580px;
+  color: #cbd6ec;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 300;
+  text-align: left;
+  text-shadow: 1px 1px 3px rgb(0 0 0 / 22%);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #c2c3c5;
+  font-size: 1rem;
+  line-height: 1.4em;
+}
+
+.list {
+  margin-bottom: 0;
+  font-family: Inter, sans-serif;
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  list-style-type: none;
+  width: 200px;
+  background: #292929;
+  padding-left: 0;
+}
+
+li {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: #1c1e27;
+  box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #1d1e22;
+  border-radius: 8px;
+  transition: .2s;
+}
+
+a {
+  background-color: transparent;
+  font-family: Inter, sans-serif;
+  color: #3884ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.example-card {
+  width: 100%;
+  min-width: 450px;
+  max-width: 450px;
+  height: 100%;
+  min-height: 200px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.example-card:active {
+  overflow: visible;
+  max-height: 100%;
+  cursor: none;
+}
+
+.example {
+  margin-bottom: 24px;
+  padding: 4px;
+  border-radius: 6px;
+  background-image: url("https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png");
+  background-position: 0 60%;
+  background-size: auto;
+  -webkit-transition: .2s;
+  transition: .2s;
+  -o-object-fit: fill;
+  object-fit: fill;
+}
+
+mat-card {
+  background-color: #1c1e27;
+  box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
+}
+
+mat-card-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.desc {
+  padding-top: 10px;
+  color: #cbd6ec;
+  font-size: 14px;
+}
+
+mat-card-subtitle, mat-card-content {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #c2c3c5;
+  font-size: 1rem;
+  line-height: 1.4em;
+}
+
+
+.main-posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.posts-container {
+  padding: 16px 32px 16px 32px;
+
+}
+
+.section_content {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.container_main {
+  display: flex;
+}
+.container.height-100 {
+  height: 100%;
+}
+
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.w-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+}
+
+.container {
+  max-width: 1328px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 48px;
+  padding-left: 48px;
+}
+
+.modal-footer {
+  display: flex;
+  background-color: #1d1e22;
+  min-height: 100px;
+  align-items: center;
+}
+
+.footer {
+  background-image: url("https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png");
+  margin-bottom: 24px;
+  background-position: 0 15%;
+  background-size: cover;
+  font-size: 1.2rem;
+  line-height: 1.2em;
+  font-weight: 900;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 1290px) {
+  .main-posts {
+    display: block;
+  }
+}
+
+@media (max-width: 1290px) {
+  .example-card {
+    width: auto;
+    min-width: 350px;
+    max-width: 700px;
+    height: 100%;
+    max-height: 300px;
+    overflow: hidden;
+  }
+}

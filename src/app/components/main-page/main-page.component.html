@@ -1,0 +1,51 @@
+<div class="main">
+  <div class="section blog wf-section">
+    <div class="container w-container">
+      <h2 class="purple-header">Powered by InventorWiki</h2>
+      <p class="paragraph-580px left-660px">Individuals and teams from all over the world are publishing amazing content
+        on InventorWiki. Discover more about their stories.</p></div>
+  </div>
+  <div class="section_content">
+    <div class="container_main container ">
+      <div class="list_div">
+        <div *ngFor="let post of postCategories">
+          <ul class="list">
+            <li><a
+              [routerLink]="['']"
+              (click)="getQueryFromCategory(post.name)">
+              {{post.name}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="posts-container">
+        <div class="main-posts">
+          <div *ngFor="let post of allPosts" class="example">
+            <mat-card class="example-card">
+              <mat-card-title-group style="flex-direction: column">
+                <mat-card-title>{{post.title}}
+                  <div style="float: right" *ngIf="!hidenButton">
+                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin"
+                            (click)="editPostForAdmin(post.id)">
+                      <mat-icon color="accent">edit</mat-icon>
+                    </button>
+                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin">
+                      <mat-icon color="warn">delete_outline</mat-icon>
+                    </button>
+                  </div>
+                </mat-card-title>
+                <mat-card-subtitle class="desc">{{post.category}} </mat-card-subtitle>
+              </mat-card-title-group>
+              <mat-card-content [innerHTML]="post.content">
+              </mat-card-content>
+
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer container">
+    <div><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>
+    <div><h4 class="footer">InventorWiki</h4></div>
+  </div>
+</div>
