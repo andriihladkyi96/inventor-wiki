@@ -1,120 +1,116 @@
 .body {
   background-color: #000;
   background: linear-gradient(to bottom right, #1f2329, 80%, rgb(94, 166, 233));
+  margin: 0;
+  padding: 0;
 }
 
 .users {
-padding:auto ;
-margin: auto;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-width: 100%;
+  padding: auto;
+  margin-left: 15%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  width: 80%;
 }
 
 .user {
-width: 17rem;
-margin: 1rem;
-height:20rem;
-cursor: pointer;
-border-radius: 12px;
-background-image: url('https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png');
-
-
-.user-information {
-  background-color: #1f2329;
-  height: 18rem;
-  margin: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  text-align: center;
-
-
-  .name {
-  padding-top: 40%;
-  }
-
-  p {
-    color: #fff;
-    font-size: 1rem;
-
-    font-weight: 500;
-  }
-
-  .btn {
-    margin-top: 16px;
-    margin-right: 16px;
-    padding: 10px 20px;
-    border: 2px solid #3884ff;
-    border-radius: 6px;
-    background-color: transparent;
-    -webkit-transition: border-color .3s,color .3s cubic-bezier(.23, 1, .32, 1),background-color .3s;
-    transition: border-color .3s,color .3s cubic-bezier(.23, 1, .32, 1),background-color .3s;
-    color: #fff;
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: 700;
+  .user-information {
+    background-color: #1f2329;
+    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     text-align: center;
-    letter-spacing: .4px;
-    text-decoration: none;
-    text-transform: capitalize;
-    cursor:pointer
-}
-}
+    border-radius: 15px;
+    width: 25rem;
+    margin: 1rem;
+    height: 15rem;
+
+
+    .name {
+     padding: 5%;
+     padding-bottom: 0;
+     margin-bottom: 1%;
+     border-radius: 15px;
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+     color: #3884ff;
+    }
+
+    p {
+      color: grey;
+      padding-top: 0;
+      margin-top: 0;
+      padding-left: 5%;
+      padding-right: 5%;
+      text-align: center;
+
+    }
+
+    .email {
+      color: #3884ff;
+    }
+
+    .btn {
+      margin-left: 60%;
+      margin-top: 16px;
+      margin-right: 16px;
+      padding: 10px 20px;
+      border: 2px solid #3884ff;
+      border-radius: 6px;
+      background-color: transparent;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.9px;
+      text-decoration: none;
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+  }
 }
 
-.purple-header {
-  margin: auto;
-  margin-bottom: 24px;
-  background-image: url('https://assets-global.website-files.com/600ead1…/603408f…_PurpleBackground%20(1).png');
-  background-position: 0 15%;
-  background-size: cover;
-  font-size: 3.5rem;
-  line-height: 1.2em;
-  font-weight: 900;
-  background-clip: text;
-
-}
 
 .form {
   &__container {
-      padding: 40px;
-      background: #7b3fe1;
-      width: 400px;
-      margin: 0 auto;
-      transform: translateY(100px);
-      color: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      .form {
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
+    padding: 40px;
+    background: #7b3fe1;
+    width: 400px;
+    margin: 0 auto;
+    transform: translateY(100px);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    .form {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
 
-          mat-form-field {
-              input:-webkit-autofill {
-                  -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
-                  -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
-              }
-              .mat-icon {
-                  padding-right: 10px;
-              }
-          }
-
-          &__btn {
-              margin: 20px 0px;
-              background: #1f2329;
-          }
-
-          &__link {
-              text-align: center;
-          }
+      mat-form-field {
+        input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
+          -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
+        }
+        .mat-icon {
+          padding-right: 10px;
+        }
       }
+
+      &__btn {
+        margin: 20px 0px;
+        background: #1f2329;
+      }
+
+      &__link {
+        text-align: center;
+      }
+    }
   }
 
   &__title {
-      color: inherit;
-      text-align: center;
-      font-weight: normal;
+    color: inherit;
+    text-align: center;
+    font-weight: normal;
   }
 }
 .page {
