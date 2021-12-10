@@ -34,7 +34,6 @@ import {AddCategoryComponent} from "./components/add-category/add-category.compo
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
 import { CategoryListComponent } from './components/add-category/category-list/category-list.component';
-import {MatTreeModule} from "@angular/material/tree";
 import { EditCategoryComponent } from './components/add-category/edit-category/edit-category.component';
 
 
@@ -79,7 +78,6 @@ import { EditCategoryComponent } from './components/add-category/edit-category/e
     MatDividerModule,
     MatCheckboxModule,
     MatCardModule,
-    MatTreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
