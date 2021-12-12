@@ -27,7 +27,9 @@ export class AuthService {
 
   signOut() {
     this.auth.signOut()
-      .then(() => this.router.navigate(['login']))
+    
+      .then(() => localStorage.removeItem('currentUser'))
+
   }
 
   registerUser(email: string, password: string): Observable<any> {

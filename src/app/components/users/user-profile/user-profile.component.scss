@@ -1,0 +1,93 @@
+
+.profile{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
+    background-size: 100%;
+    background-color: #1f2329;
+    font-family: Inter, sans-serif;
+    color: #fff;
+
+    h1{
+        padding-top: 5rem;
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .manage {
+        text-align: center;
+        display: flex;
+        width: 70%;
+        margin-left: 12%;
+    }
+    
+  
+  
+.info
+{
+    display: flex;
+   flex-direction: column;
+   width: 60%;
+   background-color:#181c1f;
+   color: #fff;
+   border-radius: 7px;
+   text-align: left;
+   margin-top: 5rem;
+   margin-bottom: 5rem;
+   margin-left: 18%;
+   border-color: #3884ff;
+   border-width: 2px;
+   border-style: solid;
+
+   .section {
+       background-color: #1d2025;
+       border-radius: 7px;
+       text-align: center;
+       display: block;
+       border-color: #3884ff;
+       border-width: 2px;
+       border-style: solid;
+       
+   }
+
+   .title {
+       margin: 0.5rem;
+       padding: 1rem;
+       font-weight: 500;
+       text-align: center;
+       color: grey;
+       
+       
+   }
+   .user-info {
+       margin: 0.5rem;
+       margin-left: 5%;
+       color: #fff;
+       padding-bottom: 1rem;
+       font-weight: 800;
+   }
+
+   .edit {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-around;
+   padding-bottom: 1rem;
+
+   .outlined-btn {
+    border: 2px solid #3884ff;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: .4px;
+    text-decoration: none;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+   }
+   
+
+}
+}

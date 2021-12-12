@@ -3,15 +3,21 @@
     <div *ngFor="let post of posts" class="navigation-group__item">
       <div class="post-item" [ngClass]="{'inFocus': post.id === postInFocus.id}" (click)="isInFocus(post)">
         <div class="post-item__content">
-          <a class="post-item__title">{{post.title}}</a>
+          <div *ngIf="!post.isVisible" class="menu-icon-container">
+            <mat-icon class="mat-icon">
+              visibility_off
+            </mat-icon>
+          </div>
+          <div class="post-title-container">
+            <a class="post-item__title">{{post.title}}</a>
+          </div>
         </div>
         <div class="post-item__menu">
           <button class="post-item__menu-icon" [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu class="mat-menu" #menu="matMenu">
-            <button (click)="toogleIsEdit(true)" mat-menu-item
-              class="mat-menu__item">
+            <button (click)="toogleIsEdit(true)" mat-menu-item class="mat-menu__item">
               <mat-icon class="mat-icon">
                 edit_note
               </mat-icon>
@@ -23,12 +29,16 @@
               </mat-icon>
               <span>Delete</span>
             </button>
-            <!-- <button mat-menu-item class="mat-menu__item" (click)="">
-              <mat-icon class="mat-icon">
+            <button mat-menu-item class="mat-menu__item" (click)="toggleVisibility(post)">
+              <mat-icon *ngIf="post.isVisible" class="mat-icon">
                 visibility_off
               </mat-icon>
-              <span>Hide post</span>
-            </button> -->
+              <mat-icon *ngIf="!post.isVisible" class="mat-icon">
+                visibility_on
+              </mat-icon>
+              <span *ngIf="!post.isVisible">Show post</span>
+              <span *ngIf="post.isVisible">Hide post</span>
+            </button>
           </mat-menu>
         </div>
       </div>
@@ -43,7 +53,7 @@
   </div>
   <div class="content-group">
     <app-post-view *ngIf="!isEdit" [post]="postInFocus"></app-post-view>
-    <app-post-form *ngIf="isEdit" [post]="postInFocus"  (postSaved)="postSaved($event)"></app-post-form>
+    <app-post-form *ngIf="isEdit" [post]="postInFocus" (postSaved)="postSaved($event)"></app-post-form>
     <div class="btn-group">
       <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
         [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
