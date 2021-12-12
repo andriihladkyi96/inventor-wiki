@@ -14,12 +14,10 @@ export class AddCategoryComponent implements OnInit {
 
   form: FormGroup;
   allCategory: Category[];
-  isHidenSaveCategoryBtn: boolean = false
-
-  generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  }
-
+  isHiden:boolean = true;
+  showCategoryBtn: boolean = false;
+  disabledSubCategBtn = false;
+  sortMenu: string= '';
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
@@ -30,13 +28,10 @@ export class AddCategoryComponent implements OnInit {
       category: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20)
+        Validators.maxLength(20),
+        Validators.pattern('^[A-Z].*')
       ]),
-      subCategories: new FormArray([],
-        [
-          Validators.minLength(3),
-          Validators.maxLength(20)
-        ])
+      subCategories: new FormArray([])
     });
   }
 
@@ -46,46 +41,64 @@ export class AddCategoryComponent implements OnInit {
 
 
   saveSubCategory(index: any): void {
-    const subCategory = {id: this.generateId(), name: this.subCategoriesFormArray.value[index]}
+    const subCategory = {name: this.subCategoriesFormArray.value[index]}
 
     let category = this.allCategory.find(value => value.name === this.form.value.category)
-    if (category) {
+    if (category?.subCategories?.find(v => v.name === subCategory.name)){
+      alert('this subcategory already exist');
+      this.disabledSubCategBtn = false
+
+    }
+    else if (category) {
+      if (!category.subCategories) {
+
+        category = {...category, subCategories: []}
+      }
       category.subCategories?.push(subCategory)
       this.categoryService.updateCategory(category);
+      this.disabledSubCategBtn = !this.disabledSubCategBtn;
+      // this.isHiden = true
     } else {
-      return category
+      return
     }
   }
 
   saveCategory() {
     if (this.allCategory.find(value => value.name === this.form.value.category)) {
-      alert('this category already exist')
+      alert('this category already exist');
+      this.disabledSubCategBtn = false
     } else {
       this.categoryService.createCategory({
         id: '',
         name: this.form.value.category,
-        subCategories: [{id: ''}]
-
+        subCategories: []
       })
-      this.isHidenSaveCategoryBtn = !this.isHidenSaveCategoryBtn
-    }
 
+    }
+    this.isHiden = !this.isHiden
+    this.showCategoryBtn = !this.showCategoryBtn
   }
 
   addSubCategory() {
-    this.subCategoriesFormArray.push(new FormControl(null));
+    this.subCategoriesFormArray.push(new FormControl(null, [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20),
+      Validators.pattern('^[A-Z].*')
+    ]));
+    this.disabledSubCategBtn = !this.disabledSubCategBtn
   }
 
   removeControl(index: number) {
     this.subCategoriesFormArray.removeAt(index);
+    this.disabledSubCategBtn = false
   }
 
-
-  deleteSubCategory(index: any) {
-    (<FormArray>this.form.controls.subCategories).removeAt(index)
-  }
-
-  deleteCategory(ev: any) {
-
+  resetForm() {
+    this.subCategoriesFormArray.clear()
+    this.form.reset()
+    this.showCategoryBtn = false
+    this.isHiden = true
+    this.disabledSubCategBtn = false
   }
 }

@@ -34,6 +34,10 @@ import {AddCategoryComponent} from "./components/add-category/add-category.compo
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
+import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
+import {SearchPipe} from "./components/add-category/category-list/Pipe/search.pipe";
+
 
 
 
@@ -50,7 +54,10 @@ import { HeaderComponent } from './components/header/header.component';
     RolePageComponent,
     AddCategoryComponent,
     MainPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    CategoryListComponent,
+    EditCategoryComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -80,4 +87,4 @@ import { HeaderComponent } from './components/header/header.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
