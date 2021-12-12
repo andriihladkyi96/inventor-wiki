@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.authService.signOut()
-    localStorage.removeItem('currentUser')
+    
   }
 
   ngOnInit(): void {

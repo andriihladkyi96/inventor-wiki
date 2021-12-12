@@ -19,6 +19,9 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { TestComponent } from './components/login/test/test.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
+import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
+import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
 import { UserPostsComponent } from './components/post/user-posts/user-posts.component';
 import { PostViewComponent } from './components/post/post-view/post-view.component';
 import { PostFormComponent } from './components/post/post-form/post-form.component';
@@ -36,14 +39,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
     TestComponent,
+    UsersPageComponent,
+    UserProfileComponent,
+    UserEditFormComponent,
     UserPostsComponent,
     PostViewComponent,
     PostFormComponent,

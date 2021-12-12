@@ -1,0 +1,120 @@
+.body {
+  background-color: #000;
+  background: linear-gradient(to bottom right, #1f2329, 80%, rgb(94, 166, 233));
+  margin: 0;
+  padding: 0;
+}
+
+.users {
+  padding: auto;
+  margin-left: 15%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  width: 80%;
+}
+
+.user {
+  .user-information {
+    background-color: #1f2329;
+    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-align: center;
+    border-radius: 15px;
+    width: 25rem;
+    margin: 1rem;
+    height: 15rem;
+
+
+    .name {
+     padding: 5%;
+     padding-bottom: 0;
+     margin-bottom: 1%;
+     border-radius: 15px;
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
+     color: #3884ff;
+    }
+
+    p {
+      color: grey;
+      padding-top: 0;
+      margin-top: 0;
+      padding-left: 5%;
+      padding-right: 5%;
+      text-align: center;
+
+    }
+
+    .email {
+      color: #3884ff;
+    }
+
+    .btn {
+      margin-left: 60%;
+      margin-top: 16px;
+      margin-right: 16px;
+      padding: 10px 20px;
+      border: 2px solid #3884ff;
+      border-radius: 6px;
+      background-color: transparent;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.9px;
+      text-decoration: none;
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.form {
+  &__container {
+    padding: 40px;
+    background: #7b3fe1;
+    width: 400px;
+    margin: 0 auto;
+    transform: translateY(100px);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    .form {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+
+      mat-form-field {
+        input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
+          -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
+        }
+        .mat-icon {
+          padding-right: 10px;
+        }
+      }
+
+      &__btn {
+        margin: 20px 0px;
+        background: #1f2329;
+      }
+
+      &__link {
+        text-align: center;
+      }
+    }
+  }
+
+  &__title {
+    color: inherit;
+    text-align: center;
+    font-weight: normal;
+  }
+}
+.page {
+  min-width: 100vw;
+  min-height: 100vh;
+  background: #1f2329;
+}

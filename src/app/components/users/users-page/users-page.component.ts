@@ -1,15 +1,21 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { UsersService } from 'src/app/services/users.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
-
+import { UsersService } from 'src/app/services/users.service';
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss']
+  selector: 'app-users-page',
+  templateUrl: './users-page.component.html',
+  styleUrls: ['./users-page.component.scss'],
+   providers: [UsersService]
 })
-export class RegisterFormComponent implements OnInit {
+export class UsersPageComponent implements OnInit {
+  public isShowForm: boolean = false;
+public  users:User[] = [];
+public showForm(): void {
+  this.isShowForm = true;
+}
 
   identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
@@ -18,8 +24,9 @@ export class RegisterFormComponent implements OnInit {
     return password && confirmPassword && password.value !== confirmPassword.value ? { identityNotRevealed: true } : null;
   };
 
-
-  constructor(private authService: AuthService, private usersService: UsersService) {
+  constructor(private authService: AuthService, private usersService: UsersService,
+    private router: Router,
+    private route: ActivatedRoute) {
 
   }
 
@@ -69,7 +76,6 @@ export class RegisterFormComponent implements OnInit {
       (u) => {
         user.id = u.user?.uid
         this.usersService.addUser(user)
-        this.authService.signIn(email, password)
       },
       (err) => {
         this.isError = true
@@ -79,7 +85,12 @@ export class RegisterFormComponent implements OnInit {
 
   }
 
+  users$ = this.usersService.getUsers()
+
+
   ngOnInit(): void {
   }
   
 }
+
+  
