@@ -76,3 +76,22 @@ form {
   display: none;
 }
 
+@media (max-width: 1130px) {
+  .div_body {
+    flex-flow: column;
+  }
+  .category_list {
+    order:3;
+    margin-top: 20px;
+    text-align: center;
+    border-top: 2px solid #da42b1;
+    border-right: none;
+    width: auto;
+  }
+  .main_form_div {
+    order:2;
+    width: 70%;
+    min-width: 330px;
+    //max-width: -webkit-fill-available;
+  }
+}

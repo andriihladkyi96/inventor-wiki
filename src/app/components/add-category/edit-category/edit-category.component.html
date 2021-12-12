@@ -8,21 +8,38 @@
         <mat-hint align="end">{{inputCategory.value?.length || 0}}/20</mat-hint>
       </mat-form-field>
       <button class="button " (click)="addSubCategory()">+</button>
+      <div *ngIf="!categoryInfo?.subCategories">
+        <div formArrayName="subCategories" style="margin-left: 100px; margin-top: 24px">
+          <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
+            <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
+                            style="margin-bottom: 20px">
+              <mat-label>Enter sub-category</mat-label>
+              <input matInput #inputSubcategory [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+              <mat-hint align="end">{{inputSubcategory.value?.length || 0}}/20</mat-hint>
+            </mat-form-field>
+            <button style="margin-left: 10px" mat-button color="warn" (click)="removeSubCategories(i)">Remove</button>
+          </div>
+        </div>
+      </div>
       <span *ngIf="categoryInfo.subCategories">
       <div formArrayName="subCategories" style="margin-left: 100px; margin-top: 24px">
         <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
           <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
                           style="margin-bottom: 20px">
-            <mat-label>Enter sub-category</mat-label>
-            <input matInput #inputSubcategory [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+            <mat-label>Enter sub-category</mat-label >
+            <input matInput #inputSubcategory  [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
                       <mat-hint align="end">{{inputSubcategory.value?.length || 0}}/20</mat-hint>
+<!--             <span *ngIf="!(inputSubcategory.value[0] === inputSubcategory.value[0].toUpperCase())"-->
+<!--             >must start with capital letter only</span>-->
           </mat-form-field>
+
              <button style="margin-left: 10px" mat-button color="warn" (click)="removeSubCategories(i)">Remove</button>
         </div>
       </div>
     </span>
       <div style="margin-left: 10px">
-        <button mat-flat-button color="accent" [disabled]="form.invalid" (click)="updateCategory()" style="margin-right: 15px">Update
+        <button mat-flat-button color="accent" [disabled]=" !(form.valid && form.dirty)" (click)="updateCategory()"
+                style="margin-right: 15px">Update
         </button>
         <button [routerLink]="'/add-category'"
                 mat-flat-button color="warn"

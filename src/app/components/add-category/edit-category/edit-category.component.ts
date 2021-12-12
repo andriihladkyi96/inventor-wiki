@@ -13,11 +13,14 @@ export class EditCategoryComponent implements OnInit {
 categoryInfo:Category;
   form: FormGroup;
   subCategoryArray:Array<any>;
+  allCateg:Category[];
+
 
   constructor(private router:Router,
               private categoryService:CategoriesService,
               ) {
     this.categoryInfo = this.router.getCurrentNavigation()?.extras.state as Category;
+    this.categoryService.getCategoryList().subscribe(category => this.allCateg = category )
     if (this.categoryInfo.subCategories?.length) {
 
       this.subCategoryArray = this.categoryInfo.subCategories?.map(sub => {
@@ -58,8 +61,10 @@ categoryInfo:Category;
       name:this.form.controls['category'].value,
       subCategories: subCategories.length ? subCategories : []
     }
-this.categoryService.updateCategory(category)
-
+    if (this.allCateg.find(value => value.name === category.name)) {
+      return alert('category already exist')
+    }
+      return  this.categoryService.updateCategory(category)
   }
 
   ngOnInit(): void {
