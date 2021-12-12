@@ -32,6 +32,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
+import { HeaderComponent } from './components/header/header.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
 
@@ -50,7 +51,8 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
     RolePageComponent,
     AddCategoryComponent,
     MainPageComponent,
-    SanitizeHtmlPipe
+    HeaderComponent,
+    SanitizeHtmlPipe,
   ],
   imports: [
     BrowserModule,

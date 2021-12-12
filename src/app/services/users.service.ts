@@ -45,7 +45,7 @@ export class UsersService {
     return user$
   }
 
-  getUserRole(userRole: string) {
-    return this.getCurrentUser().role === userRole
+  checkUserRole() {
+    return this.getCurrentUser() ? this.getCurrentUser().role : false
   }
 }
