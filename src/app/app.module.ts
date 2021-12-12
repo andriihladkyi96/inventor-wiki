@@ -38,6 +38,11 @@ import {MatCardModule} from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
+import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
+import {SearchPipe} from "./components/add-category/category-list/Pipe/search.pipe";
+
+
 
 @NgModule({
   declarations: [
@@ -57,6 +62,9 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
     MainPageComponent,
     HeaderComponent,
     SanitizeHtmlPipe,
+    CategoryListComponent,
+    EditCategoryComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
@@ -86,4 +94,4 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

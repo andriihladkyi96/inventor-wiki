@@ -12,6 +12,8 @@ import { RoleGuard } from './guards/role.guard';
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { AddCategoryComponent } from "./components/add-category/add-category.component";
 import { UserPostsComponent } from "./components/post/user-posts/user-posts.component";
+import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
@@ -32,20 +34,21 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToMain }
   },
   { path: 'add-category', component: AddCategoryComponent,
-    canActivate: [AngularFireAuthGuard, RoleGuard],
+    canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
    },
+  {path:'add-category/:id', component:EditCategoryComponent},
   { path: 'posts', component: UserPostsComponent,
-    // canActivate: [AngularFireAuthGuard, RoleGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   { path: 'role', component: RolePageComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
-      role: "SuperAdmin" 
+      role: "SuperAdmin"
     }
-    
+   
   },
   { path: 'users', component: UsersPageComponent
     
