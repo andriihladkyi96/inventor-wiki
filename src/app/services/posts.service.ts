@@ -34,16 +34,18 @@ export class PostsService implements OnInit {
 
   getPostList(): Observable<Post[]> {
     this.postsRef = this.db.list(this.basePath);
-    // .pipe(map(posts => posts.filter(post => post.isVisible)))
-    return this.postsRef.valueChanges();
+    return this.postsRef.valueChanges().pipe(
+      map(posts => posts.filter(post => post.isVisible))
+      );
   }
 
   getPostsByCategory(category: string): Observable<Post[]> {
     this.postsRef = this.db.list(this.basePath, ref => {
       return ref.orderByChild("category").equalTo(category)
     })
-    // .pipe(map(posts => posts.filter(post => post.isVisible)))
-    return this.postsRef.valueChanges();
+    return this.postsRef.valueChanges().pipe(
+      map(posts => posts.filter(post => post.isVisible))
+      );
   }
 
   getPostsByUserId(id: string): Observable<Post[]> {
