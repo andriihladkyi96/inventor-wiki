@@ -1,5 +1,6 @@
 export class Role {
-    role: string;
+    id?: any;
+    roleName: string;
     permissions: Permissions
 }
 
