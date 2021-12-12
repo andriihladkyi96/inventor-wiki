@@ -1,3 +1,4 @@
+import { UsersService } from './../../../services/users.service';
 import { DialogData } from './../post-dialogs/warning-dialog/warning-gialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +7,7 @@ import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { WarningDialogComponent } from '../post-dialogs/warning-dialog/warning-gialog.component';
+import { User } from 'src/app/models/User';
 
 
 @Component({
@@ -17,30 +19,20 @@ export class UserPostsComponent implements OnInit {
 
   public posts: Post[] = [];
   isEdit = false;
-  userId: number = 1;
+  userId: string;
+  currentUser: User;
   postCopy: Post;
-  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: 1 };
+  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation:"dara",dateLastModification:"data",isVisible:true};;
   postInFocusPosition: number;
   subscription: Subscription;
 
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-    ],
-  };
-
-
-  constructor(private postsService: PostsService, public dialog: MatDialog) { }
+  constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
 
   ngOnInit() {
+    this.currentUser = this.usersService.getCurrentUser();
+    if (this.currentUser.id) {
+      this.userId = this.currentUser.id;
+    }
     this.getPostsByUserId();
   }
 
@@ -49,12 +41,21 @@ export class UserPostsComponent implements OnInit {
   }
 
   getPostsByUserId() {
-    this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
-      this.posts = posts
-      if (this.postInFocus.id == "") {
-        this.isInFocus(posts[posts.length - 1]);
-      }
-    })
+    if (this.currentUser.role !== "SuperAdmin") {
+      this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
+        this.posts = posts
+        if (this.postInFocus.id == "") {
+          this.isInFocus(posts[posts.length - 1]);
+        }
+      })
+    } else {
+      this.subscription = this.postsService.getPostList().subscribe(posts => {
+        this.posts = posts
+        if (this.postInFocus.id == "") {
+          this.isInFocus(posts[posts.length - 1]);
+        }
+      })
+    }
   }
 
   openDialog(dialogData: DialogData) {
@@ -90,7 +91,16 @@ export class UserPostsComponent implements OnInit {
   }
 
   addPost() {
-    this.postsService.createPost({ id: "", title: "New post title", category: "New post category", content: "New post content", authorId: this.userId })
+    this.postsService.createPost({
+      id: "", 
+      title: "New post title", 
+      category: "New post category", 
+      content: "New post content", 
+      authorId: this.userId, 
+      dateCreation: "data",
+      dateLastModification: "data",
+      isVisible: true,
+    })
       .then(() => {
         this.isInFocus(this.posts[this.posts.length - 1]);
         this.toogleIsEdit(true);
@@ -129,9 +139,14 @@ export class UserPostsComponent implements OnInit {
   postSaved(isSaved: boolean) {
     this.toogleIsEdit(false);
   }
-
+ 
+  toggleVisibility(post:Post){
+    this.postsService.updatePost({...post,isVisible:!post.isVisible});
+  }
   private postWasChanged(): boolean {
-    if (this.postCopy.title == this.postInFocus.title && this.postCopy.category == this.postInFocus.category && this.postCopy.content == this.postInFocus.content) {
+    if (this.postCopy.title == this.postInFocus.title 
+      && this.postCopy.category == this.postInFocus.category 
+      && this.postCopy.content == this.postInFocus.content) {
       return false
     } else {
       return true

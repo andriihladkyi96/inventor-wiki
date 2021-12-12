@@ -31,8 +31,8 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin }
    },
   { path: 'posts', component: UserPostsComponent,
-    canActivate: [AngularFireAuthGuard, RoleGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
+    // canActivate: [AngularFireAuthGuard, RoleGuard],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   { path: 'role', component: RolePageComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],

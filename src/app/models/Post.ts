@@ -3,5 +3,8 @@ export interface Post {
     title:string;
     category:string;
     content:string;
-    authorId:number;
+    authorId:string;
+    dateCreation:string;
+    dateLastModification:string;
+    isVisible:boolean;
 }
