@@ -35,6 +35,7 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
 import { CategoryListComponent } from './components/add-category/category-list/category-list.component';
 import { EditCategoryComponent } from './components/add-category/edit-category/edit-category.component';
+import { SearchPipe } from './components/add-category/category-list/Pipe/search.pipe';
 
 
 
@@ -53,6 +54,7 @@ import { EditCategoryComponent } from './components/add-category/edit-category/e
     MainPageComponent,
     CategoryListComponent,
     EditCategoryComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,

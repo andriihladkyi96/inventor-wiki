@@ -1,44 +1,54 @@
 <div class="div_body">
+  <div class="category_list">
+    <h2 style="text-align: center">List of categories:</h2>
+    <input class="input_sort_category"
+           type="search"
+           placeholder="Search category"
+           [(ngModel)]="sortMenu">
+    <app-category-list *ngFor="let cat of allCategory  | search:sortMenu " [category]=cat></app-category-list>
+  </div>
   <div class="main_form_div">
     <form [formGroup]="form">
-      <mat-form-field hintLabel="Min 3 characters, Max 20" appearance="fill" style="margin-bottom: 20px">
-        <mat-label>Enter category</mat-label>
-        <input matInput #input placeholder="category" formControlName="category">
-        <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
-      </mat-form-field>
-      <button class="button hover_add" (click)="addSubCategory()" [hidden]="!isHidenSaveCategoryBtn">+</button>
-<!--      <button class="button hover_remove" (click)="removeControl(form.value.indexOf(0))" [hidden]="!isHidenSaveCategoryBtn"-->
-<!--              style="color: red !important">- -->
-<!--      </button>-->
-      <div formArrayName="subCategories" style="margin-left: 100px">
-        <div class="address-row" *ngFor="let control of subCategoriesFormArray.controls; let i = index">
-          <mat-form-field hintLabel="Min 3 characters, Max 20" appearance="fill" style="margin-bottom: 20px">
+      <div>
+        <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
+                        style="margin-bottom: 20px">
+          <mat-label>Enter category</mat-label>
+          <input matInput #inputCategory [placeholder]="'category'" formControlName="category">
+          <mat-hint align="end">{{inputCategory.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+        <button class="button" (click)="addSubCategory()" [hidden]="!showCategoryBtn"
+                [disabled]="disabledSubCategBtn">+
+        </button>
+      </div>
+      <div formArrayName="subCategories" style="margin-left: 100px; margin-top: 24px">
+        <div *ngFor="let control of subCategoriesFormArray.controls; let i = index">
+          <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
+                          style="margin-bottom: 20px">
             <mat-label>Enter sub-category</mat-label>
-            <input matInput #input [placeholder]="'category line ' + (i + 1)" [formControlName]="i">
-            <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
+            <input matInput #inputSubcategory [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+            <mat-hint align="end">{{inputSubcategory.value?.length || 0}}/20</mat-hint>
           </mat-form-field>
-          <button class="sub_button" mat-flat-button color="primary" (click)="removeControl(i)" style="color: tomato">
-            Clear
-          </button>
-          <button class="sub_button" mat-flat-button color="accent" type="submit" (click)="saveSubCategory(i)"
+          <button class="sub_button hidenSub"
+                  mat-flat-button
+                  color="accent"
+                  type="submit"
+                  [disabled]="form.invalid"
+                  (click)="saveSubCategory(i)"
                   style="color:green">Save
           </button>
           <button class="sub_button" mat-flat-button color="warn" type="submit" (click)="removeControl(i)">Remove
           </button>
         </div>
-
       </div>
-      <button mat-flat-button color="primary" [disabled]="form.invalid" type="submit" (click)="saveCategory()"
-              [hidden]="isHidenSaveCategoryBtn">Save
+      <button mat-flat-button color="primary" type="submit" (click)="saveCategory()" [disabled]="form.invalid"
+              class="hiden" [class]="{hiden:!isHiden}">Save
+        category
+      </button>
+      <button style="margin-left: 1rem" (click)="resetForm()" mat-flat-button color="primary" type="button"
+      >New
         category
       </button>
     </form>
-    <button mat-flat-button color="accent" [routerLink]="''" style="margin-bottom: 10px ">Back</button>
-    <app-category-list *ngFor="let cat of allCategory " [category] = cat></app-category-list>
-
-  </div>
-  <div>
   </div>
 </div>
-<br>
-<br>
+

@@ -9,11 +9,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class CategoryListComponent implements OnInit {
   @Input()
-  category:Category
+  category:Category;
 
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,) {
-
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
