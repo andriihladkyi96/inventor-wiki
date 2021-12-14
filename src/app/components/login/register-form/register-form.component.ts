@@ -59,10 +59,10 @@ export class RegisterFormComponent implements OnInit {
     const { email, password, firstName, lastName } = this.registerForm.value
     const user: User = {
       email,
-      password,
       firstName,
       lastName,
-      role: 'User'
+      role: 'User',
+      isActive: true
     }
 
     this.authService.registerUser(email, password).subscribe(
