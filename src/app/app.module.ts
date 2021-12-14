@@ -30,6 +30,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
 import { RolePageComponent } from './components/role/role-page/role-page.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
 
 
 
@@ -43,7 +44,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PostViewComponent,
     PostFormComponent,
     WarningDialogComponent,
-    RolePageComponent
+    RolePageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
