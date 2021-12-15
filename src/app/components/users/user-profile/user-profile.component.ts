@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/User';
 import { UsersService } from 'src/app/services/users.service';
+import { ChangesMessageComponent } from '../changes-message/changes-message.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,10 +10,30 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-  constructor(private usersService: UsersService) { }
+  id: string = "";
+  user: User ;
+  constructor(private usersService: UsersService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.user = this.usersService.getCurrentUser()
+    this.id = this.user.id as string;
+
   }
-user = this.usersService.getCurrentUser()
+  
+
+updateUser(id: string | undefined, key: string, value: string) {
+  if (id !==undefined) {
+    this.usersService.updateUser(id, key, value) 
+    this.usersService.setCurrentUser(this.user)
+    this.dialog.open(ChangesMessageComponent,
+      {
+        width: '30%',
+        height: '30%'
+        
+      });
+  }
+  
+}
+
+
 }

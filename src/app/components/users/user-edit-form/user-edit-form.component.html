@@ -1,40 +1,66 @@
-<div class="page">
-    <div class="form__container">
-        <h2 class="form__title">user's profile editing</h2>
-        <form class="form" [formGroup]="registerForm">
-            <mat-form-field appearance="legacy" color="accent">
-                <mat-label>First Name</mat-label>
-                <input type="text" matInput placeholder="Type your first name" formControlName="firstName" [value]="user?.firstName" >
-                <mat-icon matPrefix>person_outline</mat-icon>
-                <mat-error *ngIf="firstName.invalid" >
-                    <mat-error *ngIf="firstName.errors?.required">Field is required</mat-error>
-                    <mat-error *ngIf="firstName.errors?.minlength">Min length is 2 characters</mat-error>
-                    <mat-error *ngIf="firstName.errors?.maxlength">Max length is 20 characters</mat-error>
-                    <mat-error *ngIf="firstName.errors?.pattern">Invalid field(only letters and dashes)</mat-error>
-                </mat-error>
-                <button class="form__btn" mat-button 
-                (click)="updateUser(user?.key, 'firstName', firstName.value)">SAVE</button>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" color="accent">
-                <mat-label>Last Name</mat-label>
-                <input type="text" matInput placeholder="Type your last name" formControlName="lastName" [value]="user?.lastName">
-                <mat-icon matPrefix>person_outline</mat-icon>
-                <mat-error *ngIf="lastName.invalid">
-                    <mat-error *ngIf="lastName.errors?.required">Field is required</mat-error>
-                    <mat-error *ngIf="lastName.errors?.minlength">Min length is 2 characters</mat-error>
-                    <mat-error *ngIf="lastName.errors?.maxlength">Max length is 20 characters</mat-error>
-                    <mat-error *ngIf="lastName.errors?.pattern">Invalid field(only letters and dashes)</mat-error>
-                </mat-error>
-                <button class="form__btn" mat-button 
-                (click)="updateUser(user?.key, 'lastName', lastName.value)" >SAVE</button>
-            </mat-form-field>
+<div class="profile">
+  <h1>
+    Account settings of user:
+    <span class="userName"> {{user?.firstName}} {{user?.lastName}}</span>
+  </h1>
+  <p class="manage">
+    Manage user's profile, account settings and preferences. Lorem ipsum dolor
+    sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+    ipsum commodi quasi a aliquid modi delectus praesentium fuga, deserunt
+    tempore rerum libero cupiditate ex numquam blanditiis, consectetur odit
+    dicta? Cumque.
+  </p>
 
-            
-
-        </form>
-        
-        <button class="form__btn" mat-button 
-        (click)="goBack()" >Enter</button>
-   
+  <div class="info">
+    <div class="section">
+      <h2>PERSONAL INFORMATION OF USER</h2>
     </div>
+    <p class="title">
+      First name (Here you can edit data. Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Accusantium nam aliquam dignissimos exercitationem,
+      omnis voluptatum quam non molestiae illo beatae earum numquam quidem,
+      corporis adipisci eum! Aperiam nesciunt sed nihil!)
+    </p>
+    <div class="edit">
+      <p class="user-info">{{user?.firstName}}</p>
+      <button class="outlined-btn">EDIT</button>
+    </div>
+    <p class="title">
+      Last name (Here you can edit data. Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Accusantium nam aliquam dignissimos exercitationem,
+      omnis voluptatum quam non molestiae illo beatae earum numquam quidem,
+      corporis adipisci eum! Aperiam nesciunt sed nihil!)
+    </p>
+    <div class="edit">
+      <p class="user-info">{{user?.lastName}}</p>
+      <button class="outlined-btn">EDIT</button>
+    </div>
+    <p class="title">
+      Here you can edit user's role.(Edit data. Lorem ipsum dolor sit amet
+      consectetur adipisicing elit. Accusantium nam aliquam dignissimos
+      exercitationem, omnis voluptatum quam non molestiae illo beatae earum
+      numquam quidem, corporis adipisci eum! Aperiam nesciunt sed nihil!)
+    </p>
+    <div class="edit">
+      <p class="user-info">{{user?.role}}</p>
+      <button class="outlined-btn">EDIT</button>
+    </div>
+  </div>
+
+  <div class="info" id="info-block">
+    <div class="section" id="section-block">
+      <h2>LOGIN DETAILS</h2>
+    </div>
+    <p class="title">
+      Email (This email {{user?.firstName}} {{user?.lastName}} uses for login
+      into this site. You can restrict a user's access to creating new posts by
+      blocking him. This will also delete all previously published posts from
+      this user. )
+    </p>
+    <div class="edit">
+      <p class="user-info">{{user?.email}}</p>
+      <button class="outlined-btn" id="block">BLOCK</button>
+    </div>
+  </div>
+  <button class="form__btn" mat-button (click)="goBack()">Enter</button>
 </div>

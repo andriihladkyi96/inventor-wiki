@@ -2,17 +2,18 @@
 .profile{
     margin: 0;
     padding: 0;
-    height: 100%;
     min-height: 100%;
-    background-size: 100%;
     background-color: #1f2329;
     font-family: Inter, sans-serif;
     color: #fff;
+    border-top-color: #3884ff;
+    border-top-style: solid;
 
     h1{
         padding-top: 5rem;
         margin-top: 0;
         text-align: center;
+        color: #3884ff;
     }
 
     .manage {
@@ -68,6 +69,23 @@
        font-weight: 800;
    }
 
+   .input-style {
+       background-color: transparent;
+       color: #fff;
+       padding: 0.7rem;
+       font-weight: 800;
+       text-align: center;
+       font-size: 1rem;
+       border-color: #3884ff;
+       border-radius: 6px;
+       width: 50%;
+   }
+
+   .full-width {
+       width: 50%;
+       border-color: #3884ff solid 2px;
+   }
+
    .edit {
    display: flex;
    flex-direction: row;
@@ -85,9 +103,43 @@
     text-decoration: none;
     padding-left: 3rem;
     padding-right: 3rem;
-}
-   }
-   
+
+
+  
+
 
 }
+
+[disabled]{
+    border: 2px solid red;
+  }
+
+
+  .error {
+      font-size: 5px;
+      width: 50%;
+  }
+#block  {
+    border-color: red;
+    height: 3rem;
+}
+
+   }
+   #title-delete{
+    color: red;
+}
+
+.red {
+    color: red;
+}
+
+}
+
+#info-block {
+    border-color: red; 
+ }
+
+ #section-block {
+    border-color: red; 
+ }
 }

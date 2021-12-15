@@ -5,6 +5,8 @@ import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { ChangesMessageComponent } from '../changes-message/changes-message.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-edit-form',
@@ -24,36 +26,9 @@ export class UserEditFormComponent implements OnInit {
   constructor(private authService: AuthService, 
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private location: Location) {
+    private location: Location,
+    private dialog: MatDialog) {
   }
-
-  registerForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z-]+$')]),
-    lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z-]+$')]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-  }, { validators: this.identityRevealedValidator })
-
-  get firstName() {
-    return this.registerForm.get('firstName') as FormControl
-  }
-  get lastName() {
-    return this.registerForm.get('lastName') as FormControl
-  }
-  get email() {
-    return this.registerForm.get('email') as FormControl
-  }
-  get password() {
-    return this.registerForm.get('password') as FormControl
-  }
-  get confirmPassword() {
-    return this.registerForm.get('confirmPassword') as FormControl
-  }
-
-  isError: boolean = false
-  errorMessage: string = ''
-
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as string;
@@ -66,6 +41,11 @@ export class UserEditFormComponent implements OnInit {
   updateUser(id: string | undefined, key: string, value: string) {
     if (id !==undefined) {
       this.usersService.updateUser(id, key, value) 
+      this.dialog.open(ChangesMessageComponent,
+        {
+          width: '500px',
+          data: 'Your changes sucsses',
+        });
     }
     
   }

@@ -37,6 +37,7 @@ import {AddCategoryComponent} from "./components/add-category/add-category.compo
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
+import { ChangesMessageComponent } from './components/users/changes-message/changes-message.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { HeaderComponent } from './components/header/header.component';
     RolePageComponent,
     AddCategoryComponent,
     MainPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChangesMessageComponent
   ],
   imports: [
     BrowserModule,

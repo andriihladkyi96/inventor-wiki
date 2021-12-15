@@ -11,3 +11,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 $white-font: #fff;
 $background: #1f2329;
 $pink-font: #da42b1 #000 #000;
+
+
+mat-dialog-container {
+    background: linear-gradient(to bottom right, #1f2329, 60%, rgb(94, 166, 233)) !important;
+    padding: 0px 0px 0px 0px !important;
+    overflow: hidden !important;
+    border-radius: 12px;
+
+  }
