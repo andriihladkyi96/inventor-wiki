@@ -38,6 +38,7 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
 import { ChangesMessageComponent } from './components/users/changes-message/changes-message.component';
+import { AddUserFormComponent } from './components/users/add-user-form/add-user-form.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ChangesMessageComponent } from './components/users/changes-message/chan
     AddCategoryComponent,
     MainPageComponent,
     HeaderComponent,
-    ChangesMessageComponent
+    ChangesMessageComponent,
+    AddUserFormComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/User';
 import { UsersService } from 'src/app/services/users.service';
-import { RegisterFormComponent } from '../../login/register-form/register-form.component';
+import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 @Component({
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
@@ -20,9 +20,10 @@ public  users:User[] = [];
   ngOnInit(): void {
   }
   showForm(){
-    this.dialog.open(RegisterFormComponent,
+    this.dialog.open(AddUserFormComponent,
       {
-        width: '500px',
+        width: '800px',
+        height: '800px'
       
       });
   }

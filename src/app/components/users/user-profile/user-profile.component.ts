@@ -17,9 +17,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser()
     this.id = this.user.id as string;
-
   }
-  
 
 updateUser(id: string | undefined, key: string, value: string) {
   if (id !==undefined) {
@@ -34,6 +32,5 @@ updateUser(id: string | undefined, key: string, value: string) {
   }
   
 }
-
 
 }
