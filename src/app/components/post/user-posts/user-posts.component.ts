@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { WarningDialogComponent } from '../post-dialogs/warning-dialog/warning-gialog.component';
 import { User } from 'src/app/models/User';
 
@@ -22,7 +21,7 @@ export class UserPostsComponent implements OnInit {
   userId: string;
   currentUser: User;
   postCopy: Post;
-  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation:"dara",dateLastModification:"data",isVisible:true};;
+  postInFocus: Post = { id: "postInFocus", title: "", category: "", content: "", authorId: "", dateCreation: "dara", dateLastModification: "data", isVisible: true };;
   postInFocusPosition: number;
   subscription: Subscription;
 
@@ -51,7 +50,7 @@ export class UserPostsComponent implements OnInit {
     } else {
       this.subscription = this.postsService.getPostList().subscribe(posts => {
         this.posts = posts
-        if (this.postInFocus.id == "") {
+        if (this.postInFocus.id == "postInFocus") {
           this.isInFocus(posts[posts.length - 1]);
         }
       })
@@ -92,11 +91,11 @@ export class UserPostsComponent implements OnInit {
 
   addPost() {
     this.postsService.createPost({
-      id: "", 
-      title: "New post title", 
-      category: "New post category", 
-      content: "New post content", 
-      authorId: this.userId, 
+      id: "newPost",
+      title: "New post title",
+      category: "New post category",
+      content: "New post content",
+      authorId: this.userId,
       dateCreation: "data",
       dateLastModification: "data",
       isVisible: true,
@@ -139,13 +138,13 @@ export class UserPostsComponent implements OnInit {
   postSaved(isSaved: boolean) {
     this.toogleIsEdit(false);
   }
- 
-  toggleVisibility(post:Post){
-    this.postsService.updatePost({...post,isVisible:!post.isVisible});
+
+  toggleVisibility(post: Post) {
+    this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
   }
   private postWasChanged(): boolean {
-    if (this.postCopy.title == this.postInFocus.title 
-      && this.postCopy.category == this.postInFocus.category 
+    if (this.postCopy.title == this.postInFocus.title
+      && this.postCopy.category == this.postInFocus.category
       && this.postCopy.content == this.postInFocus.content) {
       return false
     } else {

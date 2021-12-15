@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="post">
+    <h1 class="title">{{post.title}}</h1>
+    <div class="subtitle">
+      <span class="category">Category: {{post.category}}</span>
+    </div>
+    <div class="content" [innerHTML]="post.content | sanitizeHtml"></div>
+  </div>
+</div>

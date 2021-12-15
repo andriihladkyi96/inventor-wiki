@@ -8,7 +8,7 @@ import { Post } from 'src/app/models/Post';
 })
 export class PostViewComponent implements OnInit {
   @Input() post: Post;
-
+  
   constructor() { }
 
   ngOnInit() {

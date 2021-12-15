@@ -43,9 +43,6 @@
             background-color: rgb(24, 28, 31);
             color: rgb(68, 119, 222);
             border: 1px solid rgb(55, 65, 81);
-            // background-color: #ffffff;
-            // color: rgb(113, 153, 230);
-            // border: 1px solid rgb(211, 220, 228);
             &:hover {
                 background-color: rgb(24, 28, 31);
             }
@@ -98,24 +95,22 @@
 
 .content-group {
     flex-basis: 75%;
-    // background-color: rgb(255, 255, 255);
     background-color: rgb(24 28 31);
     border: 1px solid #374151;
     border-left: none;
-    // border: 1px solid rgb(243, 245, 246);
+    display: flex;
+    flex-direction: column;
 }
 
 .btn-group {
     display: flex;
     max-width: 1000px;
-    margin: 0 auto;
     padding: 0px 90px;
     flex-direction: row;
     &__item {
         display: block;
         width: 100%;
         box-shadow: rgb(0 0 0 / 69%) 0px 1px 2px;
-        // box-shadow: rgb(0 0 0 / 12%) 0px 1px 2px;
         margin-bottom: 8px;
         margin-right: 0px;
         flex-shrink: 1;
