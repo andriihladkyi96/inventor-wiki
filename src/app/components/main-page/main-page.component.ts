@@ -17,9 +17,11 @@ export class MainPageComponent implements OnInit {
 
   allPosts:Post[];
   postCategories:Category[];
-  loggedUser:any;
   hidenButton:boolean = false;
-  emptyPostContent:string = 'Not yet any post in this category'
+  isCollapsed:boolean = false;
+  info:boolean = false;
+  categoryInfo:Category;
+
 
   constructor(private postService:PostsService,
               private categoriesService:CategoriesService,
@@ -49,4 +51,8 @@ export class MainPageComponent implements OnInit {
     return this.userService.checkUserRole() === "Admin"
   }
 
+  getSubCategory(post:Category) {
+    this.info = !this.info;
+    return this.categoryInfo = post
+  }
 }

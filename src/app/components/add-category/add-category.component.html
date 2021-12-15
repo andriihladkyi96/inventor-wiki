@@ -16,6 +16,21 @@
           <input matInput #inputCategory [placeholder]="'category'" formControlName="category">
           <mat-hint align="end">{{inputCategory.value?.length || 0}}/20</mat-hint>
         </mat-form-field>
+
+        <mat-form-field  appearance="fill" style="background: floralwhite; margin-left: 15px; border-radius: 10px">
+          <mat-label >Role</mat-label>
+          <mat-select #categoryByRole formControlName="categoryByRole" multiple>
+            <mat-select-trigger >
+              {{categoryByRole.value ? categoryByRole.value[0] : ''}}
+              <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
+        (+{{categoryByRole.value.length - 1}} {{categoryByRole.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+            </mat-select-trigger >
+            <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
         <button class="button" (click)="addSubCategory()" [hidden]="!showCategoryBtn"
                 [disabled]="disabledSubCategBtn">+
         </button>
