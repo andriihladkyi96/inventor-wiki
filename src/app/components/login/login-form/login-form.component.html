@@ -34,14 +34,15 @@
                 <a href="#" routerLink="/reset-password">Forgot password?</a>
             </div>
 
+            <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
 
             <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
                 type="submit">LOGIN</button>
 
+
             <button class="form__btn" routerLink="/" mat-button type="button">SIGN IN AS A
                 GUEST</button>
 
-            <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
         </form>
 
         <div class="form__link">

@@ -12,30 +12,16 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth, private router: Router, private usersService: UsersService) { }
 
-  currentUser = this.auth.currentUser
-
   signIn(email: string, password: string) {
-    return from(this.auth.signInWithEmailAndPassword(email, password)
-      .then(
-        (u) => {
-          this.usersService.getUser(u.user?.uid).subscribe(
-            u => {
-              if (!u?.isActive) {
-                this.signOut()
-                alert('User is deactivated')
-              }
-              this.usersService.setCurrentUser(u)
-              this.router.navigate(['/'])
-              this.currentUser = this.auth.currentUser
-            })
-        })
-    )
+    return this.auth.signInWithEmailAndPassword(email, password)
   }
 
   signOut() {
     this.auth.signOut()
-      .then(() => { this.router.navigate(['login']) }
-      )
+      .then(() => {
+        localStorage.removeItem('currentUser')
+        this.router.navigate(['login'])
+      })
   }
 
   registerUser(email: string, password: string): Observable<any> {
@@ -43,22 +29,22 @@ export class AuthService {
   }
 
   deleteAccount(id: string) {
-    this.currentUser.then(
+    this.auth.currentUser.then(
       (u) => {
-        u?.delete()
         this.usersService.deleteUser(id)
-        this.signOut()
+        localStorage.removeItem('currentUser')
+        u?.delete()
       }
     )
   }
 
   updateEmail(email: string) {
-    return from(this.currentUser.then(
+    return from(this.auth.currentUser.then(
       (u) => u?.updateEmail(email)))
   }
 
   updatePassword(password: string) {
-    return from(this.currentUser.then(
+    return from(this.auth.currentUser.then(
       (u) => u?.updatePassword(password)))
   }
 

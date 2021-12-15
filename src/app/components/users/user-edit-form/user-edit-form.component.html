@@ -1,0 +1,40 @@
+<div class="page">
+    <div class="form__container">
+        <h2 class="form__title">user's profile editing</h2>
+        <form class="form" [formGroup]="registerForm">
+            <mat-form-field appearance="legacy" color="accent">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput placeholder="Type your first name" formControlName="firstName" [value]="user?.firstName" >
+                <mat-icon matPrefix>person_outline</mat-icon>
+                <mat-error *ngIf="firstName.invalid" >
+                    <mat-error *ngIf="firstName.errors?.required">Field is required</mat-error>
+                    <mat-error *ngIf="firstName.errors?.minlength">Min length is 2 characters</mat-error>
+                    <mat-error *ngIf="firstName.errors?.maxlength">Max length is 20 characters</mat-error>
+                    <mat-error *ngIf="firstName.errors?.pattern">Invalid field(only letters and dashes)</mat-error>
+                </mat-error>
+                <button class="form__btn" mat-button 
+                (click)="updateUser(user?.key, 'firstName', firstName.value)">SAVE</button>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" color="accent">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput placeholder="Type your last name" formControlName="lastName" [value]="user?.lastName">
+                <mat-icon matPrefix>person_outline</mat-icon>
+                <mat-error *ngIf="lastName.invalid">
+                    <mat-error *ngIf="lastName.errors?.required">Field is required</mat-error>
+                    <mat-error *ngIf="lastName.errors?.minlength">Min length is 2 characters</mat-error>
+                    <mat-error *ngIf="lastName.errors?.maxlength">Max length is 20 characters</mat-error>
+                    <mat-error *ngIf="lastName.errors?.pattern">Invalid field(only letters and dashes)</mat-error>
+                </mat-error>
+                <button class="form__btn" mat-button 
+                (click)="updateUser(user?.key, 'lastName', lastName.value)" >SAVE</button>
+            </mat-form-field>
+
+            
+
+        </form>
+        
+        <button class="form__btn" mat-button 
+        (click)="goBack()" >Enter</button>
+   
+    </div>
+</div>

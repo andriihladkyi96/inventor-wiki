@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private usersService: UsersService, private router: Router) { }
 
   loginGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,23 +35,26 @@ export class LoginFormComponent implements OnInit {
   logIn() {
     const { email, password } = this.loginGroup.value
     this.authService.signIn(email, password)
-
-      .subscribe(
-        (u: any) => {
-          if (u) {
-            this.errorMessage = 'User is deactivated'
-            this.isError = true
-          }
-          this.isError = false
-          console.log(u)
-
-        },
-        (err) => {
+      .then(
+        (u) => {
+          this.usersService.getUser(u.user?.uid).subscribe(
+            u => {
+              if (!u?.isActive) {
+                this.authService.signOut()
+                this.isError = true
+                this.errorMessage = 'User is deactivated by Super Admin'
+              } else {
+                this.usersService.setCurrentUser(u)
+                this.router.navigate(['/'])
+              }
+            })
+        })
+      .catch(
+        err => {
           this.password.setValue('')
           this.isError = true
           this.errorMessage = err.message
-        }
-      )
+        })
   }
 
   ngOnInit(): void {
