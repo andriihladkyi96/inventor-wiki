@@ -1,0 +1,38 @@
+<div mat-dialog-content class="container">
+    <div class="form">
+      <div class="form-title">
+        <input class="form-title__input" [(ngModel)]="post.title" type="text">
+      </div>
+      <div class="form-category">
+        <span  [matMenuTriggerFor]="menu">{{post.category}} </span>
+        <div class="post-item__menu">
+          <mat-menu class="mat-menu" #menu="matMenu">
+            <div mat-menu-item class="mat-menu__item" (click)="toogleCategory(category)" *ngFor="let category of categories">
+              <mat-icon class="mat-icon">
+                  category
+              </mat-icon>
+              <span>{{category.name}}</span>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+      <mat-divider class="mat-divider"></mat-divider>
+      <div class="content">
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html">
+          </ngx-editor>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button mat-button class="btn-group__item save-btn" (click)="savePost()">
+          Save post
+        </button>
+        <button mat-button class="btn-group__item cancel-btn" (click)="cancel()">
+          Сancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  

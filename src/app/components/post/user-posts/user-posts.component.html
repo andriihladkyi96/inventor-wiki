@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!userHasNoPosts && !isLoading">
   <div class="navigation-group">
     <div *ngFor="let post of posts" class="navigation-group__item">
       <div class="post-item" [ngClass]="{'inFocus': post.id === postInFocus.id}" (click)="isInFocus(post)">
@@ -67,5 +67,20 @@
       </button>
     </div>
   </div>
-
+</div>
+<div class="container" *ngIf="userHasNoPosts && !isLoading">
+  <div class="no-posts">
+    <div class="no-posts-content">
+      <p class="no-posts-title">
+        You don't have any posts.
+        Create your first post.
+      </p>
+      <button class="no-posts-btn" (click)="addPost()">
+        <mat-icon class="no-posts-btn__icon">
+          post_add
+        </mat-icon>
+        <span class="no-posts-btn__text"> Create post </span>
+      </button>
+    </div>
+  </div>
 </div>

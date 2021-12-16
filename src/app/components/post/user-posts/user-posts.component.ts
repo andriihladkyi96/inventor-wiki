@@ -1,12 +1,14 @@
 import { UsersService } from './../../../services/users.service';
 import { DialogData } from './../post-dialogs/warning-dialog/warning-gialog.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
 import { WarningDialogComponent } from '../post-dialogs/warning-dialog/warning-gialog.component';
 import { User } from 'src/app/models/User';
+import { OperatingMode, PostFormDialogComponent } from '../post-form-dialog/post-form-dialog.component';
+
 
 
 @Component({
@@ -21,9 +23,11 @@ export class UserPostsComponent implements OnInit {
   userId: string;
   currentUser: User;
   postCopy: Post;
-  postInFocus: Post = { id: "postInFocus", title: "", category: "", content: "", authorId: "", dateCreation: "dara", dateLastModification: "data", isVisible: true };;
+  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "dara", dateLastModification: "data", isVisible: true };
   postInFocusPosition: number;
   subscription: Subscription;
+  userHasNoPosts:boolean = true;
+  isLoading:boolean = true;
 
   constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
 
@@ -39,22 +43,19 @@ export class UserPostsComponent implements OnInit {
     this.subscription.unsubscribe()
   }
 
-  getPostsByUserId() {
-    if (this.currentUser.role !== "SuperAdmin") {
-      this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
+  private getPostsByUserId() {
+    this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
+      if (posts.length !== 0) {
         this.posts = posts
         if (this.postInFocus.id == "") {
           this.isInFocus(posts[posts.length - 1]);
         }
-      })
-    } else {
-      this.subscription = this.postsService.getPostList().subscribe(posts => {
-        this.posts = posts
-        if (this.postInFocus.id == "postInFocus") {
-          this.isInFocus(posts[posts.length - 1]);
-        }
-      })
-    }
+        this.userHasNoPosts = false;
+      }else{
+        this.userHasNoPosts = true;
+      }
+      this.isLoading = false;
+    })
   }
 
   openDialog(dialogData: DialogData) {
@@ -90,20 +91,7 @@ export class UserPostsComponent implements OnInit {
   }
 
   addPost() {
-    this.postsService.createPost({
-      id: "newPost",
-      title: "New post title",
-      category: "New post category",
-      content: "New post content",
-      authorId: this.userId,
-      dateCreation: "data",
-      dateLastModification: "data",
-      isVisible: true,
-    })
-      .then(() => {
-        this.isInFocus(this.posts[this.posts.length - 1]);
-        this.toogleIsEdit(true);
-      })
+    this.dialog.open(PostFormDialogComponent, {data: { operatingMode: OperatingMode.Create, post: undefined }});
   }
 
   deletePost(post: Post) {

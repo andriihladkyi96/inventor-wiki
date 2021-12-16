@@ -36,7 +36,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.categoriesService.getCategoryList().subscribe(
-      categories => this.categories = categories
+      categories => this.categories = categories 
     )
     this.editor = new Editor();
   }
