@@ -16,7 +16,7 @@ import {UsersService} from "../../services/users.service";
 export class MainPageComponent implements OnInit {
 
   allPosts:Post[];
-  postCategories:Category[];
+  allCategories:Category[];
   hidenButton:boolean = false;
   isCollapsed:boolean = false;
   info:boolean = false;
@@ -27,8 +27,7 @@ export class MainPageComponent implements OnInit {
               private categoriesService:CategoriesService,
               private authService:AuthService,
               private userService:UsersService) {
-    this.categoriesService.getCategoryList().subscribe(value => this.postCategories = value);
-    this.postService.getPostList().subscribe(post => this.allPosts = post);
+
 
 
 
@@ -37,7 +36,14 @@ export class MainPageComponent implements OnInit {
       this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
+    this.getAllPost()
+  }
+
+  getAllPost () {
+    this.postService.getPostList().subscribe(post => this.allPosts = post);
+  }
 
   editPostForAdmin(id:any) {
     console.log(id)
@@ -51,7 +57,7 @@ export class MainPageComponent implements OnInit {
     return this.userService.checkUserRole() === "Admin"
   }
 
-  getSubCategory(post:Category) {
+  getSubCategoryList(post:Category) {
     this.info = !this.info;
     return this.categoryInfo = post
   }

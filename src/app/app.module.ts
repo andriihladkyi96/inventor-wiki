@@ -41,6 +41,7 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
 import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
 import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
 import {SearchPipe} from "./components/add-category/category-list/Pipe/search.pipe";
+import { SortPipe } from './components/add-category/category-list/Pipe/sort.pipe';
 
 
 
@@ -64,7 +65,8 @@ import {SearchPipe} from "./components/add-category/category-list/Pipe/search.pi
     SanitizeHtmlPipe,
     CategoryListComponent,
     EditCategoryComponent,
-    SearchPipe
+    SearchPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,

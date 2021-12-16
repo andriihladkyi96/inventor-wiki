@@ -20,7 +20,7 @@ export class AddCategoryComponent implements OnInit {
   showCategoryBtn: boolean = false;
   disabledSubCategBtn = false;
   disableMultiSelect = false;
-  sortMenu: string= '';
+  sortMenu: string = '';
   roleList:Role[];
 
   get subCategoriesFormArray() {
@@ -80,7 +80,7 @@ export class AddCategoryComponent implements OnInit {
         id: '',
         name: this.form.value.category,
         subCategories: [],
-        role: this.form.value.categoryByRole
+        role: this.form.value.categoryByRole ? this.form.value.categoryByRole : ['All']
       })
     }
     this.isHiden = !this.isHiden

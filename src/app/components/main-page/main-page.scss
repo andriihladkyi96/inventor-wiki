@@ -113,8 +113,8 @@ a {
   min-width: 450px;
   max-width: 450px;
   height: 100%;
-  min-height: 209px;
-  max-height: 209px;
+  min-height: 220px;
+  max-height: 220px;
   overflow: hidden;
 }
 
@@ -154,6 +154,14 @@ mat-card-subtitle, mat-card-content {
   color: #c2c3c5;
   font-size: 1rem;
   line-height: 1.4em;
+}
+
+mat-card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
 }
 
 

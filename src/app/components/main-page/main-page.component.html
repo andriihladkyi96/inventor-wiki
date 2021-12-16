@@ -10,23 +10,23 @@
       <div class="list_div">
         <div>
           <ul class="list">
-            <li><a href=""
+            <li><a (click)="getAllPost()"
             >All posts</a></li>
           </ul>
         </div>
-        <div *ngFor="let post of postCategories">
+        <div *ngFor="let category of allCategories">
           <ul class="list">
-            <li id="cb1">
-              <a type="checkbox"
+            <li>
+              <a
                 [routerLink]="['']"
-                (click)="getQueryFromCategory(post.name); getSubCategory(post)">
-                {{post.name}}</a>
+                (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+                {{category.name}}</a>
             </li>
           </ul>
-          <div *ngIf="info && categoryInfo.id === post.id">
-            <ng-container *ngFor="let subCategory of post.subCategories">
+          <div *ngIf="info && categoryInfo.id === category.id">
+            <ng-container *ngFor="let subCategory of category.subCategories">
               <ul class="sub-ul">
-                <li class="sub-li" id="cb2">
+                <li class="sub-li">
                   <a [routerLink]="['']"
                      (click)="getQueryFromCategory(subCategory.name)">
                     {{subCategory.name}}
@@ -41,13 +41,13 @@
         <div class="main-posts">
 
           <div class="wrapper_empty_posts" *ngIf="!(allPosts.length > 0)">
-            <h1>No posts in this category</h1>
+            <h1>No posts in this category or sub-category</h1>
           </div>
           <div *ngFor="let post of allPosts" class="example">
             <mat-card class="example-card">
               <mat-card-title-group style="flex-direction: column">
-                <mat-card-title>{{post.title}}
-                  <div style="float: right" *ngIf="!hidenButton">
+                <mat-card-title style="display: flex; justify-content: space-between">{{post.title}}
+                  <div style="display: flex" *ngIf="!hidenButton">
                     <button style="background: transparent; border: 0; cursor: pointer"
                             [hidden]="!isSuperAdmin && !isAdmin"
                             (click)="editPostForAdmin(post.id)">
@@ -56,6 +56,10 @@
                     <button style="background: transparent; border: 0; cursor: pointer"
                             [hidden]="!isSuperAdmin && !isAdmin">
                       <mat-icon color="warn">delete_outline</mat-icon>
+                    </button>
+                    <button style="background: transparent; border: 0; cursor: pointer"
+                            [routerLink]="'/posts'">
+                      <img src="https://assets-global.website-files.com/600ead1452cf056d0e52dbed/6011b66d7c0cc76dccba5953_external-link.svg" alt="">
                     </button>
                   </div>
                 </mat-card-title>
@@ -69,8 +73,8 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer container">
-    <div><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>
-    <div><h4 class="footer">InventorWiki</h4></div>
-  </div>
+<!--  <div class="modal-footer">-->
+<!--    <div style="margin-left: 25px"><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>-->
+<!--    <div><h4 class="footer">InventorWiki</h4></div>-->
+<!--  </div>-->
 </div>
