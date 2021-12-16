@@ -18,7 +18,7 @@ import { OperatingMode, PostFormDialogComponent } from '../post-form-dialog/post
 })
 export class UserPostsComponent implements OnInit {
 
-  public posts: Post[] = [];
+  posts: Post[] = [];
   isEdit = false;
   userId: string;
   currentUser: User;

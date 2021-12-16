@@ -4,7 +4,7 @@
         <input class="form-title__input" [(ngModel)]="post.title" type="text">
       </div>
       <div class="form-category">
-        <span  [matMenuTriggerFor]="menu">{{post.category}} </span>
+        <span  [matMenuTriggerFor]="menu">Category</span>
         <div class="post-item__menu">
           <mat-menu class="mat-menu" #menu="matMenu">
             <div mat-menu-item class="mat-menu__item" (click)="toogleCategory(category)" *ngFor="let category of categories">

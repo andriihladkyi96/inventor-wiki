@@ -26,7 +26,7 @@ export enum OperatingMode {
 export class PostFormDialogComponent implements OnInit {
 
   post: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "data", dateLastModification: "data", isVisible: true };
-  categories: any[] = [];
+  categories: Category[] = [];
   subscription: Subscription;
   editor: Editor;
 
@@ -49,15 +49,20 @@ export class PostFormDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: PostData
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.subscription = this.categoriesService.getCategoryList().subscribe(
+      categories => this.categories = categories
+    )
+    this.editor = new Editor();
     if (this.data.operatingMode == OperatingMode.Create) {
-      this.initializeUserId();
+      const currentUser = this.usersService.getCurrentUser();
+      if (currentUser.id) {
+        this.post.authorId = currentUser.id;
+      }
     }
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
       this.post = this.data.post;
     }
-    this.initializeCategories();
-    this.editor = new Editor();
   }
 
   ngOnDestroy(): void {
@@ -73,7 +78,7 @@ export class PostFormDialogComponent implements OnInit {
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
       this.postsService.updatePost(this.post);
     }
-   
+
   }
 
   cancel() {
@@ -82,18 +87,5 @@ export class PostFormDialogComponent implements OnInit {
 
   toogleCategory(category: Category) {
     this.post.category = category.name;
-  }
-
-  private initializeUserId() {
-    const currentUser = this.usersService.getCurrentUser();
-    if (currentUser.id) {
-      this.post.authorId = currentUser.id;
-    }
-  }
-
-  private initializeCategories() {
-    this.subscription = this.categoriesService.getCategoryList().subscribe(
-      categories => this.categories = categories
-    )
   }
 }

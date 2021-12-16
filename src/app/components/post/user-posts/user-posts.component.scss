@@ -1,19 +1,28 @@
 .container{
-    display: flex;
-    min-height: 100vh;
+    display: flex; 
+    height: 100%;
+}
+
+.main-container{
+    height: 100%;
 }
 
 .navigation-group {
     flex-basis: 25%;
     background-color: #14171c;
     padding-left: 24px;
-    padding-top: 16px;
     padding-bottom: 16px;
     border: 1px solid #374151;
 
     &__item {
         align-items: center;
         cursor: pointer;
+    }
+
+    &-posts{
+        padding-top: 16px;
+        max-height: 80%;
+        overflow-y: auto;
     }
 
     .post-item {
@@ -96,6 +105,12 @@
     border-left: none;
     display: flex;
     flex-direction: column;
+    // &-post-field{
+    //     flex:1 1 auto;
+    // }
+    // &-navigation{
+        
+    // }
 }
 
 .btn-group {
