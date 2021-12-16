@@ -26,7 +26,7 @@ export enum OperatingMode {
 export class PostFormDialogComponent implements OnInit {
 
   post: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "data", dateLastModification: "data", isVisible: true };
-  categories: Category[] = [];
+  categories: any[] = [];
   subscription: Subscription;
   editor: Editor;
 
@@ -40,6 +40,13 @@ export class PostFormDialogComponent implements OnInit {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
+  toolbar2: Toolbar = [
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },'bold', 'italic','text_color', 'background_color','underline', 'strike','code', 'blockquote','ordered_list', 'bullet_list','link', 'image','align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  toolbar3: Toolbar = [
+    ['link', 'image','text_color', 'background_color','align_left', 'align_center', 'align_right', 'align_justify']
+  ];
+  
 
   constructor(
     public dialogRef: MatDialogRef<PostFormDialogComponent>,
@@ -49,20 +56,15 @@ export class PostFormDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: PostData
   ) { }
 
-  ngOnInit() {
-    this.subscription = this.categoriesService.getCategoryList().subscribe(
-      categories => this.categories = categories
-    )
-    this.editor = new Editor();
+  ngOnInit(): void {
     if (this.data.operatingMode == OperatingMode.Create) {
-      const currentUser = this.usersService.getCurrentUser();
-      if (currentUser.id) {
-        this.post.authorId = currentUser.id;
-      }
+      this.initializeUserId();
     }
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
       this.post = this.data.post;
     }
+    this.initializeCategories();
+    this.editor = new Editor();
   }
 
   ngOnDestroy(): void {
@@ -78,7 +80,7 @@ export class PostFormDialogComponent implements OnInit {
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
       this.postsService.updatePost(this.post);
     }
-
+   
   }
 
   cancel() {
@@ -87,5 +89,18 @@ export class PostFormDialogComponent implements OnInit {
 
   toogleCategory(category: Category) {
     this.post.category = category.name;
+  }
+
+  private initializeUserId() {
+    const currentUser = this.usersService.getCurrentUser();
+    if (currentUser.id) {
+      this.post.authorId = currentUser.id;
+    }
+  }
+
+  private initializeCategories() {
+    this.subscription = this.categoriesService.getCategoryList().subscribe(
+      categories => this.categories = categories
+    )
   }
 }

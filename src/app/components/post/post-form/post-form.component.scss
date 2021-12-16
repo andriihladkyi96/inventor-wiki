@@ -1,3 +1,5 @@
+@import 'ngx-editor.scss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -87,61 +89,8 @@
         span {
             color: white;
         }
-    }
-    .NgxEditor {
-        min-height: 100px;
-        max-height: 400px;
-        background-color: rgb(24 28 31) !important;
-        border: 1px solid #374151 !important;
-
-        &__MenuBar {
-            background-color: rgb(24 28 31) !important;
-            border: 1px solid #374151;
-            color: rgb(162, 169, 185);
-        }
-        &__Content {
-            line-height: 24px;
-            font-weight: 400;
-            font-size: 16px;
-            font-family: "Open Sans", sans-serif;
-            color: rgb(162, 169, 185);
-            border-radius: 4px;
-            border-width: 1px;
-        }
-        &__Seperator {
-            border-left: 1px solid #374151 !important;
-        }
-        &__MenuItem {
-            &--IconContainer {
-                &:hover {
-                    // border: 1px solid rgb(52, 109, 219);
-                    svg {
-                        fill: rgb(20, 24, 32);
-                    }
-                }
-            }
-            svg {
-                fill: rgb(162, 169, 185);
-            }
-        }
-        &__Popup {
-            background-color: rgb(45, 50, 58) !important;
-        }
-        &__Dropdown {
-            background-color: inherit !important;
-            &--Active {
-                background-color: rgb(24 28 31) !important;
-                border: 1px solid rgb(43, 46, 57);
-                color: rgb(52, 109, 219) !important;
-            }
-        }
-        &__Dropdown--Item {
-            background-color: rgb(24 28 31);
-            &:hover {
-                background-color: rgb(45, 50, 58) !important;
-                border: 1px solid rgb(52, 109, 219);
-            }
-        }
-        overflow-y: auto;
-    }
+    }   
 }
+
+
+

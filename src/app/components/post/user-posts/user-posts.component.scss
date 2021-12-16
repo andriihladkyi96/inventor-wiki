@@ -1,9 +1,9 @@
-.container{
-    display: flex; 
+.container {
+    display: flex;
     height: 100%;
 }
 
-.main-container{
+.main-container {
     height: 100%;
 }
 
@@ -19,7 +19,7 @@
         cursor: pointer;
     }
 
-    &-posts{
+    &-posts {
         padding-top: 16px;
         max-height: 80%;
         overflow-y: auto;
@@ -109,7 +109,7 @@
     //     flex:1 1 auto;
     // }
     // &-navigation{
-        
+
     // }
 }
 
@@ -191,7 +191,7 @@
         line-height: 36px;
         color: rgb(234, 242, 247);
     }
-    &-btn{
+    &-btn {
         width: 100%;
         cursor: pointer;
         padding: 14px;
@@ -210,7 +210,7 @@
         display: flex;
         text-align: center;
         justify-content: center;
-        span{
+        span {
             display: inline-block;
             margin-left: 10px;
         }
@@ -220,3 +220,4 @@
         }
     }
 }
+

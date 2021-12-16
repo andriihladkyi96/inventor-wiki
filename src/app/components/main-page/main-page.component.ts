@@ -44,6 +44,12 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  addPost() {
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Create, post: undefined }
+    });
+  }
+
   deletePostForAdmin(id: string) {
     this.dialog.open(WarningDialogComponent, {
       data: {
