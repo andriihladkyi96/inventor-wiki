@@ -18,7 +18,6 @@ export class MainPageComponent implements OnInit {
   allPosts:Post[];
   allCategories:Category[];
   hidenButton:boolean = false;
-  isCollapsed:boolean = false;
   info:boolean = false;
   categoryInfo:Category;
 
@@ -38,7 +37,9 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
-    this.getAllPost()
+    this.getAllPost();
+    console.log(this.currentUserRole)
+    // this.showPostForCurrentUser();
   }
 
   getAllPost () {
@@ -56,6 +57,20 @@ export class MainPageComponent implements OnInit {
   get isAdmin(): boolean {
     return this.userService.checkUserRole() === "Admin"
   }
+
+  get isUser(): boolean {
+    return this.userService.checkUserRole() === "User"
+  }
+  //  categoryRole() {
+  //   return this.categoriesService.getCategoryList().subscribe(value => value.map(value1 =>
+  //     console.log(value1.role)
+  //   ))
+  // }
+
+  get currentUserRole() {
+    return this.userService.getCurrentUser().role
+  }
+
 
   getSubCategoryList(post:Category) {
     this.info = !this.info;

@@ -9,33 +9,38 @@
     <div class="container_main container ">
       <div class="list_div">
         <div>
-          <ul class="list">
+          <ul class="list" style="cursor: pointer">
             <li><a (click)="getAllPost()"
             >All posts</a></li>
           </ul>
         </div>
-        <div *ngFor="let category of allCategories">
-          <ul class="list">
-            <li>
-              <a
-                [routerLink]="['']"
-                (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
-                {{category.name}}</a>
-            </li>
-          </ul>
-          <div *ngIf="info && categoryInfo.id === category.id">
-            <ng-container *ngFor="let subCategory of category.subCategories">
-              <ul class="sub-ul">
-                <li class="sub-li">
-                  <a [routerLink]="['']"
-                     (click)="getQueryFromCategory(subCategory.name)">
-                    {{subCategory.name}}
-                  </a>
-                </li>
-              </ul>
-            </ng-container>
+
+
+          <div *ngFor="let category of allCategories">
+            <ul class="list">
+              <li>
+                <a
+                  [routerLink]="['']"
+                  (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+                  <span *ngIf="category.role === currentUserRole"></span>
+
+
+                  {{category.name}}</a>
+              </li>
+            </ul>
+            <div *ngIf="info && categoryInfo.id === category.id">
+              <ng-container *ngFor="let subCategory of category.subCategories">
+                <ul class="sub-ul">
+                  <li class="sub-li">
+                    <a [routerLink]="['']"
+                       (click)="getQueryFromCategory(subCategory.name)">
+                      {{subCategory.name}}
+                    </a>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
           </div>
-        </div>
       </div>
       <div class="posts-container">
         <div class="main-posts">
