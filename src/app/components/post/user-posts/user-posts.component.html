@@ -56,21 +56,30 @@
     </div>
     <div class="content-group">
       <div class="content-group-post-field">
-        <app-post-view *ngIf="!isEdit" [post]="postInFocus"></app-post-view>
+        <app-post-view *ngIf="!isEdit" [post]="postInFocus" [user]="currentUser"></app-post-view>
         <app-post-form *ngIf="isEdit" [post]="postInFocus" (postSaved)="postSaved($event)"></app-post-form>
-      </div>
-      <div class="content-group-navigation">
-        <div class="btn-group">
-          <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
-            [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
-            <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
-            <span>Previous</span>
-          </button>
-          <button *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
-            [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0}">
-            <span>Next</span>
-            <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
-          </button>
+        <div class="content-group-navigation">
+          <div class="btn-group">
+            <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
+              [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
+              <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
+              <span>Previous</span>
+            </button>
+            <button *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
+              [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0}">
+              <span>Next</span>
+              <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
+            </button>
+          </div>
+          <mat-divider class="mat-divider"></mat-divider>
+          <div class="time">
+            <div class="time-icon">
+              <mat-icon>
+                hourglass_empty
+              </mat-icon>
+            </div>
+            <p>Last modified {{postInFocus.dateLastModification | timeAgo}}</p>
+          </div>
         </div>
       </div>
     </div>

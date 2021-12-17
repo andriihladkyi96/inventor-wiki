@@ -37,16 +37,9 @@ export class PostFormDialogComponent implements OnInit {
     ['ordered_list', 'bullet_list'],
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['link', 'image'],
-    ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
-  toolbar2: Toolbar = [
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },'bold', 'italic','text_color', 'background_color','underline', 'strike','code', 'blockquote','ordered_list', 'bullet_list','link', 'image','align_left', 'align_center', 'align_right', 'align_justify'],
-  ];
-  toolbar3: Toolbar = [
-    ['link', 'image','text_color', 'background_color','align_left', 'align_center', 'align_right', 'align_justify']
-  ];
-  
+
 
   constructor(
     public dialogRef: MatDialogRef<PostFormDialogComponent>,
@@ -73,18 +66,22 @@ export class PostFormDialogComponent implements OnInit {
   }
 
   savePost() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     if (this.data.operatingMode == OperatingMode.Create) {
-      this.postsService.createPost(this.post);
+      this.postsService.createPost({
+        ...this.post,
+        dateCreation: new Date().toString(),
+        dateLastModification: new Date().toString(),
+      });
     }
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
-      this.postsService.updatePost(this.post);
+      this.postsService.updatePost({ ...this.post, dateLastModification: new Date().toString() });
     }
-   
+
   }
 
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   toogleCategory(category: Category) {

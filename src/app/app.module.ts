@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -41,13 +41,10 @@ import { EditCategoryComponent } from "./components/add-category/edit-category/e
 import { SearchPipe } from "./components/add-category/category-list/Pipe/search.pipe";
 import { PostViewWrapperComponent } from './components/post/views/post-view-wrapper/post-view-wrapper.component';
 import { PostFormComponent } from './components/post/post-form/post-form.component';
-import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
+import { SanitizeHtmlPipe } from './components/post/pipes/sanitize-html.pipe';
 import { PostFormDialogComponent } from './components/post/post-form-dialog/post-form-dialog.component';
-
-
-
-
-
+import { TimeAgoPipe } from './components/post/pipes/timeAgo.pipe';
+import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
 
 @NgModule({
   declarations: [
@@ -71,7 +68,9 @@ import { PostFormDialogComponent } from './components/post/post-form-dialog/post
     EditCategoryComponent,
     SearchPipe,
     PostViewWrapperComponent,
-    PostFormDialogComponent
+    PostFormDialogComponent,
+    TimeAgoPipe,
+    ReadingTimePipe
   ],
   imports: [
     BrowserModule,

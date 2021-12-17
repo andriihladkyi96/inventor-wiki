@@ -4,41 +4,99 @@
     height: 100%;
 }
 
-.post{
-    padding: 16px 90px;
-    max-width: 800px;
+.post {
+    padding: 16px 30px;
+    max-width: 700px;
     margin: 0px auto;
-}
-
-.category {
-    color: rgb(162, 169, 185);
-    line-height: 20px;
-    font-size: 14px;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 400;
 }
 
 .content {
     margin-top: 10px;
     color: rgb(162, 169, 185);
+    letter-spacing: -0.003em;
+    line-height: 32px;
+    margin-top: 2em;
+    font-size: 21px;
+    margin-bottom: -0.46em;
+    letter-spacing: -0.004em;
+    line-height: 1.58;
+    font-style: normal;
+    word-break: break-word;
+    font-weight: 400;
+    word-wrap: break-word;
+    font-family: 'Tinos', serif;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .title {
     margin-left: -3px;
     letter-spacing: -0.011em;
-    line-height: 46px;
     margin-top: 0.6em;
-    font-size: 40px;
     color: rgb(234, 242, 247);
-    // color: rgba(41, 41, 41, 1);
     margin-bottom: 0.1em;
     font-weight: 700;
     font-style: normal;
     line-height: 1.23;
     letter-spacing: 0;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Arimo', sans-serif;
+    line-height: 56px;
+    font-size: 46px;
 }
 
-a{
+a {
     color: rgb(162, 169, 185);
+}
+
+.mat-divider {
+    margin: 19px 0px;
+    background-color: #374151;
+}
+
+.subtitle {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(162, 169, 185);
+    line-height: 20px;
+    font-size: 14px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: 400;
+    .category {
+        display: block;
+        margin-left: auto;
+        padding-left: 10px;
+    }
+    .reading-time,
+    .data-creation {
+        padding: 0px 14px;
+        letter-spacing: -0.003em;
+        word-spacing: -0.001em;
+    }
+    .author-icon {
+        text-align: center;
+        width: 28px;
+        height: 28px;
+        color: #eaf2f7;
+        font-size: 14px;
+        border-radius: 50%;
+        background-color: #455a64;
+        span {
+            display: block;
+            margin-top: 4px;
+        }
+    }
+    .author-name {
+        display: block;
+        font-weight: 700;
+        padding: 0px 16px 0px 4px;
+    }
 }

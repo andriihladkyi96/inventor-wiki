@@ -1,7 +1,7 @@
 import { UsersService } from './../../../services/users.service';
 import { DialogData } from './../post-dialogs/warning-dialog/warning-gialog.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
@@ -23,11 +23,11 @@ export class UserPostsComponent implements OnInit {
   userId: string;
   currentUser: User;
   postCopy: Post;
-  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "dara", dateLastModification: "data", isVisible: true };
+  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "", dateLastModification: "", isVisible: true };
   postInFocusPosition: number;
   subscription: Subscription;
-  userHasNoPosts:boolean = true;
-  isLoading:boolean = true;
+  userHasNoPosts = true;
+  isLoading = true; 
 
   constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
 
@@ -51,12 +51,13 @@ export class UserPostsComponent implements OnInit {
           this.isInFocus(posts[posts.length - 1]);
         }
         this.userHasNoPosts = false;
-      }else{
+      } else {
         this.userHasNoPosts = true;
       }
       this.isLoading = false;
     })
   }
+
 
   openDialog(dialogData: DialogData) {
     const dialogRef = this.dialog.open(WarningDialogComponent, {
@@ -88,10 +89,19 @@ export class UserPostsComponent implements OnInit {
         this.toogleIsEdit(false);
       }
     }
+    
   }
 
   addPost() {
-    this.dialog.open(PostFormDialogComponent, {data: { operatingMode: OperatingMode.Create, post: undefined }});
+    this.dialog.open(PostFormDialogComponent, { data: { operatingMode: OperatingMode.Create, post: undefined } })
+      .afterClosed()
+      .subscribe(
+        (result) => {
+          if (result) {
+            this.isInFocus(this.posts[this.posts.length - 1])
+          }
+        }
+      )
   }
 
   deletePost(post: Post) {

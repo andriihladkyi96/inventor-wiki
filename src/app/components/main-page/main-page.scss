@@ -109,7 +109,14 @@ a {
   cursor: none;
 }
 
+.post-buttons{
+  position: absolute;
+  top: 18px;
+  right: 10px;
+}
+
 .example {
+  position: relative;
   margin-bottom: 24px;
   padding: 4px;
   border-radius: 6px;

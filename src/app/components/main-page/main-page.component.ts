@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { PostsService } from "../../services/posts.service";
@@ -26,7 +27,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(private postService: PostsService,
     private categoriesService: CategoriesService,
-    private authService: AuthService,
+    private router: Router,
     private dialog: MatDialog,
     private userService: UsersService) {
     this.categoriesService.getCategoryList().subscribe(value => this.postCategories = value);
@@ -65,6 +66,9 @@ export class MainPageComponent implements OnInit {
     })
   }
 
+  navigate(url:string,postId:string){
+    this.router.navigate([url,postId]);
+  }
   get isSuperAdmin(): boolean {
     return this.userService.checkUserRole() === "SuperAdmin"
   }
