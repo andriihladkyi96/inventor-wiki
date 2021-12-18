@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { updateEmail, updatePassword, deleteUser } from '@angular/fire/auth'
 import { Router } from '@angular/router';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -20,12 +19,11 @@ export class AuthService {
     this.auth.signOut()
       .then(() => {
         localStorage.removeItem('currentUser')
-        this.router.navigate(['login'])
       })
   }
 
-  registerUser(email: string, password: string): Observable<any> {
-    return from(this.auth.createUserWithEmailAndPassword(email, password))
+  registerUser(email: string, password: string) {
+    return this.auth.createUserWithEmailAndPassword(email, password)
   }
 
   deleteAccount(id: string) {
@@ -34,6 +32,7 @@ export class AuthService {
         this.usersService.deleteUser(id)
         localStorage.removeItem('currentUser')
         u?.delete()
+        this.router.navigate(['/login'])
       }
     )
   }
