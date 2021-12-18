@@ -18,9 +18,12 @@ h2 {
 .div_body {
   background-color: #1f2329;
   min-height: 100%;
-  padding-top: 48px;
+  //padding-top: 48px;
   display: flex;
+  //height: 100% - 14.1%;
+  //height: calc(100% - 84px);
 }
+
 .input_sort_category {
   background-color: floralwhite;
   border-radius: 10px;
@@ -74,6 +77,10 @@ form {
 
 .hiden {
   display: none;
+}
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
 }
 
 @media (max-width: 1130px) {

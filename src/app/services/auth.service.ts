@@ -25,16 +25,11 @@ export class AuthService {
 
   }
 
-  signInAsGuest() {
-    this.auth.signInAnonymously()
-      .then(() => {
-        this.router.navigate(['/'])
-      })
-  }
-
   signOut() {
     this.auth.signOut()
-      .then(() => this.router.navigate(['login']))
+    
+      .then(() => localStorage.removeItem('currentUser'))
+
   }
 
   registerUser(email: string, password: string): Observable<any> {

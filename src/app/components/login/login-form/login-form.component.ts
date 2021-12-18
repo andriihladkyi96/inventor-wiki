@@ -48,10 +48,6 @@ export class LoginFormComponent implements OnInit {
       )
   }
 
-  logInAsGuest() {
-    this.authService.signInAsGuest()
-  }
-
   ngOnInit(): void {
   }
 

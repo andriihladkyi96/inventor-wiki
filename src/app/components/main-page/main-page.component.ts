@@ -16,17 +16,20 @@ import {UsersService} from "../../services/users.service";
 export class MainPageComponent implements OnInit {
 
   allPosts:Post[];
-  postCategories:Category[];
-  loggedUser:any;
+  allCategories:Category[];
   hidenButton:boolean = false;
-  emptyPostContent:string = 'Not yet any post in this category'
+  info:boolean = false;
+  categoryInfo:Category;
+  subCategory:any;
+  superAdmin:any = 'SuperAdmin';
+  admin:any = 'Admin';
+
 
   constructor(private postService:PostsService,
               private categoriesService:CategoriesService,
               private authService:AuthService,
               private userService:UsersService) {
-    this.categoriesService.getCategoryList().subscribe(value => this.postCategories = value);
-    this.postService.getPostList().subscribe(post => this.allPosts = post);
+
 
 
 
@@ -36,18 +39,59 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loggedUser = this.userService.getCurrentUser()
-    if (this.loggedUser.role === 'Admin' || this.loggedUser.role === 'SuperAdmin') {
-       this.hidenButton = true
-    }
-    console.log(this.hidenButton)
-  }
+    // this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
+    this.getAllPost();
+    this.categoriesService.getCategoryList().subscribe(value => {
+      this.allCategories = value.filter(value1 =>
+          value1.role.find(value2 => value2 === this.currentUserRole
+            // if (value2 === this.superAdmin && this.admin || this.currentUserRole ) {
+            //  return  value2 = this.currentUserRole
+            // }
+          )
+        )
+        }
+    )
+    // this.postService.getPostsBySubCategory('RxJs').subscribe(value => {
+    //   this.subCategory = value;
+    //   console.log(this.subCategory)
+    // })
 
-  logOut() {
-    this.authService.signOut()
+  }
+  getAllPost () {
+    this.postService.getPostList().subscribe(post => this.allPosts = post);
   }
 
   editPostForAdmin(id:any) {
     console.log(id)
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.userService.checkUserRole() === "SuperAdmin"
+  }
+
+  get isAdmin(): boolean {
+    return this.userService.checkUserRole() === "Admin"
+  }
+
+  get isUser(): boolean {
+    return this.userService.checkUserRole() === "User"
+  }
+   categoryRole() {
+     this.categoriesService.getCategoryList().subscribe(value => {
+         this.allCategories =  value.filter(value1 =>
+             value1.role.find(value2 => value2 === this.currentUserRole)
+           )
+       }
+     )
+   }
+
+  get currentUserRole() {
+    return this.userService.getCurrentUser().role
+  }
+
+
+  getSubCategoryList(post:Category) {
+    this.info = !this.info;
+    return this.categoryInfo = post
   }
 }

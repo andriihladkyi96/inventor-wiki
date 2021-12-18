@@ -19,12 +19,14 @@ import { LoginFormComponent } from './components/login/login-form/login-form.com
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { TestComponent } from './components/login/test/test.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
+import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
+import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
 import { UserPostsComponent } from './components/post/user-posts/user-posts.component';
 import { PostViewComponent } from './components/post/post-view/post-view.component';
 import { PostFormComponent } from './components/post/post-form/post-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { WarningDialogComponent } from './components/post/post-dialogs/warning-dialog/warning-gialog.component';
@@ -33,9 +35,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {AddCategoryComponent} from "./components/add-category/add-category.component";
 import {MainPageComponent} from "./components/main-page/main-page.component";
 import {MatCardModule} from "@angular/material/card";
-import { CategoryListComponent } from './components/add-category/category-list/category-list.component';
-import { EditCategoryComponent } from './components/add-category/edit-category/edit-category.component';
-import { SearchPipe } from './components/add-category/category-list/Pipe/search.pipe';
+import { HeaderComponent } from './components/header/header.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
+import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
+import {SearchPipe} from "./components/add-category/category-list/Pipe/search.pipe";
+import { SortPipe } from './components/add-category/category-list/Pipe/sort.pipe';
 
 
 
@@ -45,6 +51,9 @@ import { SearchPipe } from './components/add-category/category-list/Pipe/search.
     LoginFormComponent,
     RegisterFormComponent,
     TestComponent,
+    UsersPageComponent,
+    UserProfileComponent,
+    UserEditFormComponent,
     UserPostsComponent,
     PostViewComponent,
     PostFormComponent,
@@ -52,9 +61,12 @@ import { SearchPipe } from './components/add-category/category-list/Pipe/search.
     RolePageComponent,
     AddCategoryComponent,
     MainPageComponent,
+    HeaderComponent,
+    SanitizeHtmlPipe,
     CategoryListComponent,
     EditCategoryComponent,
     SearchPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,
@@ -75,11 +87,11 @@ import { SearchPipe } from './components/add-category/category-list/Pipe/search.
     AngularFirestoreModule,
     MatDialogModule,
     MatMenuModule,
-    AngularEditorModule,
     HttpClientModule,
     MatDividerModule,
     MatCheckboxModule,
     MatCardModule,
+    NgxEditorModule.forRoot(environment.editorConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]

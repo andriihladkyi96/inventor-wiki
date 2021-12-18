@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CategoriesService} from "../../services/categories.service";
 import {Category} from "../../models/Category";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {RoleService} from "../../services/role.service";
+import {Role} from "../../models/Role";
 
 @Component({
   selector: 'app-add-category',
@@ -17,13 +19,17 @@ export class AddCategoryComponent implements OnInit {
   isHiden:boolean = true;
   showCategoryBtn: boolean = false;
   disabledSubCategBtn = false;
-  sortMenu: string= '';
+  disableMultiSelect = false;
+  sortMenu: string = '';
+  roleList:Role[];
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
   }
 
-  constructor(private categoryService: CategoriesService) {
+  constructor(private categoryService: CategoriesService,
+              private roleService:RoleService) {
+    this.roleService.getAllRoles().subscribe(role => this.roleList = role)
     this.form = new FormGroup({
       category: new FormControl('', [
         Validators.required,
@@ -31,12 +37,14 @@ export class AddCategoryComponent implements OnInit {
         Validators.maxLength(20),
         Validators.pattern('^[A-Z].*')
       ]),
+      categoryByRole:new FormControl(),
       subCategories: new FormArray([])
     });
   }
 
   ngOnInit() {
-    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value)
+    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value);
+
   }
 
 
@@ -56,7 +64,8 @@ export class AddCategoryComponent implements OnInit {
       }
       category.subCategories?.push(subCategory)
       this.categoryService.updateCategory(category);
-      this.disabledSubCategBtn = !this.disabledSubCategBtn
+      this.disabledSubCategBtn = !this.disabledSubCategBtn;
+      // this.isHiden = true
     } else {
       return
     }
@@ -70,12 +79,13 @@ export class AddCategoryComponent implements OnInit {
       this.categoryService.createCategory({
         id: '',
         name: this.form.value.category,
-        subCategories: []
+        subCategories: [],
+        role: this.form.value.categoryByRole ? this.form.value.categoryByRole : ['All']
       })
-
     }
     this.isHiden = !this.isHiden
     this.showCategoryBtn = !this.showCategoryBtn
+
   }
 
   addSubCategory() {

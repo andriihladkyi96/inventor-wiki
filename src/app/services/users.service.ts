@@ -16,7 +16,9 @@ export class UsersService {
   constructor(private database: AngularFireDatabase) {
     this.usersRef = this.database.list('users')
 
-    this.users$ = this.usersRef.valueChanges()
+    this.users$ = this.usersRef.snapshotChanges().pipe(       
+      map(changes => changes.map(u => 
+        ({ key: u.payload.key, ...u.payload.val() }))))
   }
 
   setCurrentUser(user: User | undefined) {
@@ -45,7 +47,11 @@ export class UsersService {
     return user$
   }
 
-  getUserRole(userRole: string) {
-    return this.getCurrentUser().role === userRole
+  updateUser(id: string , key: string, value: string) {
+    this.usersRef.update(id, { [key]: value })
+  }
+
+  checkUserRole() {
+    return this.getCurrentUser() ? this.getCurrentUser().role : false
   }
 }

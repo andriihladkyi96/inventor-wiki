@@ -1,48 +1,4 @@
 <div class="main">
-  <div class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium"
-       data-duration="600" data-doc-height="1"
-       style="will-change:background; background-color: #1f2329">
-    <div class="container height-100 w-container">
-      <div class="nav-flex">
-        <a href="/" class="brand w-nav-brand">
-          <h2 style="width: 146px; height: 30px; color: white">InventorWiki</h2>
-        </a>
-        <nav class="nav-menu w-nav-menu">
-          <div class="nav-menu-content">
-            <div class="nav-links-wrapper">
-              <div class="wrapper-links__nav-bar">
-                <a [routerLink]="['/home']" class="nav-link-wrap w-inline-block w--current">
-                  <div>Home</div>
-                </a>
-                <a [routerLink]="['']" class="nav-link-wrap w-inline-block">
-                  <div>Users</div>
-                </a>
-                <a [routerLink]="['']" class="nav-link-wrap w-inline-block" style="opacity: 1;">
-                  <div>My posts</div>
-                </a>
-                <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block">
-                  <div>Posts</div>
-                </a>
-                <a [routerLink]="['/add-category']" class="nav-link-wrap w-inline-block">
-                  <div>Category</div>
-                </a>
-              </div>
-              <a href="/" class="filled-btn-arrow no-margin-top nonauth w-inline-block">
-                <div class="filled-btn-arrow-text">
-                  {{loggedUser.firstName}} {{loggedUser.lastName}}
-                </div>
-              </a>
-              <a href="/" class="nav-link-wrap nonauth w-inline-block" style="opacity: 1;">
-                <div (click)="logOut()">
-                  LogOut
-                </div>
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div>
-  </div>
   <div class="section blog wf-section">
     <div class="container w-container">
       <h2 class="purple-header">Powered by InventorWiki</h2>
@@ -51,29 +7,64 @@
   </div>
   <div class="section_content">
     <div class="container_main container ">
-      <div>
-        <div *ngFor="let post of postCategories">
-          <ul class="list">
-            <li><a
-              [routerLink]="['']"
-              (click)="getQueryFromCategory(post.name)">
-              {{post.name}}</a></li>
+      <div class="list_div">
+        <div>
+          <ul class="list" style="cursor: pointer">
+            <li><a (click)="getAllPost()"
+            >All posts</a></li>
           </ul>
         </div>
+
+
+        <span >
+          <div *ngFor="let category of allCategories">
+            <ul class="list" disabled="{}">
+              <li>
+                <a
+                  [routerLink]="['']"
+                  (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+                  {{category.name}}
+                </a>
+              </li>
+            </ul>
+            <div *ngIf="info && categoryInfo.id === category.id">
+              <ng-container *ngFor="let subCategory of category.subCategories">
+                <ul class="sub-ul">
+                  <li class="sub-li">
+                    <a [routerLink]="['']"
+                       (click)="getQueryFromCategory(subCategory.name)">
+                      {{subCategory.name}}
+                    </a>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
+          </div>
+        </span>
       </div>
       <div class="posts-container">
         <div class="main-posts">
+
+          <div class="wrapper_empty_posts" *ngIf="!(allPosts.length > 0)">
+            <h1>No posts in this category or sub-category</h1>
+          </div>
           <div *ngFor="let post of allPosts" class="example">
             <mat-card class="example-card">
               <mat-card-title-group style="flex-direction: column">
-                <mat-card-title>{{post.title}}
-                  <div style="float: right" *ngIf="!hidenButton">
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!hidenButton"
+                <mat-card-title style="display: flex; justify-content: space-between">{{post.title}}
+                  <div style="display: flex" *ngIf="!hidenButton">
+                    <button style="background: transparent; border: 0; cursor: pointer"
+                            [hidden]="!isSuperAdmin && !isAdmin"
                             (click)="editPostForAdmin(post.id)">
                       <mat-icon color="accent">edit</mat-icon>
                     </button>
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!hidenButton">
+                    <button style="background: transparent; border: 0; cursor: pointer"
+                            [hidden]="!isSuperAdmin && !isAdmin">
                       <mat-icon color="warn">delete_outline</mat-icon>
+                    </button>
+                    <button style="background: transparent; border: 0; cursor: pointer"
+                            [routerLink]="'/posts'">
+                      <img src="https://assets-global.website-files.com/600ead1452cf056d0e52dbed/6011b66d7c0cc76dccba5953_external-link.svg" alt="">
                     </button>
                   </div>
                 </mat-card-title>
@@ -81,15 +72,14 @@
               </mat-card-title-group>
               <mat-card-content [innerHTML]="post.content">
               </mat-card-content>
-
             </mat-card>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer container">
-    <div><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>
-    <div><h4 class="footer">InventorWiki</h4></div>
-  </div>
+<!--  <div class="modal-footer">-->
+<!--    <div style="margin-left: 25px"><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>-->
+<!--    <div><h4 class="footer">InventorWiki</h4></div>-->
+<!--  </div>-->
 </div>

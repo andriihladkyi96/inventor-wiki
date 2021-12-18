@@ -18,7 +18,11 @@
     </div>
     <mat-divider class="mat-divider"></mat-divider>
     <div class="content">
-      <angular-editor class="angular-editor" [(ngModel)]="post.content" [config]="config"></angular-editor>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html">
+        </ngx-editor>
+      </div>
     </div>
     <div class="btn-group">
       <button class="btn-group__item save-btn" (click)="updatePost()">

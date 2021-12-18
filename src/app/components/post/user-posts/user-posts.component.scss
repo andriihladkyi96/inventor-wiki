@@ -5,10 +5,14 @@
 
 .navigation-group {
     flex-basis: 25%;
-    background-color: rgb(243, 245, 246);
+    // dark theme
+    background-color: #14171c;
+    // light theme
+    // background-color: rgb(243, 245, 246);
     padding-left: 24px;
     padding-top: 16px;
     padding-bottom: 16px;
+    border: 1px solid #374151;
 
     &__item {
         align-items: center;
@@ -24,16 +28,29 @@
         font-weight: 500;
         font-size: 14px;
         padding: 8px 16px;
-        color: rgb(92, 105, 117);
+        color: rgb(204, 207, 212);
+        // color: rgb(92, 105, 117);
         &__content {
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            .menu-icon-container{
+                margin-bottom: -8px;
+                margin-right: 10px;
+            }
         }
         &.inFocus {
-            background-color: #ffffff;
-            color: rgb(113, 153, 230);
-            border: 1px solid rgb(211, 220, 228);
+            background-color: rgb(24, 28, 31);
+            color: rgb(68, 119, 222);
+            border: 1px solid rgb(55, 65, 81);
+            // background-color: #ffffff;
+            // color: rgb(113, 153, 230);
+            // border: 1px solid rgb(211, 220, 228);
             &:hover {
-                background-color: #ffffff;
+                background-color: rgb(24, 28, 31);
+            }
+            mat-icon {
+                color: rgb(68, 119, 222);
             }
         }
         &__menu-icon {
@@ -44,11 +61,13 @@
             margin-right: 16px;
             padding-top: 6px;
             mat-icon {
-                color: rgb(92, 105, 117);
+                // color: rgb(92, 105, 117);
+                color: rgb(204, 207, 212);
             }
         }
         &:hover {
-            background-color: rgb(220, 226, 237);
+            background-color: rgb(54 60 65);
+            // background-color: rgb(220, 226, 237);
         }
     }
     .create-btn {
@@ -56,7 +75,8 @@
         border: none;
         width: 100%;
         padding: 14px 16px;
-        color: rgb(136, 153, 168);
+        color: rgb(162, 169, 185);
+        // color: rgb(136, 153, 168);
         line-height: 22px;
         font-weight: 500;
         font-size: 14px;
@@ -66,7 +86,8 @@
         justify-content: flex-start;
         background-color: inherit;
         &:hover {
-            background-color: rgb(220, 226, 237);
+            background-color:rgb(54 60 65);
+            // background-color: rgb(220, 226, 237);
         }
         span {
             display: inline-block;
@@ -77,8 +98,11 @@
 
 .content-group {
     flex-basis: 75%;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(243, 245, 246);
+    // background-color: rgb(255, 255, 255);
+    background-color: rgb(24 28 31);
+    border: 1px solid #374151;
+    border-left: none;
+    // border: 1px solid rgb(243, 245, 246);
 }
 
 .btn-group {
@@ -90,27 +114,33 @@
     &__item {
         display: block;
         width: 100%;
-        box-shadow: rgb(0 0 0 / 12%) 0px 1px 2px;
+        box-shadow: rgb(0 0 0 / 69%) 0px 1px 2px;
+        // box-shadow: rgb(0 0 0 / 12%) 0px 1px 2px;
         margin-bottom: 8px;
         margin-right: 0px;
         flex-shrink: 1;
         flex-grow: 1;
         flex-basis: 0%;
         cursor: pointer;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(24, 28, 31);
+        // background-color: rgb(255, 255, 255);
         padding: 14px;
-        border-color: rgb(227, 232, 237);
+        // border-color: rgb(227, 232, 237);
+        border-color: rgb(43, 46, 57);
         border-radius: 4px;
         border-width: 1px;
-        color: rgb(59, 69, 78);
+        color: rgb(162, 169, 185);
+        // color: rgb(59, 69, 78);
         line-height: 24px;
         font-size: 16px;
         font-weight: 500;
         font-family: "Open Sans", sans-serif;
         position: relative;
         &:hover {
-            color: rgb(113, 153, 230);
-            border-color: rgb(113, 153, 230);
+            // color: rgb(113, 153, 230);
+            // border-color: rgb(113, 153, 230);
+            color:  rgb(52, 109, 219);
+            border-color:  rgb(52, 109, 219);
         }
     }
     .btn-prev{
@@ -133,6 +163,7 @@
 
 .mat-divider__navigation {
     margin: 10px 0px;
+    background-color: #374151;
 }
 
 ::ng-deep .mat-menu {
