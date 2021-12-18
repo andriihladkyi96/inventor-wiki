@@ -22,8 +22,8 @@ export class UserPostsComponent implements OnInit {
   isEdit = false;
   userId: string;
   currentUser: User;
-  postCopy: Post;
-  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation: "", dateLastModification: "", isVisible: true };
+  // postCopy: Post;
+  postInFocus: Post = { id: "", title: "", category: "",subcategory:"", content: "", authorId: "", dateCreation: "", dateLastModification: "", isVisible: true };
   postInFocusPosition: number;
   subscription: Subscription;
   userHasNoPosts = true;
@@ -61,14 +61,15 @@ export class UserPostsComponent implements OnInit {
 
   openDialog(dialogData: DialogData) {
     const dialogRef = this.dialog.open(WarningDialogComponent, {
-      data: dialogData
+      data: dialogData,
+      panelClass: 'my-custom-dialog-class'
     });
     return dialogRef.afterClosed()
   }
 
   isInFocus(post: Post) {
     if (this.postInFocus.id !== post.id) {
-      if (this.isEdit && this.postWasChanged()) {
+      if (this.isEdit) {
         this.openDialog(
           {
             title: "Warning",
@@ -122,7 +123,7 @@ export class UserPostsComponent implements OnInit {
 
   toogleIsEdit(value: boolean) {
     this.isEdit = value;
-    this.postCopy = { ...this.postInFocus };
+    // this.postCopy = { ...this.postInFocus };
   }
 
   nextPost() {
@@ -140,13 +141,13 @@ export class UserPostsComponent implements OnInit {
   toggleVisibility(post: Post) {
     this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
   }
-  private postWasChanged(): boolean {
-    if (this.postCopy.title == this.postInFocus.title
-      && this.postCopy.category == this.postInFocus.category
-      && this.postCopy.content == this.postInFocus.content) {
-      return false
-    } else {
-      return true
-    }
-  }
+  // private postWasChanged(): boolean {
+  //   if (this.postCopy.title == this.postInFocus.title
+  //     && this.postCopy.category == this.postInFocus.category
+  //     && this.postCopy.content == this.postInFocus.content) {
+  //     return false
+  //   } else {
+  //     return true
+  //   }
+  // }
 }

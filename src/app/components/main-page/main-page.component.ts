@@ -37,6 +37,10 @@ export class MainPageComponent implements OnInit {
     this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
   }
 
+  getQueryFromSubCategory(subcategory: string) {
+    this.postService.getPostsBySubCategory(subcategory).subscribe(onePost => this.allPosts = onePost)
+  }
+
   ngOnInit(): void { }
 
   editPostForAdmin(post: Post) {

@@ -1,34 +1,74 @@
 <div mat-dialog-content class="container">
   <div class="form">
     <div class="form-title">
-      <input class="form-title__input" [(ngModel)]="post.title" type="text">
-    </div>
-    <div class="form-category">
-      <span [matMenuTriggerFor]="menu">Category</span>
-      <div class="post-item__menu">
-        <mat-menu class="mat-menu" #menu="matMenu">
-          <div mat-menu-item class="mat-menu__item" (click)="toogleCategory(category)"
-            *ngFor="let category of categories">
-            <mat-icon class="mat-icon">
-              category
-            </mat-icon>
-            <span>{{category.name}}</span>
-          </div>
-        </mat-menu>
+      <input [ngClass]="{'form-title__input': true, 'invalid': isFormTouched && !isTitleValid()}"
+        [(ngModel)]="post.title" type="text" placeholder="Title">
+      <div *ngIf="isFormTouched && !isTitleValid()" class="mat-error mat-error-input">
+        <span> Title is required. </span>
       </div>
     </div>
+
+    <div class="form-category">
+      <div [ngClass]="{'validation-container': true, 'invalid': isFormTouched && !isCategoryValid()}">
+        <div class="form-category-item">
+          <div class="form-category-btn" [matMenuTriggerFor]="menu">
+            <span *ngIf="post.category">{{post.category}}</span>
+            <span *ngIf="!post.category">Select category</span>
+            <mat-icon>expand_more</mat-icon>
+          </div>
+          <div class="mat-menu-container">
+            <mat-menu class="mat-menu" #menu="matMenu">
+              <button class="mat-menu-item" (click)="toogleCategory(category,i)"
+                *ngFor="let category of categories; index as i" mat-menu-item>
+                <span>{{category.name}}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <div *ngIf="isFormTouched && !isCategoryValid()" class="mat-error mat-error-category">
+          <span> Category is required. </span>
+        </div>
+      </div>
+      <div class="form-category-item">
+        <div *ngIf="subcategories">
+          <div class="form-category-btn" [matMenuTriggerFor]="subMenu">
+            <span *ngIf="post.subcategory">{{post.subcategory}}</span>
+            <span *ngIf="!post.subcategory">Select subcategory</span>
+            <mat-icon>
+              expand_more
+            </mat-icon>
+          </div>
+          <div class="mat-menu-container">
+            <mat-menu class="mat-menu" #subMenu="matMenu">
+              <button class="mat-menu-item" (click)="toogleSubCategory(category.name)"
+                *ngFor="let category of subcategories" mat-menu-item>
+                <span>{{category.name}}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <mat-divider class="mat-divider"></mat-divider>
     <div class="content">
-      <div class="NgxEditor__Wrapper">
+      <div [ngClass]="{'NgxEditor__Wrapper': true,'NgxEditor__Wrapper-error': isFormTouched && !isContentValid()}">
         <div class="mat-menu-container">
           <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
         </div>
-        <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html">
+        <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html"
+          [placeholder]="placeholder">
         </ngx-editor>
       </div>
+      <div *ngIf="isFormTouched && !isContentValid()" class="mat-error mat-error-content">
+        <span>Content is required. Post content cannot be less than 30 characters.</span>
+      </div>
     </div>
+
     <div class="btn-group">
-      <button mat-button class="btn-group__item save-btn" (click)="savePost()">
+      <!-- [disabled]="!isFormValid() && isFormTouched" -->
+      <button mat-button [ngClass]="{'btn-group__item save-btn': true,'save-btn-disabled': !isFormValid() && isFormTouched}" (click)="savePost()">
         Save post
       </button>
       <button mat-button class="btn-group__item cancel-btn" (click)="cancel()">

@@ -10,8 +10,7 @@
 .navigation-group {
     flex-basis: 25%;
     background-color: #14171c;
-    padding-left: 24px;
-    padding-bottom: 16px;
+    padding: 16px 10px;
     border: 1px solid #374151;
 
     &__item {
@@ -20,8 +19,7 @@
     }
 
     &-posts {
-        padding-top: 16px;
-        max-height: 80%;
+        max-height: 70%;
         overflow-y: auto;
     }
 
@@ -35,7 +33,6 @@
         font-size: 14px;
         padding: 8px 16px;
         color: rgb(204, 207, 212);
-        // color: rgb(92, 105, 117);
         &__content {
             overflow: hidden;
             display: flex;
@@ -64,13 +61,11 @@
             margin-right: 16px;
             padding-top: 6px;
             mat-icon {
-                // color: rgb(92, 105, 117);
                 color: rgb(204, 207, 212);
             }
         }
         &:hover {
             background-color: rgb(54 60 65);
-            // background-color: rgb(220, 226, 237);
         }
     }
     .create-btn {
@@ -79,7 +74,6 @@
         width: 100%;
         padding: 14px 16px;
         color: rgb(162, 169, 185);
-        // color: rgb(136, 153, 168);
         line-height: 22px;
         font-weight: 500;
         font-size: 14px;
@@ -105,60 +99,76 @@
     border-left: none;
     display: flex;
     flex-direction: column;
-    &-navigation{   
-        padding: 0px 30px;
-    }
-    &-post-field {
-        max-width: 700px;
-        margin: 0px auto;
-    }
-}
-
-
-.btn-group {
-    display: flex;
-    flex-direction: row;
-    &__item {
-        display: block;
-        width: 100%;
-        box-shadow: rgb(0 0 0 / 69%) 0px 1px 2px;
-        margin-bottom: 8px;
-        margin-right: 0px;
-        flex-shrink: 1;
-        flex-grow: 1;
-        flex-basis: 0%;
-        cursor: pointer;
-        background-color: rgb(24, 28, 31);
-        padding: 14px;
-        border-color: rgb(43, 46, 57);
-        border-radius: 4px;
-        border-width: 1px;
-        color: rgb(162, 169, 185);
-        line-height: 24px;
-        font-size: 16px;
-        font-weight: 500;
-        font-family: "Open Sans", sans-serif;
-        position: relative;
-        &:hover {
-            color: rgb(52, 109, 219);
-            border-color: rgb(52, 109, 219);
+    &-navigation {
+        .time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: rgb(162, 169, 185);
+            line-height: 22px;
+            font-weight: 500;
+            font-size: 14px;
+            font-family: "Open Sans", sans-serif;
+        
+            &-icon {
+                color: #eaf2f7;
+                font-size: 24px;
+                color: rgb(52, 109, 219);
+            }
+            p {
+                padding-left: 10px;
+            }
         }
     }
-    .btn-prev {
-        margin-right: 6px;
+    &-post-field {
+        width: 700px;
+        margin: 0px auto;
     }
-    .btn-prev__icon {
-        position: absolute;
-        top: 16px;
-        left: 10px;
-    }
-    .btn-next {
-        margin-left: 6px;
-    }
-    .btn-next__icon {
-        position: absolute;
-        top: 16px;
-        right: 10px;
+    .btn-group {
+        display: flex;
+        flex-direction: row;
+        &__item {
+            display: block;
+            width: 100%;
+            box-shadow: rgb(0 0 0 / 69%) 0px 1px 2px;
+            margin-bottom: 8px;
+            margin-right: 0px;
+            flex-shrink: 1;
+            flex-grow: 1;
+            flex-basis: 0%;
+            cursor: pointer;
+            background-color: rgb(24, 28, 31);
+            padding: 14px;
+            border-color: rgb(43, 46, 57);
+            border-radius: 4px;
+            border-width: 1px;
+            color: rgb(162, 169, 185);
+            line-height: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: "Open Sans", sans-serif;
+            position: relative;
+            &:hover {
+                color: rgb(52, 109, 219);
+                border-color: rgb(52, 109, 219);
+            }
+        }
+        .btn-prev {
+            margin-right: 6px;
+        }
+        .btn-prev__icon {
+            position: absolute;
+            top: 16px;
+            left: 10px;
+        }
+        .btn-next {
+            margin-left: 6px;
+        }
+        .btn-next__icon {
+            position: absolute;
+            top: 16px;
+            right: 10px;
+        }
     }
 }
 
@@ -187,6 +197,12 @@
     align-items: center;
     background-color: #14171c;
     padding: 90px;
+    @media screen and (max-width: 600px) {
+        padding: 60px 30px 60px 30px;
+    }
+    @media screen and (max-width: 400px) {
+        padding: 40px 10px 40px 10px;
+    }
     &-title {
         display: block;
         font-size: 30px;
@@ -224,22 +240,14 @@
     }
 }
 
-.time {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: rgb(162, 169, 185);
-    line-height: 22px;
-    font-weight: 500;
-    font-size: 14px;
-    font-family: "Open Sans", sans-serif;
 
-    &-icon {
-        color: #eaf2f7;
-        font-size: 24px;
-        color: rgb(52, 109, 219);
-    }
-    p {
-        padding-left: 10px;
-    }
-}
+// ::ng-deep .my-custom-dialog-class {
+//     .mat-dialog-container{
+//         overflow: hidden;
+//         background-color: rgb(24 28 31);
+//         @media screen and (max-width: 430px) {
+//             padding: 24px 10px;
+//         }
+//     }
+// }
+
