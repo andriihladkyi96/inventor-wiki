@@ -21,6 +21,8 @@ export class MainPageComponent implements OnInit {
   info:boolean = false;
   categoryInfo:Category;
   subCategory:any;
+  superAdmin:any = 'SuperAdmin';
+  admin:any = 'Admin';
 
 
   constructor(private postService:PostsService,
@@ -37,24 +39,22 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
+    // this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
     this.getAllPost();
-    console.log(this.categoriesService.getCategoryList().subscribe(value => {
-        console.log(value.filter(value1 =>
-          value1.role.find(value2 => value2 === this.currentUserRole)
+    this.categoriesService.getCategoryList().subscribe(value => {
+      this.allCategories = value.filter(value1 =>
+          value1.role.find(value2 => value2 === this.currentUserRole
+            // if (value2 === this.superAdmin && this.admin || this.currentUserRole ) {
+            //  return  value2 = this.currentUserRole
+            // }
+          )
         )
-        )
-
-
-
         }
-      )
     )
     // this.postService.getPostsBySubCategory('RxJs').subscribe(value => {
     //   this.subCategory = value;
     //   console.log(this.subCategory)
     // })
-  // console.log(  this.categoryRole())
 
   }
   getAllPost () {
