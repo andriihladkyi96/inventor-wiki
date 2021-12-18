@@ -65,6 +65,14 @@ export class PostsService implements OnInit {
     return this.postRef.remove();
   }
 
-
+  getPostsBySubCategory(subcategory: string): Observable<Post[]> {
+    this.postsRef = this.db.list(this.basePath, ref => {
+      return ref.orderByChild("subcategory").equalTo(subcategory)
+    })
+    return this.postsRef.valueChanges().pipe(
+      map(posts => posts.filter(post => post.isVisible)),
+      map(posts => posts.reverse())
+    );
+  }
 }
 

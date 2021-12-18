@@ -20,6 +20,7 @@ export class MainPageComponent implements OnInit {
   hidenButton:boolean = false;
   info:boolean = false;
   categoryInfo:Category;
+  subCategory:any;
 
 
   constructor(private postService:PostsService,
@@ -38,10 +39,24 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
     this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
     this.getAllPost();
-    console.log(this.currentUserRole)
-    // this.showPostForCurrentUser();
-  }
+    console.log(this.categoriesService.getCategoryList().subscribe(value => {
+        console.log(value.filter(value1 =>
+          value1.role.find(value2 => value2 === this.currentUserRole)
+        )
+        )
 
+
+
+        }
+      )
+    )
+    // this.postService.getPostsBySubCategory('RxJs').subscribe(value => {
+    //   this.subCategory = value;
+    //   console.log(this.subCategory)
+    // })
+  // console.log(  this.categoryRole())
+
+  }
   getAllPost () {
     this.postService.getPostList().subscribe(post => this.allPosts = post);
   }
@@ -61,11 +76,14 @@ export class MainPageComponent implements OnInit {
   get isUser(): boolean {
     return this.userService.checkUserRole() === "User"
   }
-  //  categoryRole() {
-  //   return this.categoriesService.getCategoryList().subscribe(value => value.map(value1 =>
-  //     console.log(value1.role)
-  //   ))
-  // }
+   categoryRole() {
+     this.categoriesService.getCategoryList().subscribe(value => {
+         this.allCategories =  value.filter(value1 =>
+             value1.role.find(value2 => value2 === this.currentUserRole)
+           )
+       }
+     )
+   }
 
   get currentUserRole() {
     return this.userService.getCurrentUser().role

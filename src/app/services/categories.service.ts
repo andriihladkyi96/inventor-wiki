@@ -45,4 +45,5 @@ export class CategoriesService {
     this.getCategory(id);
     return this.categoryRef.remove();
   }
+
 }

@@ -16,16 +16,15 @@
         </div>
 
 
+        <span >
           <div *ngFor="let category of allCategories">
-            <ul class="list">
+            <ul class="list" disabled="{}">
               <li>
                 <a
                   [routerLink]="['']"
                   (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
-                  <span *ngIf="category.role === currentUserRole"></span>
-
-
-                  {{category.name}}</a>
+                  {{category.name}}
+                </a>
               </li>
             </ul>
             <div *ngIf="info && categoryInfo.id === category.id">
@@ -41,6 +40,7 @@
               </ng-container>
             </div>
           </div>
+        </span>
       </div>
       <div class="posts-container">
         <div class="main-posts">
