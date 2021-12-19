@@ -14,11 +14,9 @@
             >All posts</a></li>
           </ul>
         </div>
-
-
         <span >
           <div *ngFor="let category of allCategories">
-            <ul class="list" disabled="{}">
+            <ul class="list">
               <li>
                 <a
                   [routerLink]="['']"
@@ -27,12 +25,12 @@
                 </a>
               </li>
             </ul>
-            <div *ngIf="info && categoryInfo.id === category.id">
+            <div *ngIf="collapseSubCategory && categoryInfo.id === category.id">
               <ng-container *ngFor="let subCategory of category.subCategories">
                 <ul class="sub-ul">
                   <li class="sub-li">
                     <a [routerLink]="['']"
-                       (click)="getQueryFromCategory(subCategory.name)">
+                       (click)="getQueryFromSubCategories(subCategory.name)">
                       {{subCategory.name}}
                     </a>
                   </li>

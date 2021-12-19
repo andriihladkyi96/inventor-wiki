@@ -15,53 +15,55 @@ import {UsersService} from "../../services/users.service";
 
 export class MainPageComponent implements OnInit {
 
-  allPosts:Post[];
-  allCategories:Category[];
-  hidenButton:boolean = false;
-  info:boolean = false;
-  categoryInfo:Category;
-  subCategory:any;
-  superAdmin:any = 'SuperAdmin';
-  admin:any = 'Admin';
+  allPosts: Post[];
+  allCategories: Category[];
+  hidenButton: boolean = false;
+  collapseSubCategory: boolean = false;
+  categoryInfo: Category;
+  superAdmin: any = 'SuperAdmin';
+  admin: any = 'Admin';
+  user: any = 'User';
+  allUser: any = 'All'
 
 
-  constructor(private postService:PostsService,
-              private categoriesService:CategoriesService,
-              private authService:AuthService,
-              private userService:UsersService) {
-
-
-
-
-  }
-  getQueryFromCategory(category:string) {
-      this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
+  constructor(private postService: PostsService,
+              private categoriesService: CategoriesService,
+              private authService: AuthService,
+              private userService: UsersService) {
   }
 
   ngOnInit(): void {
-    // this.categoriesService.getCategoryList().subscribe(value => this.allCategories = value);
     this.getAllPost();
-    this.categoriesService.getCategoryList().subscribe(value => {
-      this.allCategories = value.filter(value1 =>
-          value1.role.find(value2 => value2 === this.currentUserRole
-            // if (value2 === this.superAdmin && this.admin || this.currentUserRole ) {
-            //  return  value2 = this.currentUserRole
-            // }
-          )
-        )
-        }
-    )
-    // this.postService.getPostsBySubCategory('RxJs').subscribe(value => {
-    //   this.subCategory = value;
-    //   console.log(this.subCategory)
-    // })
-
+    this.getAllCategories();
   }
-  getAllPost () {
+
+  getAllPost() {
     this.postService.getPostList().subscribe(post => this.allPosts = post);
   }
 
-  editPostForAdmin(id:any) {
+  getAllCategories() {
+    this.categoriesService.getCategoryList().subscribe(value => {
+        if (this.currentUserRole === this.admin || this.currentUserRole === this.superAdmin)
+          this.allCategories = value
+        else {
+          this.allCategories = value.filter(value1 =>
+            value1.role.find(value2 => value2 === this.user || value2 === this.allUser
+            )
+          )
+        }
+      }
+    )
+  }
+
+  getQueryFromCategory(category: string) {
+    this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
+  }
+
+  getQueryFromSubCategories(subCategories: string) {
+    this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
+  }
+
+  editPostForAdmin(id: any) {
     console.log(id)
   }
 
@@ -73,25 +75,12 @@ export class MainPageComponent implements OnInit {
     return this.userService.checkUserRole() === "Admin"
   }
 
-  get isUser(): boolean {
-    return this.userService.checkUserRole() === "User"
-  }
-   categoryRole() {
-     this.categoriesService.getCategoryList().subscribe(value => {
-         this.allCategories =  value.filter(value1 =>
-             value1.role.find(value2 => value2 === this.currentUserRole)
-           )
-       }
-     )
-   }
-
   get currentUserRole() {
     return this.userService.getCurrentUser().role
   }
 
-
-  getSubCategoryList(post:Category) {
-    this.info = !this.info;
+  getSubCategoryList(post: Category) {
+    this.collapseSubCategory = !this.collapseSubCategory;
     return this.categoryInfo = post
   }
 }

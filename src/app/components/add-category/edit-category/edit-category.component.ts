@@ -22,18 +22,17 @@ import {newArray} from "@angular/compiler/src/util";
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit {
-categoryInfo:Category;
+  allCategory: Category[];
+  categoryInfo: Category;
   form: FormGroup;
-  subCategoryArray:Array<any>;
-  allCateg:Category[];
-  roleList:Role[];
+  subCategoryArray: Array<any>;
+  roleList: Role[];
 
-  constructor(private router:Router,
-              private categoryService:CategoriesService,
-              private roleService:RoleService
-              ) {
+  constructor(private router: Router,
+              private categoryService: CategoriesService,
+              private roleService: RoleService
+  ) {
     this.roleService.getAllRoles().subscribe(role => this.roleList = role);
-    this.categoryService.getCategoryList().subscribe(category => this.allCateg = category );
     this.categoryInfo = this.router.getCurrentNavigation()?.extras.state as Category
     if (this.categoryInfo.subCategories?.length) {
 
@@ -43,30 +42,30 @@ categoryInfo:Category;
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.pattern('^[A-Z].*')]);
-      } )
-    }
-    else {
+      })
+    } else {
       this.subCategoryArray = []
     }
 
     this.form = new FormGroup({
-      category: new FormControl( this.categoryInfo.name,[
+      category: new FormControl(this.categoryInfo.name, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         Validators.pattern('^[A-Z].*')
       ]),
-      categoryByRole:new FormControl(this.categoryInfo.role),
+      categoryByRole: new FormControl(this.categoryInfo.role),
       subCategories: new FormArray(this.subCategoryArray,
         [])
     });
-  // , { validators: this.identityRevealedValidator }
+    // , { validators: this.identityRevealedValidator }
 
   }
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
   }
+
   // identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   //   const subCategories = control.get('subCategories');
   //   const subCategory = control.get('subCategories')?.value;
@@ -74,48 +73,71 @@ categoryInfo:Category;
   //   return subCategories && subCategory && subCategories.value == subCategory.value ? { identityNotRevealed: true } : null;
   // };
 
-  updateCategory() {
-
-    const subCategories = this.form.controls['subCategories'].value.map((sub:any) => ({
-      name:sub
+  updateCategory():any {
+    const subCategories = this.form.controls['subCategories'].value.map((sub: any) => ({
+      name: sub
     }))
-    // let newSubArr = [];
-    // for (let sub of subCategories) {
-    //   newSubArr.push(sub.name)
-    //   for (let i = 0; i < newSubArr.length; i++)
+
+    const category = {
+      id: this.categoryInfo.id,
+      name: this.form.controls['category'].value,
+      subCategories: subCategories.length ? subCategories : [],
+      role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
+    }
+    const allCategoryNames = this.allCategory.map(value => ({
+      name:value.name
+    }))
+    // let newCategoryNamesArr = [];
+    // for (let category of allCategoryNames) {
+    //   newCategoryNamesArr.push(category.name)
+    //   for (let i = 0; i < newCategoryNamesArr.length; i++)
     //   {
-    //     if (newSubArr.indexOf(newSubArr[i]) !== newSubArr.lastIndexOf(newSubArr[i])) {
-    //       return alert('this sub-categories already exist');
+    //     if (newCategoryNamesArr.indexOf(newCategoryNamesArr[i]) === newCategoryNamesArr.lastIndexOf(newCategoryNamesArr[i])) {
+    //       return alert('this categories already exist');
     //     }
     //   }
     // }
 
-    const category = {
-      id:this.categoryInfo.id,
-      name:this.form.controls['category'].value,
-      subCategories: subCategories.length ? subCategories : [],
-      role:this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
+    let newSubArr = [];
+    for (let sub of subCategories) {
+      newSubArr.push(sub.name)
+      for (let i = 0; i < newSubArr.length; i++)
+      {
+        if (newSubArr.indexOf(newSubArr[i]) !== newSubArr.lastIndexOf(newSubArr[i])) {
+          return alert('this sub-categories already exist');
+        }
+      }
     }
+
+
+
+    // if (this.allCategory.some(value => value.name.repeat(1) === this.form.value.category)) {
+    //   alert('this category already exist');
+    // } else {}
+    //   const category = {
+    //     id: this.categoryInfo.id,
+    //     name: this.form.controls['category'].value,
+    //     subCategories: subCategories.length ? subCategories : [],
+    //     role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
+    //   }
+
+      this.categoryService.updateCategory(category)
+
     // if (this.allCateg.find(value => value.name === this.form.value.category)) {
     //   return alert('category already exist');
     // }
-
-    // console.log(category)
-    // console.log(newCategoryArr)
-        this.categoryService.updateCategory(category)
-
-
   }
 
   ngOnInit(): void {
+    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value);
   }
 
-  deleteCategory(id:string) {
+  deleteCategory(id: string) {
     this.categoryService.deleteCategory(id);
   }
 
   addSubCategory() {
-    this.subCategoriesFormArray.push(new FormControl(null,[
+    this.subCategoriesFormArray.push(new FormControl(null, [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
@@ -124,7 +146,7 @@ categoryInfo:Category;
     console.log(this.form.controls)
   }
 
-  removeSubCategories(index:number) {
-      this.subCategoriesFormArray.removeAt(index);
-    }
+  removeSubCategories(index: number) {
+    this.subCategoriesFormArray.removeAt(index);
+  }
 }
