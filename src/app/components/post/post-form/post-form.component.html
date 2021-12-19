@@ -1,31 +1,115 @@
-<div class="container">
+<!-- <div class="container">
+  <div class="form">
+    <mat-form-field class="form-title">
+      <input matInput class="form-title__input" [(ngModel)]="post.title" required type="text" #title="ngModel"
+        placeholder="Post title">
+      <mat-error *ngIf="title.errors && (title.dirty || title.touched)" class="alert alert-danger">
+        <span *ngIf="title.errors.required">Title is required. </span>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-category">
+      <div style="display: flex;" class="post-item__menu">
+        <button mat-button [matMenuTriggerFor]="menu">{{post.category}}</button>
+        <mat-menu #menu="matMenu">
+          <button (click)="toogleCategory(category,i)" *ngFor="let category of categories; index as i"
+            mat-menu-item>{{category.name}}</button>
+        </mat-menu>
+        <div *ngIf="subcategories">
+          <button mat-button [matMenuTriggerFor]="subMenu">
+            <span *ngIf="post.subcategory">{{post.subcategory}}</span>
+            <span *ngIf="!post.subcategory">Subcategory</span>
+          </button>
+          <mat-menu #subMenu="matMenu">
+            <button (click)="toogleSubCategory(category.name)" *ngFor="let category of subcategories"
+              mat-menu-item>{{category.name}}</button>
+          </mat-menu>
+        </div>
+      </div>
+      <div class="content">
+        <div class="NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+          <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html">
+          </ngx-editor>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn-save" class="btn-group__item save-btn" (click)="updatePost()">
+          Save post
+        </button>
+      </div>
+    </div>
+  </div> -->
+<div mat-dialog-content class="container">
   <div class="form">
     <div class="form-title">
-      <input class="form-title__input" [(ngModel)]="post.title" type="text">
+      <input [ngClass]="{'form-title__input': true, 'invalid': isFormTouched && !isTitleValid()}"
+        [(ngModel)]="post.title" type="text" placeholder="Title">
+      <div *ngIf="isFormTouched && !isTitleValid()" class="mat-error mat-error-input">
+        <span> Title is required. </span>
+      </div>
     </div>
+
     <div class="form-category">
-      <span  [matMenuTriggerFor]="menu">{{post.category}} </span>
-      <div class="post-item__menu">
-        <mat-menu class="mat-menu" #menu="matMenu">
-          <div mat-menu-item class="mat-menu__item" (click)="toogleCategory(category)" *ngFor="let category of categories">
-            <mat-icon class="mat-icon">
-                category
-            </mat-icon>
-            <span>{{category.name}}</span>
+      <div [ngClass]="{'validation-container': true, 'invalid': isFormTouched && !isCategoryValid()}">
+        <div class="form-category-item">
+          <div class="form-category-btn" [matMenuTriggerFor]="menu">
+            <span *ngIf="post.category">{{post.category}}</span>
+            <span *ngIf="!post.category">Select category</span>
+            <mat-icon>expand_more</mat-icon>
           </div>
-        </mat-menu>
+          <div class="mat-menu-container">
+            <mat-menu class="mat-menu" #menu="matMenu">
+              <button class="mat-menu-item" (click)="toogleCategory(category,i)"
+                *ngFor="let category of categories; index as i" mat-menu-item>
+                <span>{{category.name}}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <div *ngIf="isFormTouched && !isCategoryValid()" class="mat-error mat-error-category">
+          <span> Category is required. </span>
+        </div>
+      </div>
+      <div class="form-category-item">
+        <div *ngIf="subcategories">
+          <div class="form-category-btn" [matMenuTriggerFor]="subMenu">
+            <span *ngIf="post.subcategory">{{post.subcategory}}</span>
+            <span *ngIf="!post.subcategory">Select subcategory</span>
+            <mat-icon>
+              expand_more
+            </mat-icon>
+          </div>
+          <div class="mat-menu-container">
+            <mat-menu class="mat-menu" #subMenu="matMenu">
+              <button class="mat-menu-item" (click)="toogleSubCategory(category.name)"
+                *ngFor="let category of subcategories" mat-menu-item>
+                <span>{{category.name}}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
       </div>
     </div>
     <mat-divider class="mat-divider"></mat-divider>
     <div class="content">
-      <div class="NgxEditor__Wrapper">
-        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-        <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html">
+      <div [ngClass]="{'NgxEditor__Wrapper': true,'NgxEditor__Wrapper-error': isFormTouched && !isContentValid()}">
+        <div class="mat-menu-container">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+        </div>
+        <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html"
+          [placeholder]="placeholder">
         </ngx-editor>
       </div>
+      <div *ngIf="isFormTouched && !isContentValid()" class="mat-error mat-error-content">
+        <span>Content is required. Post content cannot be less than 10 characters.</span>
+      </div>
     </div>
+
     <div class="btn-group">
-      <button class="btn-group__item save-btn" (click)="updatePost()">
+      <!-- [disabled]="!isFormValid() && isFormTouched" -->
+      <button mat-button 
+        [ngClass]="{'btn-group__item btn-save': true,'save-btn-disabled': !isFormValid() && isFormTouched}"
+        (click)="updatePost()">
         Save post
       </button>
     </div>

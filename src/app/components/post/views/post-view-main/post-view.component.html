@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngIf="post !== undefined && user !== undefined" class="post">
+    <h1 class="title">{{post.title}}</h1>
+    <div class="subtitle">
+      <div class="author-icon"><span>{{user.firstName[0]}}</span></div>
+      <span class="author-name">{{user.firstName}} {{user.lastName}}</span>
+      <span class="data-creation">{{post.dateCreation | timeAgo}}</span>
+      <span class="reading-time">{{post.content|readingTime}}</span>
+      <span class="category">Category: {{post.category}} {{post.subcategory}}</span>
+    </div>
+    <div class="content" [innerHTML]="post.content | sanitizeHtml"></div>
+  </div>
+</div>

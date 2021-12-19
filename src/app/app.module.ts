@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -23,8 +23,7 @@ import { UsersPageComponent } from './components/users/users-page/users-page.com
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
 import { UserPostsComponent } from './components/post/user-posts/user-posts.component';
-import { PostViewComponent } from './components/post/post-view/post-view.component';
-import { PostFormComponent } from './components/post/post-form/post-form.component';
+import { PostViewComponent } from './components/post/views/post-view-main/post-view.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,13 +36,15 @@ import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MatCardModule } from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
 import { NgxEditorModule } from 'ngx-editor';
-import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
+import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
 import { CategoryListComponent } from "./components/add-category/category-list/category-list.component";
 import { EditCategoryComponent } from "./components/add-category/edit-category/edit-category.component";
 import { SearchPipe } from "./components/add-category/category-list/Pipe/search.pipe";
-import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
-
-
+import { PostViewWrapperComponent } from './components/post/views/post-view-wrapper/post-view-wrapper.component';
+import { SanitizeHtmlPipe } from './components/post/pipes/sanitize-html.pipe';
+import { PostFormDialogComponent } from './components/post/post-form-dialog/post-form-dialog.component';
+import { TimeAgoPipe } from './components/post/pipes/timeAgo.pipe';
+import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
 
 
 @NgModule({
@@ -57,7 +58,6 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
     UserEditFormComponent,
     UserPostsComponent,
     PostViewComponent,
-    PostFormComponent,
     WarningDialogComponent,
     RolePageComponent,
     AddCategoryComponent,
@@ -67,7 +67,11 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
     CategoryListComponent,
     EditCategoryComponent,
     SearchPipe,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    PostViewWrapperComponent,
+    PostFormDialogComponent,
+    TimeAgoPipe,
+    ReadingTimePipe
   ],
   imports: [
     BrowserModule,

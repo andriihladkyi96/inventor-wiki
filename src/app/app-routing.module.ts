@@ -12,8 +12,9 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { AddCategoryComponent } from "./components/add-category/add-category.component";
 import { UserPostsComponent } from "./components/post/user-posts/user-posts.component";
-import { CategoryListComponent } from "./components/add-category/category-list/category-list.component";
-import { EditCategoryComponent } from "./components/add-category/edit-category/edit-category.component";
+import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
+import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
+import { PostViewWrapperComponent } from './components/post/views/post-view-wrapper/post-view-wrapper.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
 const redirectLoggedInToMain = () => redirectLoggedInTo([''])
@@ -69,11 +70,18 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
+
   {
     path: 'reset-password', component: ResetPasswordComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
-  }
+  },
+
+  {path: 'user/:id', component: UserEditFormComponent },
+  { path: 'my-profile', component: UserProfileComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
+  {
+    path: 'post/:id', component: PostViewWrapperComponent 
+  },
 ];
 
 @NgModule({
