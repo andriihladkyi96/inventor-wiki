@@ -30,17 +30,19 @@
 
             </mat-form-field>
 
+            <div class="form__link reset">
+                <a href="#" routerLink="/reset-password">Forgot password?</a>
+            </div>
 
-
+            <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
 
             <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
                 type="submit">LOGIN</button>
 
-            <button class="form__btn" routerLink="/" mat-button type="button" >
-                <a mat-button routerLink="/" href="#">SIGN IN AS A GUEST</a>
-            </button>
 
-            <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
+            <button class="form__btn" routerLink="/" mat-button type="button">SIGN IN AS A
+                GUEST</button>
+
         </form>
 
         <div class="form__link">

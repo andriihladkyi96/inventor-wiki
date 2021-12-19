@@ -1,0 +1,71 @@
+::ng-deep {
+    .mat-dialog-container {
+        overflow: hidden;
+        background-color: rgb(24 28 31);
+        @media screen and (max-width: 430px) {
+            padding: 24px 16px;
+        }
+    }
+    .NgxEditor {
+        &__MenuBar {
+            background-color: rgb(24 28 31) !important;
+            color: rgb(162, 169, 185);
+            flex-wrap: wrap;
+        }
+        &__Content {
+            min-height: 30px;
+            max-height: 170px;
+            line-height: 24px;
+            font-weight: 400;
+            font-size: 16px;
+            background-color: rgb(24 28 31);
+            font-family: "Open Sans", sans-serif;
+            color: rgb(162, 169, 185);
+            overflow-y: auto;
+        }
+        &__Seperator {
+            border-left: 1px solid #374151 !important;
+        }
+        &__MenuItem {
+            &--IconContainer {
+                &:hover {
+                    svg {
+                        fill: rgb(20, 24, 32);
+                    }
+                }
+            }
+            svg {
+                fill: rgb(162, 169, 185);
+            }
+            @media screen and (max-width: 801px) {
+                &.NgxEditor__MenuItem--Icon {
+                    height: 27px !important;
+                    width: 27px !important;
+                }
+            }
+        }
+        &__Popup {
+            background-color: rgb(45, 50, 58) !important;
+        }
+        &__Dropdown {
+            background-color: inherit !important;
+            &--Active {
+                background-color: rgb(24 28 31) !important;
+                border: 1px solid rgb(43, 46, 57);
+                color: rgb(52, 109, 219) !important;
+            }
+            @media screen and (max-width: 801px) {
+                &--Text:after {
+                    margin-left: 3px !important;
+                }
+            }
+        }
+        &__Dropdown--Item {
+            background-color: rgb(24 28 31);
+            &:hover {
+                background-color: rgb(45, 50, 58) !important;
+                border: 1px solid rgb(52, 109, 219);
+            }
+        }
+    }
+}

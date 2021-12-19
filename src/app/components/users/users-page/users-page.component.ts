@@ -8,14 +8,14 @@ import { UsersService } from 'src/app/services/users.service';
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.scss'],
-   providers: [UsersService]
+  providers: [UsersService]
 })
 export class UsersPageComponent implements OnInit {
   public isShowForm: boolean = false;
-public  users:User[] = [];
-public showForm(): void {
-  this.isShowForm = true;
-}
+  public users: User[] = [];
+  public showForm(): void {
+    this.isShowForm = true;
+  }
 
   identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
@@ -66,10 +66,10 @@ public showForm(): void {
     const { email, password, firstName, lastName } = this.registerForm.value
     const user: User = {
       email,
-      password,
       firstName,
       lastName,
-      role: 'User'
+      role: 'User',
+      isActive: true
     }
 
     this.authService.registerUser(email, password).subscribe(
@@ -90,7 +90,7 @@ public showForm(): void {
 
   ngOnInit(): void {
   }
-  
+
 }
 
-  
+

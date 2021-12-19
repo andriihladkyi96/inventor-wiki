@@ -47,21 +47,22 @@
             <h1>No posts in this category or sub-category</h1>
           </div>
           <div *ngFor="let post of allPosts" class="example">
-            <mat-card class="example-card">
+            <mat-card class="example-card" >
               <mat-card-title-group style="flex-direction: column">
                 <mat-card-title style="display: flex; justify-content: space-between">{{post.title}}
                   <div style="display: flex" *ngIf="!hidenButton">
                     <button style="background: transparent; border: 0; cursor: pointer"
-                            [hidden]="!isSuperAdmin && !isAdmin"
-                            (click)="editPostForAdmin(post.id)">
+
+                            (click)="editPostForAdmin(post); $event.preventDefault();">
                       <mat-icon color="accent">edit</mat-icon>
                     </button>
                     <button style="background: transparent; border: 0; cursor: pointer"
-                            [hidden]="!isSuperAdmin && !isAdmin">
+
+                            (click)="deletePostForAdmin(post.id); $event.preventDefault();">
                       <mat-icon color="warn">delete_outline</mat-icon>
                     </button>
                     <button style="background: transparent; border: 0; cursor: pointer"
-                            [routerLink]="'/posts'">
+                            [routerLink]="['/post', post.id]">
                       <img src="https://assets-global.website-files.com/600ead1452cf056d0e52dbed/6011b66d7c0cc76dccba5953_external-link.svg" alt="">
                     </button>
                   </div>
@@ -76,8 +77,9 @@
       </div>
     </div>
   </div>
-<!--  <div class="modal-footer">-->
-<!--    <div style="margin-left: 25px"><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>-->
-<!--    <div><h4 class="footer">InventorWiki</h4></div>-->
-<!--  </div>-->
+  <div class="mat-fab-container">
+    <button mat-fab class="dialog-btn" color="primary" (click)="addPost()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>

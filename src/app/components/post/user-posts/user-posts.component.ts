@@ -1,131 +1,117 @@
 import { UsersService } from './../../../services/users.service';
-import { DialogData } from './../post-dialogs/warning-dialog/warning-gialog.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Post } from '../../../models/Post';
 import { PostsService } from '../../../services/posts.service';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { WarningDialogComponent } from '../post-dialogs/warning-dialog/warning-gialog.component';
 import { User } from 'src/app/models/User';
-
+import { OperatingMode, PostFormDialogComponent } from '../post-form-dialog/post-form-dialog.component';
 
 @Component({
   selector: 'app-user-posts',
   templateUrl: './user-posts.component.html',
   styleUrls: ['./user-posts.component.scss']
 })
-export class UserPostsComponent implements OnInit {
+export class UserPostsComponent implements OnInit, OnDestroy {
 
-  public posts: Post[] = [];
-  isEdit = false;
-  userId: string;
-  currentUser: User;
-  postCopy: Post;
-  postInFocus: Post = { id: "", title: "", category: "", content: "", authorId: "", dateCreation:"dara",dateLastModification:"data",isVisible:true};
+  posts: Post[] = [];
+  userId?: string;
+  currentUser?: User;
+  postInFocus?: Post;
   postInFocusPosition: number;
   subscription: Subscription;
+  userHasNoPosts = true;
+  isLoading = true;
 
   constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
 
   ngOnInit() {
     this.currentUser = this.usersService.getCurrentUser();
-    if (this.currentUser.id) {
+    if (this.currentUser) {
       this.userId = this.currentUser.id;
+      this.getPostsByUserId();
     }
-    this.getPostsByUserId();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
 
-  getPostsByUserId() {
-    if (this.currentUser.role !== "SuperAdmin") {
+  private getPostsByUserId() {
+    if (this.userId) {
       this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
-        this.posts = posts
-        if (this.postInFocus.id == "") {
-          this.isInFocus(posts[posts.length - 1]);
+        if (posts.length !== 0) {
+          this.posts = posts
+          if (!this.postInFocus) {
+            this.isInFocus(posts[posts.length - 1]);
+          }
+          this.userHasNoPosts = false;
+        } else {
+          this.userHasNoPosts = true;
         }
-      })
-    } else {
-      this.subscription = this.postsService.getPostList().subscribe(posts => {
-        this.posts = posts
-        if (this.postInFocus.id == "") {
-          this.isInFocus(posts[posts.length - 1]);
-        }
+        this.isLoading = false;
       })
     }
-  }
-
-  openDialog(dialogData: DialogData) {
-    const dialogRef = this.dialog.open(WarningDialogComponent, {
-      data: dialogData
-    });
-    return dialogRef.afterClosed()
   }
 
   isInFocus(post: Post) {
-    if (this.postInFocus.id !== post.id) {
-      if (this.isEdit && this.postWasChanged()) {
-        this.openDialog(
-          {
-            title: "Warning",
-            message: "Changes to your post have not been saved. If you move to another post the changes will be lost.",
-            firstButtonText: 'Cancel',
-            secondButtonText: 'Continue'
-          })
-          .subscribe(result => {
-            if (result) {
-              this.postInFocus = post;
-              this.postInFocusPosition = this.posts.findIndex(e => e.id == post.id);
-              this.toogleIsEdit(false);
-            }
-          })
-      } else {
-        this.postInFocus = post;
-        this.postInFocusPosition = this.posts.findIndex(e => e.id == post.id);
-        this.toogleIsEdit(false);
-      }
-    }
+    this.postInFocus = post;
+    this.postInFocusPosition = this.posts.findIndex(e => e.id == post.id);
+  }
+
+  editPost(post: Post) {
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Edit, post: post },
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
+    })
   }
 
   addPost() {
-    this.postsService.createPost({
-      id: "",
-      title: "New post title",
-      category: "New post category",
-      content: "New post content",
-      authorId: this.userId,
-      dateCreation: "data",
-      dateLastModification: "data",
-      isVisible: true,
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Create, post: undefined },
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
     })
-      .then(() => {
-        this.isInFocus(this.posts[this.posts.length - 1]);
-        this.toogleIsEdit(true);
-      })
+      .afterClosed()
+      .subscribe(
+        (result) => {
+          if (result) {
+            this.isInFocus(this.posts[this.posts.length - 1])
+          }
+        }
+      )
   }
 
   deletePost(post: Post) {
-    this.openDialog(
-      {
+    this.dialog.open(WarningDialogComponent, {
+      data: {
         title: "Delete post",
         message: "This post and its content will be deleted. You won't be able to resume this post.",
         firstButtonText: 'Cancel',
         secondButtonText: 'Delete'
-      })
+      }
+    }).afterClosed()
       .subscribe(result => {
         if (result) {
-          this.postsService.deletePost(post.id);
-          this.isInFocus(this.posts[this.postInFocusPosition - 1]);
+          this.postsService.deletePost(post.id).then(() => {
+            if (this.posts.length !== 0) {
+              if (this.posts.length == this.postInFocusPosition) {
+                this.isInFocus(this.posts[this.postInFocusPosition - 1]);
+              } else {
+                this.isInFocus(this.posts[this.postInFocusPosition]);
+              }
+            } else {
+              this.postInFocus = undefined;
+            }
+          });
         }
       })
-  }
-
-  toogleIsEdit(value: boolean) {
-    this.isEdit = value;
-    this.postCopy = { ...this.postInFocus };
   }
 
   nextPost() {
@@ -136,20 +122,7 @@ export class UserPostsComponent implements OnInit {
     this.isInFocus(this.posts[this.postInFocusPosition - 1]);
   }
 
-  postSaved(isSaved: boolean) {
-    this.toogleIsEdit(false);
-  }
-
-  toggleVisibility(post:Post){
-    this.postsService.updatePost({...post,isVisible:!post.isVisible});
-  }
-  private postWasChanged(): boolean {
-    if (this.postCopy.title == this.postInFocus.title
-      && this.postCopy.category == this.postInFocus.category
-      && this.postCopy.content == this.postInFocus.content) {
-      return false
-    } else {
-      return true
-    }
+  togglePostVisibility(post: Post) {
+    this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
   }
 }

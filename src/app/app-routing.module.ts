@@ -9,12 +9,13 @@ import { UserProfileComponent } from './components/users/user-profile/user-profi
 import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
 import { RolePageComponent } from './components/role/role-page/role-page.component';
 import { RoleGuard } from './guards/role.guard';
+import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { AddCategoryComponent } from "./components/add-category/add-category.component";
 import { UserPostsComponent } from "./components/post/user-posts/user-posts.component";
 import {CategoryListComponent} from "./components/add-category/category-list/category-list.component";
 import {EditCategoryComponent} from "./components/add-category/edit-category/edit-category.component";
-
+import { PostViewWrapperComponent } from './components/post/views/post-view-wrapper/post-view-wrapper.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login'])
 const redirectLoggedInToMain = () => redirectLoggedInTo([''])
@@ -56,8 +57,24 @@ const routes: Routes = [
   { path: 'profile_settings', component: UserProfileComponent
 
   },
+  { path: 'user/:id', component: UserEditFormComponent },
+  {
+    path: 'my-profile', component: UserProfileComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+
+  {
+    path: 'reset-password', component: ResetPasswordComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInToMain }
+  },
+
   {path: 'user/:id', component: UserEditFormComponent },
   { path: 'my-profile', component: UserProfileComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
+  {
+    path: 'post/:id', component: PostViewWrapperComponent
+  },
 ];
 
 @NgModule({
