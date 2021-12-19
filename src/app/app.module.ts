@@ -40,7 +40,6 @@ import { CategoryListComponent } from "./components/add-category/category-list/c
 import { EditCategoryComponent } from "./components/add-category/edit-category/edit-category.component";
 import { SearchPipe } from "./components/add-category/category-list/Pipe/search.pipe";
 import { PostViewWrapperComponent } from './components/post/views/post-view-wrapper/post-view-wrapper.component';
-import { PostFormComponent } from './components/post/post-form/post-form.component';
 import { SanitizeHtmlPipe } from './components/post/pipes/sanitize-html.pipe';
 import { PostFormDialogComponent } from './components/post/post-form-dialog/post-form-dialog.component';
 import { TimeAgoPipe } from './components/post/pipes/timeAgo.pipe';
@@ -57,7 +56,6 @@ import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
     UserEditFormComponent,
     UserPostsComponent,
     PostViewComponent,
-    PostFormComponent,
     WarningDialogComponent,
     RolePageComponent,
     AddCategoryComponent,

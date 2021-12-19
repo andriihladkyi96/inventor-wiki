@@ -115,7 +115,7 @@ export class PostFormDialogComponent implements OnInit {
   }
 
   isContentValid() {
-    return this.post.content !== "" && this.post.content.length > 30;
+    return this.post.content !== "" && this.post.content.length > 10;
   }
 
   private initializeUserId() {

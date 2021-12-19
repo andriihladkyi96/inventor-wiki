@@ -75,7 +75,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
   }
 
   isContentValid() {
-    return this.post.content !== "" && this.post.content.length > 30;
+    return this.post.content !== "" && this.post.content.length > 10;
   }
   
 }
