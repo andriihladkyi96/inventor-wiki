@@ -1,13 +1,12 @@
-import { Role } from "./Role";
+import {Role} from "./Role";
 
 export interface Category {
   id:string,
   name:string,
   subCategories?:SubCategory[],
-  role?:Role[]
+  role:string[]
 }
 
 export interface SubCategory {
   name:string
 }
-

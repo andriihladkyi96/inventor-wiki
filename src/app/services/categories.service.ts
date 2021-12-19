@@ -16,6 +16,7 @@ export class CategoriesService {
 
   ngOnInit(): void {
     this.categoriesRef = this.db.list(this.basePath);
+
   }
 
   createCategory(category: Category):Promise<void> {
@@ -45,4 +46,5 @@ export class CategoriesService {
     this.getCategory(id);
     return this.categoryRef.remove();
   }
+
 }

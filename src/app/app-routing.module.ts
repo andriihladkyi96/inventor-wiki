@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard'
+import { TestComponent } from './components/login/test/test.component';
 import { UsersPageComponent } from './components/users/users-page/users-page.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
@@ -21,32 +22,28 @@ const redirectLoggedInToMain = () => redirectLoggedInTo([''])
 
 const routes: Routes = [
 
-  {
-    path: '', component: MainPageComponent
+  { path: '', component: MainPageComponent,
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  {
-    path: 'login', component: LoginFormComponent,
+  { path: 'login', component: LoginFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  {
-    path: 'register', component: RegisterFormComponent,
+  { path: 'register', component: RegisterFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  {
-    path: 'add-category', component: AddCategoryComponent,
+  { path: 'add-category', component: AddCategoryComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+   },
+  {path:'add-category/:id', component:EditCategoryComponent},
+  { path: 'posts', component: UserPostsComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  { path: 'add-category/:id', component: EditCategoryComponent },
-  {
-    path: 'posts', component: UserPostsComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
-  },
-  {
-    path: 'role', component: RolePageComponent,
+  { path: 'role', component: RolePageComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
@@ -88,7 +85,7 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToMain }
   },
   {
-    path: 'post/:id', component: PostViewWrapperComponent 
+    path: 'post/:id', component: PostViewWrapperComponent
   },
 ];
 

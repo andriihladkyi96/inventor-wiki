@@ -76,7 +76,4 @@ export class PostsService implements OnInit {
     this.getPost(id);
     return this.postRef.remove();
   }
-
-
 }
-

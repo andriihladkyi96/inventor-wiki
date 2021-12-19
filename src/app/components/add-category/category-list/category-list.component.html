@@ -8,10 +8,12 @@
       <mat-icon  color="accent">edit</mat-icon>
     </button>
   </div>
+
   <div class="subcateg_list" *ngIf="category.subCategories" >
     <ul  *ngFor="let c of category.subCategories">
       <li>{{c.name}}</li>
     </ul>
   </div>
+
 </div>
 
