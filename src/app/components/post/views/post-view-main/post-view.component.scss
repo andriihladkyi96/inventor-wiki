@@ -127,3 +127,10 @@ a {
     }
 }
 
+.mat-icon-visibility_off{
+    display: none;
+    @media screen and (max-width: 1200px) {
+        display: inline-block;
+    }
+}
+
