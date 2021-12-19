@@ -19,42 +19,67 @@ const redirectLoggedInToMain = () => redirectLoggedInTo([''])
 
 const routes: Routes = [
 
-  { path: '', component: MainPageComponent,
+  {
+    path: '', component: MainPageComponent,
     // canActivate: [AngularFireAuthGuard],
     // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  { path: 'login', component: LoginFormComponent,
+  {
+    path: 'login', component: LoginFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  { path: 'register', component: RegisterFormComponent,
+  {
+    path: 'register', component: RegisterFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  { path: 'add-category', component: AddCategoryComponent,
-    canActivate: [AngularFireAuthGuard, RoleGuard],
+  {
+    path: 'add-category', component: AddCategoryComponent,
+    canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
-   },
-  { path: 'posts', component: UserPostsComponent,
-    // canActivate: [AngularFireAuthGuard, RoleGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  { path: 'role', component: RolePageComponent,
+  {
+    path: 'posts', component: UserPostsComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  {
+    path: 'role', component: RolePageComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
-      role: "SuperAdmin" 
+      role: ["SuperAdmin"]
     }
-    
   },
-  { path: 'users', component: UsersPageComponent
-    
+  {
+    path: 'users', component: UsersPageComponent,
+    canActivate: [AngularFireAuthGuard, RoleGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+      role: ["SuperAdmin", "Admin"]
+    }
   },
-  { path: 'profile_settings', component: UserProfileComponent
-    
+  {
+    path: 'profile_settings', component: UserProfileComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    }
   },
-  {path: 'user/:id', component: UserEditFormComponent },
-  { path: 'my-profile', component: UserProfileComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
+  {
+    path: 'user/:id', component: UserEditFormComponent,
+    canActivate: [AngularFireAuthGuard, RoleGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+      role: "SuperAdmin"
+    }
+  },
+  {
+    path: 'my-profile', component: UserProfileComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
 ];
 
 @NgModule({

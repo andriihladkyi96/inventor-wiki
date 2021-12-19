@@ -9,12 +9,13 @@ import { UsersService } from '../services/users.service';
 export class RoleGuard implements CanActivate {
 
   constructor(private userService: UsersService) { }
+
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = this.userService.getCurrentUser();
-    
-    return user.role.includes(route.data.role)
+    return route.data.role.includes(user.role)
 
   }
 

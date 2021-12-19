@@ -38,6 +38,10 @@ import {MatCardModule} from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe';
+import { CreateRoleFormComponent } from './components/role/create-role-form/create-role-form.component';
+import { WarningComponent } from './components/role/warning/warning.component';
+import { RoleItemComponent } from './components/role/role-item/role-item.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -57,6 +61,10 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
     MainPageComponent,
     HeaderComponent,
     SanitizeHtmlPipe,
+    CreateRoleFormComponent,
+    WarningComponent,
+    RoleItemComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -82,6 +90,7 @@ import { SanitizeHtmlPipe } from './components/post/post-form/sanitize-html.pipe
     MatCheckboxModule,
     MatCardModule,
     NgxEditorModule.forRoot(environment.editorConfig),
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
