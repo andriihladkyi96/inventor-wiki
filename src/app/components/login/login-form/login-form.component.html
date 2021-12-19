@@ -36,7 +36,7 @@
 
             <mat-error *ngIf="isError">{{errorMessage}}</mat-error>
 
-            <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid"
+            <button class="form__btn" mat-button (click)="logIn()" [disabled]="loginGroup.invalid || isFetching"
                 type="submit">LOGIN</button>
 
 

@@ -22,9 +22,7 @@ const redirectLoggedInToMain = () => redirectLoggedInTo([''])
 const routes: Routes = [
 
   {
-    path: '', component: MainPageComponent,
-    // canActivate: [AngularFireAuthGuard],
-    // data: { authGuardPipe: redirectUnauthorizedToLogin }
+    path: '', component: MainPageComponent
   },
   {
     path: 'login', component: LoginFormComponent,

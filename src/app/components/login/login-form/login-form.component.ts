@@ -27,13 +27,14 @@ export class LoginFormComponent implements OnInit {
   get password() {
     return this.loginGroup.get('password') as FormControl
   }
-
+  isFetching: boolean = false
   isError: boolean = false
   errorMessage: string = ''
 
 
   logIn() {
     const { email, password } = this.loginGroup.value
+    this.isFetching = true
     this.authService.signIn(email, password)
       .then(
         (u) => {
@@ -41,6 +42,7 @@ export class LoginFormComponent implements OnInit {
             u => {
               if (!u?.isActive) {
                 this.authService.signOut()
+                this.router.navigate(['login'])
                 this.isError = true
                 this.errorMessage = 'User is deactivated by Super Admin'
               } else {
@@ -54,7 +56,9 @@ export class LoginFormComponent implements OnInit {
           this.password.setValue('')
           this.isError = true
           this.errorMessage = err.message
-        })
+        }).finally(
+          () => this.isFetching = false
+        )
   }
 
   ngOnInit(): void {
