@@ -1,4 +1,4 @@
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Post } from '../models/Post';
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
@@ -35,7 +35,8 @@ export class PostsService implements OnInit {
   getPostList(): Observable<Post[]> {
     this.postsRef = this.db.list(this.basePath);
     return this.postsRef.valueChanges().pipe(
-      map(posts => posts.filter(post => post.isVisible))
+      map(posts => posts.filter(post => post.isVisible)),
+      map(posts => posts.reverse())
       );
   }
 
@@ -44,7 +45,18 @@ export class PostsService implements OnInit {
       return ref.orderByChild("category").equalTo(category)
     })
     return this.postsRef.valueChanges().pipe(
-      map(posts => posts.filter(post => post.isVisible))
+      map(posts => posts.filter(post => post.isVisible)),
+      map(posts => posts.reverse())
+      );
+  }
+
+  getPostsBySubCategory(subcategory: string): Observable<Post[]> {
+    this.postsRef = this.db.list(this.basePath, ref => {
+      return ref.orderByChild("subcategory").equalTo(subcategory)
+    })
+    return this.postsRef.valueChanges().pipe(
+      map(posts => posts.filter(post => post.isVisible)),
+      map(posts => posts.reverse())
       );
   }
 

@@ -1,0 +1,17 @@
+<div class="main_category_list" >
+  <div class="list list_category" > {{category.name}}
+    <button style="background:
+  transparent;
+  border: 0;
+  cursor: pointer"
+            (click)="editCategory()">
+      <mat-icon  color="accent">edit</mat-icon>
+    </button>
+  </div>
+  <div class="subcateg_list" *ngIf="category.subCategories" >
+    <ul  *ngFor="let c of category.subCategories">
+      <li>{{c.name}}</li>
+    </ul>
+  </div>
+</div>
+

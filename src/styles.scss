@@ -1,13 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "./assets/fonts/fonts.css";
 
-
-html, body { 
-    height: 100%; 
+html,
+body {
+    height: 100%;
     box-sizing: border-box;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 $white-font: #fff;
 $background: #1f2329;
 $pink-font: #da42b1 #000 #000;
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #15181e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #79797966;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #bfbfbf66;
+}
+

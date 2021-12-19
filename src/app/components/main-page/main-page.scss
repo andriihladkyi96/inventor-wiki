@@ -13,8 +13,10 @@
   line-height: 20px;
 }
 
-.section.blog {
-  padding-bottom: 40px;
+.mat-fab-container{
+  position: fixed;
+  bottom: 19px;
+  right: 19px;
 }
 
 .purple-header {
@@ -103,7 +105,14 @@ a {
   cursor: none;
 }
 
+.post-buttons{
+  position: absolute;
+  top: 18px;
+  right: 10px;
+}
+
 .example {
+  position: relative;
   margin-bottom: 24px;
   padding: 4px;
   border-radius: 6px;
@@ -156,8 +165,10 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section_content {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  // padding-top: 60px;
+  // padding-bottom: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .container_main {
@@ -168,8 +179,9 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 30px;
+  // padding-top: 60px;
+  // padding-bottom: 60px;
 }
 
 .w-container {
