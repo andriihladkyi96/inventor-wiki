@@ -57,8 +57,8 @@ export class EditCategoryComponent implements OnInit {
       categoryByRole: new FormControl(this.categoryInfo.role),
       subCategories: new FormArray(this.subCategoryArray,
         [])
-    });
-    // , { validators: this.identityRevealedValidator }
+    }, { validators: this.identityRevealedValidator });
+
 
   }
 
@@ -66,12 +66,14 @@ export class EditCategoryComponent implements OnInit {
     return this.form.get('subCategories') as FormArray;
   }
 
-  // identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  //   const subCategories = control.get('subCategories');
-  //   const subCategory = control.get('subCategories')?.value;
-  //
-  //   return subCategories && subCategory && subCategories.value == subCategory.value ? { identityNotRevealed: true } : null;
-  // };
+  identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    let allCategories:Array<string> = []
+    this.categoryService.getCategoryList().subscribe(value => {
+      value.forEach(category => allCategories.push(category.name))
+    });
+    const category = control.get('category');
+    return category && allCategories && allCategories.some(categoryName => category.value === categoryName) ? { identityNotRevealed: true } : null;
+  };
 
   updateCategory():any {
     const subCategories = this.form.controls['subCategories'].value.map((sub: any) => ({
@@ -98,22 +100,23 @@ export class EditCategoryComponent implements OnInit {
     //   }
     // }
 
-    let newSubArr = [];
-    for (let sub of subCategories) {
-      newSubArr.push(sub.name)
-      for (let i = 0; i < newSubArr.length; i++)
-      {
-        if (newSubArr.indexOf(newSubArr[i]) !== newSubArr.lastIndexOf(newSubArr[i])) {
-          return alert('this sub-categories already exist');
-        }
-      }
+    // let newSubArr = [];
+    // for (let sub of subCategories) {
+    //   newSubArr.push(sub.name)
+    //   for (let i = 0; i < newSubArr.length; i++)
+    //   {
+    //     if (newSubArr.indexOf(newSubArr[i]) !== newSubArr.lastIndexOf(newSubArr[i])) {
+    //       return alert('this sub-categories already exist');
+    //     }
+    //   }
+    // }
+
+
+
+    if (this.allCategory.some(value => value.name === this.form.value.category)) {
+      alert('this category already exist');
     }
-
-
-
-    // if (this.allCategory.some(value => value.name.repeat(1) === this.form.value.category)) {
-    //   alert('this category already exist');
-    // } else {}
+    // else {}
     //   const category = {
     //     id: this.categoryInfo.id,
     //     name: this.form.controls['category'].value,

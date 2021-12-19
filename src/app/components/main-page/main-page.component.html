@@ -52,12 +52,12 @@
                 <mat-card-title style="display: flex; justify-content: space-between">{{post.title}}
                   <div style="display: flex" *ngIf="!hidenButton">
                     <button style="background: transparent; border: 0; cursor: pointer"
-
+                            [hidden]="!isSuperAdmin && !isAdmin"
                             (click)="editPostForAdmin(post); $event.preventDefault();">
                       <mat-icon color="accent">edit</mat-icon>
                     </button>
                     <button style="background: transparent; border: 0; cursor: pointer"
-
+                            [hidden]="!isSuperAdmin && !isAdmin"
                             (click)="deletePostForAdmin(post.id); $event.preventDefault();">
                       <mat-icon color="warn">delete_outline</mat-icon>
                     </button>

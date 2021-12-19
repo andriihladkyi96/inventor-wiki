@@ -6,6 +6,7 @@
         <mat-label>Enter category</mat-label>
         <input matInput #inputCategory [placeholder]="'category'" formControlName="category">
         <mat-hint align="end">{{inputCategory.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="form.errors?.['identityNotRevealed']"> This category already exist</mat-error>
       </mat-form-field>
 
       <mat-form-field  appearance="fill" style="background: floralwhite; margin-left: 15px">

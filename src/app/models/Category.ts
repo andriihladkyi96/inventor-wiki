@@ -4,7 +4,7 @@ export interface Category {
   id:string,
   name:string,
   subCategories?:SubCategory[],
-  role:Role[]
+  role:string[]
 }
 
 export interface SubCategory {

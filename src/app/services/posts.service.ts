@@ -77,4 +77,3 @@ export class PostsService implements OnInit {
     return this.postRef.remove();
   }
 }
-
