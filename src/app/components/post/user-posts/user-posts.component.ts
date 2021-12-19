@@ -61,11 +61,23 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   }
 
   editPost(post: Post) {
-    this.dialog.open(PostFormDialogComponent, { data: { operatingMode: OperatingMode.Edit, post: post } })
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Edit, post: post },
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
+    })
   }
 
   addPost() {
-    this.dialog.open(PostFormDialogComponent, { data: { operatingMode: OperatingMode.Create, post: undefined } })
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Create, post: undefined },
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
+    })
       .afterClosed()
       .subscribe(
         (result) => {
@@ -94,7 +106,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
               } else {
                 this.isInFocus(this.posts[this.postInFocusPosition]);
               }
-            }else{
+            } else {
               this.postInFocus = undefined;
             }
           });

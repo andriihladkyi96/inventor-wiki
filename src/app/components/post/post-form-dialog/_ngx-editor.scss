@@ -6,13 +6,6 @@
             padding: 24px 16px;
         }
     }
-    .cdk-global-overlay-wrapper {
-        .cdk-overlay-pane {
-            @media screen and (max-width: 430px) {
-                max-width: 90vw !important;
-            }
-        }
-    }
     .NgxEditor {
         &__MenuBar {
             background-color: rgb(24 28 31) !important;
@@ -20,8 +13,8 @@
             flex-wrap: wrap;
         }
         &__Content {
-            min-height: 80px;
-            max-height: 1px;
+            min-height: 30px;
+            max-height: 170px;
             line-height: 24px;
             font-weight: 400;
             font-size: 16px;

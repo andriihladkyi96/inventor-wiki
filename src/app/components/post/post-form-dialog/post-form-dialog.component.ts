@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Subscription } from 'rxjs';
@@ -60,7 +60,10 @@ export class PostFormDialogComponent implements OnInit {
       this.initializeUserId();
     }
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
-      this.post = this.data.post;
+      this.post = {...this.data.post};
+      this.isCategoryValid = true;
+      this.isTitleValid = true;
+      this.isContentValid = true;
     }
     this.initializeCategories();
     this.editor = new Editor();

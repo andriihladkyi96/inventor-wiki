@@ -17,7 +17,7 @@
             <mat-icon>expand_more</mat-icon>
           </div>
           <div class="mat-menu-container">
-            <mat-menu class="mat-menu" #menu="matMenu">
+            <mat-menu class="mat-menu" #menu="matMenu" >
               <button class="mat-menu-item" (click)="toogleCategory(category,i)"
                 *ngFor="let category of categories; index as i" mat-menu-item>
                 <span>{{category.name}}</span>
