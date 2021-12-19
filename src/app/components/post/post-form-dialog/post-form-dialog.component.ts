@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,10 @@ export class PostFormDialogComponent implements OnInit {
   subcategories?: SubCategory[];
   isFormTouched = false;
   placeholder = 'Type content here...';
-
+  localContent: string;
+  isContentValid = false;
+  isTitleValid = false;
+  isCategoryValid = false;
 
   toolbar: Toolbar = [
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
@@ -43,7 +46,6 @@ export class PostFormDialogComponent implements OnInit {
       'ordered_list', 'bullet_list',
       'align_left', 'align_center', 'align_right', 'align_justify'],
   ];
-
 
   constructor(
     public dialogRef: MatDialogRef<PostFormDialogComponent>,
@@ -82,7 +84,7 @@ export class PostFormDialogComponent implements OnInit {
       if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
         this.postsService.updatePost({ ...this.post, dateLastModification: new Date().toString() });
       }
-    }else{
+    } else {
       this.isFormTouched = true;
     }
   }
@@ -96,6 +98,7 @@ export class PostFormDialogComponent implements OnInit {
     this.post.category = category.name;
     this.subcategories = this.categories[index].subCategories;
     this.post.subcategory = "";
+    this.isCategoryValid = true;
   }
 
   toogleSubCategory(categoryName: string) {
@@ -103,19 +106,21 @@ export class PostFormDialogComponent implements OnInit {
   }
 
   isFormValid() {
-    return this.isTitleValid() && this.isCategoryValid()&& this.isContentValid();
+    return this.isTitleValid && this.isCategoryValid && this.isContentValid;
   }
 
-  isTitleValid() {
-    return this.post.title !== "";
+  onTitleChange() {
+    this.isTitleValid = this.post.title !== "";
   }
 
-  isCategoryValid() {
-    return this.post.category !== "";
+  onCategoryChange() {
+    this.isCategoryValid = this.post.category !== "";
   }
 
-  isContentValid() {
-    return this.post.content !== "" && this.post.content.length > 10;
+  onEditorContentChange() {
+    let extractContent = this.extractContent(this.post.content);
+    extractContent = extractContent ? extractContent : "";
+    this.isContentValid = extractContent.length > 9;
   }
 
   private initializeUserId() {
@@ -123,6 +128,30 @@ export class PostFormDialogComponent implements OnInit {
     if (currentUser.id) {
       this.post.authorId = currentUser.id;
     }
+  }
+
+
+  onPaste(event: ClipboardEvent) {
+    this.post.content = this.cleanInnerStyles(this.post.content);
+  }
+
+  cleanInnerStyles(htmlString: string) {
+    let divElement = document.createElement('div');
+    divElement.innerHTML = htmlString;
+    let elements = divElement.getElementsByTagName("*");
+    for (var i = 0; i < elements.length; i++) {
+      if ((elements[i].getAttribute('style') || '').includes('background-color')) {
+        elements[i].removeAttribute('style');
+      }
+      if ((elements[i].getAttribute('style') || '').includes('color')) {
+        elements[i].removeAttribute('style');
+      }
+    }
+    return divElement.innerHTML;
+  }
+
+  extractContent(html: string) {
+    return new DOMParser().parseFromString(html, "text/html").documentElement.textContent;
   }
 
   private initializeCategories() {

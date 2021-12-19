@@ -1,15 +1,15 @@
 <div mat-dialog-content class="container">
   <div class="form">
     <div class="form-title">
-      <input [ngClass]="{'form-title__input': true, 'invalid': isFormTouched && !isTitleValid()}"
-        [(ngModel)]="post.title" type="text" placeholder="Title">
-      <div *ngIf="isFormTouched && !isTitleValid()" class="mat-error mat-error-input">
+      <input [ngClass]="{'form-title__input': true, 'invalid': isFormTouched && !isTitleValid}"
+        [(ngModel)]="post.title" type="text" placeholder="Title" (ngModelChange)="onTitleChange()">
+      <div *ngIf="isFormTouched && !isTitleValid" class="mat-error mat-error-input">
         <span> Title is required. </span>
       </div>
     </div>
 
     <div class="form-category">
-      <div [ngClass]="{'validation-container': true, 'invalid': isFormTouched && !isCategoryValid()}">
+      <div [ngClass]="{'validation-container': true, 'invalid': isFormTouched && !isCategoryValid}">
         <div class="form-category-item">
           <div class="form-category-btn" [matMenuTriggerFor]="menu">
             <span *ngIf="post.category">{{post.category}}</span>
@@ -25,7 +25,7 @@
             </mat-menu>
           </div>
         </div>
-        <div *ngIf="isFormTouched && !isCategoryValid()" class="mat-error mat-error-category">
+        <div *ngIf="isFormTouched && !isCategoryValid" class="mat-error mat-error-category">
           <span> Category is required. </span>
         </div>
       </div>
@@ -53,15 +53,15 @@
 
     <mat-divider class="mat-divider"></mat-divider>
     <div class="content">
-      <div [ngClass]="{'NgxEditor__Wrapper': true,'NgxEditor__Wrapper-error': isFormTouched && !isContentValid()}">
+      <div [ngClass]="{'NgxEditor__Wrapper': true,'NgxEditor__Wrapper-error': isFormTouched && !isContentValid}">
         <div class="mat-menu-container">
           <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
         </div>
         <ngx-editor [editor]="editor" [(ngModel)]="post.content" [disabled]="false" outputFormat="html"
-          [placeholder]="placeholder">
+          [placeholder]="placeholder" (paste)="onPaste($event)" (ngModelChange)="onEditorContentChange()">
         </ngx-editor>
       </div>
-      <div *ngIf="isFormTouched && !isContentValid()" class="mat-error mat-error-content">
+      <div *ngIf="isFormTouched && !isContentValid" class="mat-error mat-error-content">
         <span>Content is required. Post content cannot be less than 10 characters.</span>
       </div>
     </div>
