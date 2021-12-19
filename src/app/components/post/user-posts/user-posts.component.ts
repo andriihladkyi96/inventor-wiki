@@ -124,12 +124,10 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     this.isInFocus(this.posts[this.postInFocusPosition - 1]);
   }
 
-  togglePostVisibility(post?: Post, postInFocus?: Post) {
-    if (postInFocus) {
-      this.postInFocus = { ...postInFocus, isVisible: !postInFocus.isVisible }
-    }
-    if (post) {
-      this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
+  togglePostVisibility() {
+    if (this.postInFocus) {
+      this.postInFocus = { ...this.postInFocus, isVisible: !this.postInFocus.isVisible }
+      this.postsService.updatePost(this.postInFocus);
     }
   }
 }

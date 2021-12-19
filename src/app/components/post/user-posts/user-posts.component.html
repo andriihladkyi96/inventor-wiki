@@ -31,7 +31,7 @@
                   </mat-icon>
                   <span>Delete</span>
                 </button>
-                <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility(post,undefined)">
+                <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility()">
                   <mat-icon *ngIf="post.isVisible" class="mat-icon">
                     visibility_off
                   </mat-icon>
@@ -107,7 +107,7 @@
           </mat-icon>
           <span>Delete</span>
         </button>
-        <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility(undefined,postInFocus)">
+        <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility()">
           <mat-icon *ngIf="postInFocus.isVisible" class="mat-icon">
             visibility_off
           </mat-icon>

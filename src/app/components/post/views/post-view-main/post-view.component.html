@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngIf="post !== undefined && user !== undefined" class="post">
     <h1 class="title">
-      <mat-icon *ngIf="!post.isVisible" class="mat-icon">
+      <mat-icon *ngIf="!post.isVisible" class="mat-icon mat-icon-visibility_off">
         visibility_off
       </mat-icon>
       {{post.title}}
