@@ -52,19 +52,32 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
+      role: ["SuperAdmin"]
+    }
+  },
+  {
+    path: 'users', component: UsersPageComponent,
+    canActivate: [AngularFireAuthGuard, RoleGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+      role: ["SuperAdmin", "Admin"]
+    }
+  },
+  {
+    path: 'profile_settings', component: UserProfileComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    }
+  },
+  {
+    path: 'user/:id', component: UserEditFormComponent,
+    canActivate: [AngularFireAuthGuard, RoleGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
       role: "SuperAdmin"
     }
-
   },
-  {
-    path: 'users', component: UsersPageComponent
-
-  },
-  {
-    path: 'profile_settings', component: UserProfileComponent
-
-  },
-  { path: 'user/:id', component: UserEditFormComponent },
   {
     path: 'my-profile', component: UserProfileComponent,
     canActivate: [AngularFireAuthGuard],
@@ -76,9 +89,6 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-
-  {path: 'user/:id', component: UserEditFormComponent },
-  { path: 'my-profile', component: UserProfileComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
   {
     path: 'post/:id', component: PostViewWrapperComponent 
   },

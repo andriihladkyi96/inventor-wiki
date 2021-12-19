@@ -1,98 +1,14 @@
-<div class="role__form__container">
-  <h2 class="role__form__title">Create new Role</h2>
-  <form class="role__form" [formGroup]="roleForm">
-    <mat-form-field>
-      <mat-label>Role Name</mat-label>
-      <input
-        type="text"
-        matInput
-        placeholder="Type Role Name"
-        formControlName="roleName"
-      />
-    </mat-form-field>
-
-    <section class="check-box__group">
-      <mat-checkbox formControlName="create" class="example-margin"
-        >create</mat-checkbox
-      >
-      <mat-checkbox formControlName="read" class="example-margin"
-        >read</mat-checkbox
-      >
-      <mat-checkbox formControlName="update" class="example-margin"
-        >update</mat-checkbox
-      >
-      <mat-checkbox formControlName="remove" class="example-margin"
-        >remove</mat-checkbox
-      >
-    </section>
-
-    <button
-      class="role__form__btn"
-      mat-button="submit"
-      (click)="createNewRole()"
-      [disabled]="roleForm.invalid"
-    >
-      Create
-    </button>
-  </form>
-</div>
-
-<div class="container" *ngIf="roles$ | async; let roles">
-  <div class="user" *ngFor="let item of roles">
-    <h2>Role: {{ item.roleName }}</h2>
-    <h4>Permissions:</h4>
-    <ul>
-      <!-- <li>id: {{ item.id }},</li> -->
-      <li>create: {{ item.permissions.create }},</li>
-      <li>read: {{ item.permissions.read }},</li>
-      <li>update: {{ item.permissions.update }},</li>
-      <li>remove: {{ item.permissions.remove }},</li>
-    </ul>
-    <div class="btn__group">
-      <button class="" mat-button="submit" (click)="editRole(item)">
-        change
-      </button>
-      <button class="" mat-button="submit" (click)="deleteRole(item)">
-        delete
+<div class="page">
+  <div class="container" *ngIf="roles$ | async; let roles">
+    <div class="user" *ngFor="let role of roles">
+      <mat-card class="card">
+        <app-role-item [role]="role" ></app-role-item>
+      </mat-card>
+    </div>
+    <div class="create">
+      <button class="create__btn" (click)="showCrateForm()">
+        <h2>Create New role</h2>
       </button>
     </div>
   </div>
-</div>
-
-<div class="role__form__container" *ngIf="hideChangeForm">
-  <h2 class="role__form__title">Change Role permision</h2>
-  <form class="role__form" [formGroup]="roleForm">
-    <mat-form-field>
-      <mat-label>Role Name</mat-label>
-      <input
-        type="text"
-        matInput
-        placeholder="Type Role Name"
-        formControlName="roleName"
-      />
-    </mat-form-field>
-    <section class="check-box__group">
-      <mat-checkbox formControlName="create" class="example-margin"
-        >create</mat-checkbox
-      >
-      <mat-checkbox formControlName="read" class="example-margin"
-        >read</mat-checkbox
-      >
-      <mat-checkbox formControlName="update" class="example-margin"
-        >update</mat-checkbox
-      >
-      <mat-checkbox formControlName="remove" class="example-margin"
-        >remove</mat-checkbox
-      >
-    </section>
-
-    <button
-      class="role__form__btn"
-      mat-button="submit"
-      (click)="updateRole()"
-      [disabled]="roleForm.invalid"
-    >
-      Change
-    </button>
-  </form>
 </div>
