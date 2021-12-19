@@ -31,7 +31,7 @@
                   </mat-icon>
                   <span>Delete</span>
                 </button>
-                <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility(post)">
+                <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility(post,undefined)">
                   <mat-icon *ngIf="post.isVisible" class="mat-icon">
                     visibility_off
                   </mat-icon>
@@ -59,12 +59,12 @@
       <div class="content-group-navigation">
         <div class="btn-group">
           <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
-            [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
+            [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1,'button-prev':postInFocusPosition !== posts.length - 1}">
             <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
             <span>Previous</span>
           </button>
           <button *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
-            [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0}">
+            [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0, 'button-next':postInFocusPosition !== 0}">
             <span>Next</span>
             <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
           </button>
@@ -78,6 +78,50 @@
           </div>
           <p>Last modified {{postInFocus.dateLastModification | timeAgo}}</p>
         </div>
+      </div>
+      <div class="mobile-navigation-group">
+        <div *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
+          [ngClass]="{'mobile-navigation-group-prev': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </div>
+        <div *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
+          [ngClass]="{'mobile-navigation-group-next': true,'btn-next':postInFocusPosition !== 0}">
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </div>
+      </div>
+      <div class="mat-fab-container mat-fab-container-settings">
+        <button mat-fab class="dialog-btn" color="primary" [matMenuTriggerFor]="menu" style="background-color:#14171c;color: rgb(68, 119, 222);">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+      <mat-menu class="mat-menu" #menu="matMenu">
+        <button (click)="editPost(postInFocus)" mat-menu-item class="mat-menu__item">
+          <mat-icon class="mat-icon">
+            edit_note
+          </mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item class="mat-menu__item" (click)="deletePost(postInFocus)">
+          <mat-icon class="mat-icon">
+            delete
+          </mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility(undefined,postInFocus)">
+          <mat-icon *ngIf="postInFocus.isVisible" class="mat-icon">
+            visibility_off
+          </mat-icon>
+          <mat-icon *ngIf="!postInFocus.isVisible" class="mat-icon">
+            visibility_on
+          </mat-icon>
+          <span *ngIf="!postInFocus.isVisible">Show post</span>
+          <span *ngIf="postInFocus.isVisible">Hide post</span>
+        </button>
+      </mat-menu>
+      <div class="mat-fab-container mat-fab-container-add">
+        <button mat-fab class="dialog-btn" color="primary" (click)="addPost()" style="background-color:#14171c;color: rgb(68, 119, 222);" >
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
     </div>
   </div>

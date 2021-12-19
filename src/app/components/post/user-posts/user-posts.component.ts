@@ -24,6 +24,13 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   userHasNoPosts = true;
   isLoading = true;
 
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  }
+
   constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
 
   ngOnInit() {
@@ -63,20 +70,14 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   editPost(post: Post) {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
+      ...this.matDialogConfig
     })
   }
 
   addPost() {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
+      ...this.matDialogConfig
     })
       .afterClosed()
       .subscribe(
@@ -95,7 +96,8 @@ export class UserPostsComponent implements OnInit, OnDestroy {
         message: "This post and its content will be deleted. You won't be able to resume this post.",
         firstButtonText: 'Cancel',
         secondButtonText: 'Delete'
-      }
+      },
+      ...this.matDialogConfig
     }).afterClosed()
       .subscribe(result => {
         if (result) {
@@ -122,7 +124,12 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     this.isInFocus(this.posts[this.postInFocusPosition - 1]);
   }
 
-  togglePostVisibility(post: Post) {
-    this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
+  togglePostVisibility(post?: Post, postInFocus?: Post) {
+    if (postInFocus) {
+      this.postInFocus = { ...postInFocus, isVisible: !postInFocus.isVisible }
+    }
+    if (post) {
+      this.postsService.updatePost({ ...post, isVisible: !post.isVisible });
+    }
   }
 }

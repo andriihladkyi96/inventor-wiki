@@ -1,6 +1,11 @@
 <div class="container">
   <div *ngIf="post !== undefined && user !== undefined" class="post">
-    <h1 class="title">{{post.title}}</h1>
+    <h1 class="title">
+      <mat-icon *ngIf="!post.isVisible" class="mat-icon">
+        visibility_off
+      </mat-icon>
+      {{post.title}}
+    </h1>
     <div class="subtitle">
       <div class="author-icon"><span>{{user.firstName[0]}}</span></div>
       <span class="author-name">{{user.firstName}} {{user.lastName}}</span>
