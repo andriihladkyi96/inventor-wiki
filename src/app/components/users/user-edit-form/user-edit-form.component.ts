@@ -1,77 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ChangesMessageComponent } from '../changes-message/changes-message.component';
+import { MatDialog } from '@angular/material/dialog';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-user-edit-form',
   templateUrl: './user-edit-form.component.html',
-  styleUrls: ['./user-edit-form.component.scss']
+  styleUrls: ['./user-edit-form.component.scss'],
 })
 export class UserEditFormComponent implements OnInit {
-  id: string = "";
-  user: User | undefined;
+  id = this.route.snapshot.paramMap.get('id') as string;
+  user = this.usersService.getUser(this.id);
+  isActive: boolean;
+  roles$ = this.roleService.getAllRoles();
+  role: string;
+  
+  
 
-  identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-    return password && confirmPassword && password.value !== confirmPassword.value ? { identityNotRevealed: true } : null;
-  };
-
-  constructor(private authService: AuthService, 
+  constructor(
+    private roleService: RoleService,
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private location: Location) {
-  }
-
-  registerForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z-]+$')]),
-    lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z-]+$')]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-  }, { validators: this.identityRevealedValidator })
-
-  get firstName() {
-    return this.registerForm.get('firstName') as FormControl
-  }
-  get lastName() {
-    return this.registerForm.get('lastName') as FormControl
-  }
-  get email() {
-    return this.registerForm.get('email') as FormControl
-  }
-  get password() {
-    return this.registerForm.get('password') as FormControl
-  }
-  get confirmPassword() {
-    return this.registerForm.get('confirmPassword') as FormControl
-  }
-
-  isError: boolean = false
-  errorMessage: string = ''
-
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as string;
-      this.usersService.getUser(this.id).subscribe(
-        (u) => this.user  = u
-      )
+    console.log(this.roles$);
   }
-
-
   updateUser(id: string | undefined, key: string, value: string) {
-    if (id !==undefined) {
-      this.usersService.updateUser(id, key, value) 
+    if (id !== undefined) {
+      this.usersService.updateUser(id, key, value);
+      this.dialog.open(ChangesMessageComponent, {
+        width: '30%',
+        height: '30%',
+      });
     }
-    
   }
-
-  goBack() {
-    this.location.back();
-  }
-
 }

@@ -3,178 +3,41 @@
     <div class="user" *ngFor="let user of users">
       <div class="colourful-callout">
         <div class="user-information">
-          <h3 class="name">{{user.firstName | uppercase}} {{user.lastName | uppercase}}</h3>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            explicabo iste accusantium? Similique quo quas.
+          <h3
+            class="name"
+            [style.color]="this.user.isActive ? '#3884ff' : 'red'"
+          >
+            {{user.firstName | uppercase}} {{user.lastName | uppercase}}
+          </h3>
+          <p *ngIf="!this.user.isActive" class="text-block">
+            This user is blocked. If you want to unblock it, please, press the button.
+          </p>
+          <p *ngIf="this.user.isActive">
+            You can limit this user by blocking his profile. Enter an appropriate button.
           </p>
           <p class="email">User's email: {{user.email}}</p>
+          <p class="email">Role: {{user.role}}</p>
+          <button
+            class="btn"
+            *ngIf="this.user.isActive"
+            (click)="isActiveToogle(user?.key,  false )" 
+          >
+            BLOCK
+          </button>
+          <button
+            class="btn"
+            *ngIf="!this.user.isActive"
+            (click)="isActiveToogle(user?.key, true )" 
+          >
+            UNBLOCK
+          </button>
           <button class="btn" routerLink="/user/{{user.id}}">CHANGE</button>
         </div>
       </div>
     </div>
-
-    <div class="user" *ngIf="!isShowForm" (click)="showForm">
-      <div class="colourful-callout">
-        <div class="user-information" routerLink="register">
-          <p class="name" (click)="showForm()">ADD NEW USE</p>
-        </div>
-      </div>
-    </div>
   </div>
-  <div *ngIf="isShowForm" class="form__container">
-    <h2 class="form__title">ADDING NEW USER</h2>
-    <form class="form" [formGroup]="registerForm">
-      <mat-form-field appearance="legacy" color="accent">
-        <mat-label>First Name</mat-label>
-        <input
-          type="text"
-          matInput
-          placeholder="Type your first name"
-          formControlName="firstName"
-        />
-        <mat-icon matPrefix>person_outline</mat-icon>
 
-        <mat-error
-          *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-        >
-          <mat-error *ngIf="firstName.errors?.required"
-            >Field is required</mat-error
-          >
-          <mat-error *ngIf="firstName.errors?.minlength"
-            >Min length is 2 characters</mat-error
-          >
-          <mat-error *ngIf="firstName.errors?.maxlength"
-            >Max length is 20 characters</mat-error
-          >
-          <mat-error *ngIf="firstName.errors?.pattern"
-            >Invalid field(only letters and dashes)</mat-error
-          >
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy" color="accent">
-        <mat-label>Last Name</mat-label>
-        <input
-          type="text"
-          matInput
-          placeholder="Type your last name"
-          formControlName="lastName"
-        />
-        <mat-icon matPrefix>person_outline</mat-icon>
-
-        <mat-error
-          *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-        >
-          <mat-error *ngIf="lastName.errors?.required"
-            >Field is required</mat-error
-          >
-          <mat-error *ngIf="lastName.errors?.minlength"
-            >Min length is 2 characters</mat-error
-          >
-          <mat-error *ngIf="lastName.errors?.maxlength"
-            >Max length is 20 characters</mat-error
-          >
-          <mat-error *ngIf="lastName.errors?.pattern"
-            >Invalid field(only letters and dashes)</mat-error
-          >
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy" color="accent">
-        <mat-label>Email</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="email"
-          placeholder="Type your email"
-        />
-        <mat-icon matPrefix>mail_outline</mat-icon>
-
-        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
-          <mat-error *ngIf="email.errors?.required"
-            >Field is required</mat-error
-          >
-          <mat-error *ngIf="email.errors?.email">Invalid email</mat-error>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy" color="accent">
-        <mat-label>Password</mat-label>
-        <input
-          type="password"
-          matInput
-          formControlName="password"
-          placeholder="Type your Password"
-        />
-        <mat-icon matPrefix>lock</mat-icon>
-
-        <mat-error
-          *ngIf="password.invalid && (password.dirty || password.touched)"
-        >
-          <mat-error *ngIf="password.errors?.required"
-            >Field is required</mat-error
-          >
-          <mat-error *ngIf="password.errors?.minlength"
-            >Min length is 6 characters</mat-error
-          >
-          <mat-error *ngIf="password.errors?.maxlength"
-            >Max length is 20 characters</mat-error
-          >
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy" color="accent">
-        <mat-label>Confirm Password</mat-label>
-        <input
-          type="password"
-          matInput
-          formControlName="confirmPassword"
-          placeholder="Repeat your password"
-        />
-        <mat-icon matPrefix>lock</mat-icon>
-
-        <mat-error
-          *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
-        >
-          <mat-error *ngIf="confirmPassword.errors?.required"
-            >Field is required</mat-error
-          >
-          <mat-error *ngIf="confirmPassword.errors?.minlength"
-            >Min length is 6 characters</mat-error
-          >
-          <mat-error *ngIf="confirmPassword.errors?.maxlength"
-            >Max length is 20 characters</mat-error
-          >
-        </mat-error>
-      </mat-form-field>
-
-      <mat-error
-        *ngIf="registerForm.errors?.['identityNotRevealed'] && confirmPassword.touched"
-      >
-        Passwords must be matched
-      </mat-error>
-
-      <mat-error *ngIf="isError">
-        {{errorMessage}}
-      </mat-error>
-
-      <button
-        class="form__btn"
-        mat-button
-        type="submit"
-        [disabled]="registerForm.invalid"
-        (click)="createUser()"
-      >
-        REGISTER
-      </button>
-    </form>
-
-    <div class="form__link">
-      <a mat-button routerLink="/login" href="#">I HAVE AN ACCOUNT</a>
-    </div>
-  </div>
   <button mat-fab class="dialog-btn">
-    <mat-icon>add</mat-icon>
+    <mat-icon (click)="showForm()">add</mat-icon>
   </button>
 </div>
