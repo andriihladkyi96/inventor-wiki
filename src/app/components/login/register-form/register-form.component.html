@@ -81,7 +81,7 @@
                 {{errorMessage}}
             </mat-error>
 
-            <button class="form__btn" mat-button type="submit" [disabled]="registerForm.invalid"
+            <button class="form__btn" mat-button type="submit" [disabled]="registerForm.invalid || isFetching"
                 (click)="createUser()">REGISTER</button>
 
         </form>

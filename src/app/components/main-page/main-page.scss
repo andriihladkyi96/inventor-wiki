@@ -13,8 +13,10 @@
   line-height: 20px;
 }
 
-.section.blog {
-  padding-bottom: 40px;
+.mat-fab-container{
+  position: fixed;
+  bottom: 19px;
+  right: 19px;
 }
 
 .purple-header {
@@ -78,6 +80,17 @@ li {
   border-radius: 8px;
   transition: .2s;
 }
+.sub-li::before {
+    content: '▶';
+    position: absolute;
+    left: 15px;
+    color: honeydew;
+  }
+.sub-ul {
+  position: relative;
+  list-style: none;
+  margin-left: 20px;
+}
 
 a {
   background-color: transparent;
@@ -101,6 +114,12 @@ a {
   overflow: visible;
   max-height: 100%;
   cursor: none;
+}
+
+.post-buttons{
+  position: absolute;
+  top: 18px;
+  right: 10px;
 }
 
 .example {
@@ -141,6 +160,14 @@ mat-card-subtitle, mat-card-content {
   line-height: 1.4em;
 }
 
+mat-card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+}
+
 
 .main-posts {
   display: flex;
@@ -156,8 +183,10 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section_content {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  // padding-top: 60px;
+  // padding-bottom: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .container_main {
@@ -168,8 +197,9 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 30px;
+  // padding-top: 60px;
+  // padding-bottom: 60px;
 }
 
 .w-container {
@@ -204,6 +234,32 @@ mat-card-subtitle, mat-card-content {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/////// Text for empty CATEGORY
+.wrapper_empty_posts {
+  text-align: center;
+  h1 {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+    background: linear-gradient(to right, #673ab7 10%, #25abe8 50%, #d757d3 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 1.5s linear infinite;
+    display: inline-block;
+  }
+}
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+////////////
+
+/////////Collapse Menu
+
+  /////////////
 
 @media (max-width: 1290px) {
   .main-posts {

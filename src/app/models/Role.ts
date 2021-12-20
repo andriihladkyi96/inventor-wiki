@@ -8,5 +8,6 @@ export class Permissions {
     create: boolean;
     read: boolean;
     update: boolean;
+    createCategory: boolean;
     remove: boolean;
 }

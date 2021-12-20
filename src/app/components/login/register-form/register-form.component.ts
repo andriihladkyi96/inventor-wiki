@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -19,7 +20,7 @@ export class RegisterFormComponent implements OnInit {
   };
 
 
-  constructor(private authService: AuthService, private usersService: UsersService) {
+  constructor(private authService: AuthService, private usersService: UsersService, private router: Router) {
 
   }
 
@@ -51,11 +52,12 @@ export class RegisterFormComponent implements OnInit {
     return this.registerForm.get('confirmPassword') as FormControl
   }
 
+  isFetching: boolean = false
   isError: boolean = false
   errorMessage: string = ''
 
   createUser() {
-
+    this.isFetching = true
     const { email, password, firstName, lastName } = this.registerForm.value
     const user: User = {
       email,
@@ -65,22 +67,32 @@ export class RegisterFormComponent implements OnInit {
       isActive: true
     }
 
-    this.authService.registerUser(email, password).subscribe(
+    this.authService.registerUser(email, password).then(
       (u) => {
         user.id = u.user?.uid
         this.usersService.addUser(user)
-        this.authService.signIn(email, password)
-        
-      },
-      (err) => {
-        this.isError = true
-        this.errorMessage = err.message
-      }
-    )
+        this.authService.signIn(email, password).then(
+          (u) => {
+            this.usersService.getUser(u.user?.uid).subscribe(
+              (u) => {
+                this.usersService.setCurrentUser(u)
+                this.router.navigate(['/'])
+              }
+            )
+          }
+        )
+      }).catch(
+        (err) => {
+          this.isError = true
+          this.errorMessage = err.message
+        }
+      ).finally(
+        () => this.isFetching = false
+      )
 
   }
 
   ngOnInit(): void {
   }
-  
+
 }
