@@ -3,5 +3,5 @@
   <div class="subtitle">
     <span class="category">Category: {{post.category}}</span>
   </div>
-  <div class="content" [innerHTML]="post.content"></div>
+  <div class="content" [innerHTML]="post.content | sanitizeHtml"></div>
 </div>

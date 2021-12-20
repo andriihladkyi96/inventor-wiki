@@ -1,7 +1,10 @@
-<div class="profile">
+<div class="profile" *ngIf="user|async; let user">
+  >
   <h1>
-    Account settings of user:
-    <span class="userName"> {{user?.firstName}} {{user?.lastName}}</span>
+    ACCOUNT SETTINGS OF USER:
+    <span class="user-name"
+      >{{user.firstName | uppercase}} {{user.lastName | uppercase}}</span
+    >
   </h1>
   <p class="manage">
     Manage user's profile, account settings and preferences. Lorem ipsum dolor
@@ -10,57 +13,116 @@
     tempore rerum libero cupiditate ex numquam blanditiis, consectetur odit
     dicta? Cumque.
   </p>
-
   <div class="info">
     <div class="section">
-      <h2>PERSONAL INFORMATION OF USER</h2>
+      <h2>PERSONAL INFORMATION</h2>
     </div>
     <p class="title">
-      First name (Here you can edit data. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Accusantium nam aliquam dignissimos exercitationem,
-      omnis voluptatum quam non molestiae illo beatae earum numquam quidem,
-      corporis adipisci eum! Aperiam nesciunt sed nihil!)
+      First name (Here you can edit user's data). Please, enter a correct first
+      name.
+      <span [style.color]="firstName.errors  ? 'red' : 'grey'"
+        >First name have to be from 2 to 20 characters, only letters and dashes,
+        dashes cannot be the first character.</span
+      >
     </p>
+
     <div class="edit">
-      <p class="user-info">{{user?.firstName}}</p>
-      <button class="outlined-btn">EDIT</button>
+      <input
+        class="form-control"
+        class="input-style"
+        [style.border-color]="firstName.errors  ? 'red' : '#3884ff'"
+        name="firstName"
+        [(ngModel)]="user.firstName"
+        required
+        minlength="2"
+        maxlength="20"
+        pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
+        #firstName="ngModel"
+      />
+      <button
+        class="outlined-btn"
+        (click)="updateUser(user.key, 'firstName', user.firstName)"
+        [disabled]="firstName.invalid"
+      >
+        SAVE
+      </button>
     </div>
     <p class="title">
-      Last name (Here you can edit data. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Accusantium nam aliquam dignissimos exercitationem,
-      omnis voluptatum quam non molestiae illo beatae earum numquam quidem,
-      corporis adipisci eum! Aperiam nesciunt sed nihil!)
+      Last name (Here you can edit user's data). Please, enter a correct last
+      name.
+      <span [style.color]="lastName.errors  ? 'red' : 'grey'"
+        >Last name have to be from 2 to 20 characters, only letters and dashes,
+        dashes cannot be the first character.</span
+      >
     </p>
     <div class="edit">
-      <p class="user-info">{{user?.lastName}}</p>
-      <button class="outlined-btn">EDIT</button>
+      <input
+        class="form-control"
+        class="input-style"
+        [style.border-color]="lastName.errors ? 'red' : '#3884ff'"
+        name="lastName"
+        [(ngModel)]="user.lastName"
+        required
+        minlength="2"
+        maxlength="20"
+        pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
+        #lastName="ngModel"
+      />
+
+      <button
+        class="outlined-btn"
+        (click)="updateUser(user?.key, 'lastName', user?.lastName!)"
+        [disabled]="lastName.invalid"
+      >
+        SAVE
+      </button>
+    </div>
+  </div>
+  <div class="info" id="info">
+    <div class="section" id="section">
+      <h2>USER'S ROLE</h2>
     </div>
     <p class="title">
-      Here you can edit user's role.(Edit data. Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Accusantium nam aliquam dignissimos
-      exercitationem, omnis voluptatum quam non molestiae illo beatae earum
-      numquam quidem, corporis adipisci eum! Aperiam nesciunt sed nihil!)
+      This role manage user's activity on this app. Lorem ipsum dolor sit amet
+      consectetur adipisicing elit. Adipisci, hic. Sint, incidunt? Ex a expedita
+      corporis numquam, dolorem aut nihil illo ea aspernatur eius! Sunt at ipsam
+      omnis eligendi dicta.
     </p>
     <div class="edit">
-      <p class="user-info">{{user?.role}}</p>
-      <button class="outlined-btn">EDIT</button>
+      <select
+        class="input-style"
+        *ngIf="roles$ | async; let roles"
+        #role
+        [(ngModel)]="user.role"
+      >
+        <option *ngFor="let role of roles" required [value]="role.roleName">
+          {{role.roleName}}</option
+        ></select
+      >
+
+      <button
+        class="outlined-btn"
+        (click)="updateUser(user?.key, 'role', user.role)"
+      >
+        SAVE
+      </button>
     </div>
   </div>
 
-  <div class="info" id="info-block">
-    <div class="section" id="section-block">
+  <div class="info" id="info">
+    <div class="section" id="section">
       <h2>LOGIN DETAILS</h2>
     </div>
     <p class="title">
-      Email (This email {{user?.firstName}} {{user?.lastName}} uses for login
-      into this site. You can restrict a user's access to creating new posts by
-      blocking him. This will also delete all previously published posts from
-      this user. )
+      Email (This email user use for login into this site). Please, pay
+      attention, that this email address is used for restoring user's password
+      if he lose it. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Laboriosam, ad! Optio sapiente perferendis quod totam similique
+      repellendus ratione dolore non mollitia, inventore, veritatis labore
+      voluptatibus eos laboriosam quae quia corrupti?
     </p>
     <div class="edit">
-      <p class="user-info">{{user?.email}}</p>
-      <button class="outlined-btn" id="block">BLOCK</button>
+      <p>{{user?.email}}</p>
     </div>
   </div>
-  <button class="form__btn" mat-button (click)="goBack()">Enter</button>
 </div>

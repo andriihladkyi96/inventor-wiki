@@ -3,19 +3,40 @@
     <div class="user" *ngFor="let user of users">
       <div class="colourful-callout">
         <div class="user-information">
-          <h3 class="name">{{user.firstName | uppercase}} {{user.lastName | uppercase}}</h3>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            explicabo iste accusantium? Similique quo quas.
+          <h3
+            class="name"
+            [style.color]="this.user.isActive ? '#3884ff' : 'red'"
+          >
+            {{user.firstName | uppercase}} {{user.lastName | uppercase}}
+          </h3>
+          <p *ngIf="!this.user.isActive" class="text-block">
+            This user is blocked. If you want to unblock it, please, press the button.
+          </p>
+          <p *ngIf="this.user.isActive">
+            You can limit this user by blocking his profile. Enter an appropriate button.
           </p>
           <p class="email">User's email: {{user.email}}</p>
           <p class="email">Role: {{user.role}}</p>
+          <button
+            class="btn"
+            *ngIf="this.user.isActive"
+            (click)="isActiveToogle(user?.key,  false )" 
+          >
+            BLOCK
+          </button>
+          <button
+            class="btn"
+            *ngIf="!this.user.isActive"
+            (click)="isActiveToogle(user?.key, true )" 
+          >
+            UNBLOCK
+          </button>
           <button class="btn" routerLink="/user/{{user.id}}">CHANGE</button>
         </div>
       </div>
     </div>
   </div>
-  
+
   <button mat-fab class="dialog-btn">
     <mat-icon (click)="showForm()">add</mat-icon>
   </button>

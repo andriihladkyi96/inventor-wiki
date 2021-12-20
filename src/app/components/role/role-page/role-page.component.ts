@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Role, Permissions } from 'src/app/models/Role';
-import { User } from 'src/app/models/User';
 import { RoleService } from 'src/app/services/role.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -14,21 +13,13 @@ export class RolePageComponent implements OnInit {
 
   users$ = this.usersService.getUsers()
   roles$ = this.roleService.getAllRoles()
-
-  getRole$ = this.roleService.getRole('SuperAdmin')
-
-  show() {
-    console.log(this.getRole$);
-    
-  }
-
-  currentUser: User | undefined
-
+  hideChangeForm = false
+  currentRoleItem: Role
 
   constructor(private usersService: UsersService, private roleService: RoleService) { }
 
   roleForm = new FormGroup({
-    role: new FormControl(),
+    roleName: new FormControl('', [Validators.required, Validators.minLength(2)]),
     create: new FormControl(false),
     read: new FormControl(false),
     update: new FormControl(false),
@@ -55,9 +46,8 @@ export class RolePageComponent implements OnInit {
     return this.roleForm.get('remove') as FormControl
   }
 
-  createRole() {
-
-    const { role, create, read, update, remove } = this.roleForm.value
+  get roleData() {
+    const { roleName, create, read, update, remove } = this.roleForm.value
     const permissions: Permissions = {
       create,
       read,
@@ -65,32 +55,33 @@ export class RolePageComponent implements OnInit {
       remove
     }
     const newRole: Role = {
-      role,
+      roleName,
       permissions: permissions
     }
+    return newRole
+  }
 
+  createNewRole() {
+    this.roleService.createRole(this.roleData)
+  }
 
-    if (newRole) {
-      console.log('exsist');
-      console.log(newRole);
+  editRole(r: Role) {
+    if (r.roleName === 'SuperAdmin') {
+      return alert('SuperAdmin Role can not be changed!')
     }
-
-    this.roleService.createRole(newRole)
-
+    this.hideChangeForm = !this.hideChangeForm;
+    return this.currentRoleItem = r
   }
 
-  onSubmit() {
-    console.log(this.roleForm.value);
-    this.createRole()
+  updateRole() {
+    this.hideChangeForm = !this.hideChangeForm;
+    this.roleService.updateRole(this.currentRoleItem, this.roleData)
   }
 
-  removeRole() {
-
+  deleteRole(r: Role) {
+    this.roleService.removeRole(r.id, r.roleName)
   }
 
-  ngOnInit(): void {
-    this.currentUser = this.usersService.getCurrentUser()
-    this.show()
-  }
+  ngOnInit(): void { }
 
 }

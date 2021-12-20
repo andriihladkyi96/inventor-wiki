@@ -100,22 +100,41 @@
       />
       <button
         class="outlined-btn"
-        (click)="updateUser(user.key, 'email', user.email)"
+        (click)="updateUserEmail(user.key, 'email', user.email, user.email)"
         [disabled]="email.invalid"
       >
         SAVE
       </button>
     </div>
     <p class="title">
-      Password (This password you use for login into this site. Lorem ipsum
-      dolor sit amet consectetur adipisicing elit. Accusantium nam aliquam
-      dignissimos exercitationem, omnis voluptatum quam non molestiae illo
-      beatae earum numquam quidem, corporis adipisci eum! Aperiam nesciunt sed
-      nihil!)
+      Password (This password you use for login into this site).
+      <span [style.color]="password.errors && (password.dirty || password.touched) ? 'red' : 'grey'"
+        >Enter a correct password (password have to be from 6 to 20
+        characters or numbers).</span
+      >
     </p>
     <div class="edit">
-      <p class="user-info">Pasword</p>
-      <button class="outlined-btn">EDIT</button>
+      <input
+        class="form-control"
+        class="input-style"
+        name="password"
+        [style.border-color]="password.errors && (password.dirty || password.touched) ? 'red' : '#3884ff'"
+        required
+        type="password"
+        placeholder="Enter new password here"
+        pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії0-9][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії0-9\\-]*"
+        #password="ngModel"
+        (ngModel)="password"
+        minlength="6"
+        maxlength="20"
+      />
+      <button
+        class="outlined-btn"
+        (click)="updatePassword(password.value)"
+        [disabled]="password.invalid && (password.dirty || password.touched)"
+      >
+        SAVE
+      </button>
     </div>
   </div>
 
@@ -132,7 +151,13 @@
       </span>
     </p>
     <div class="edit">
-      <button class="outlined-btn" id="block">DELETE MY PROFILE</button>
+      <button
+        class="outlined-btn"
+        id="block"
+        (click)="deleteUserAccount(user.key)"
+      >
+        DELETE MY PROFILE
+      </button>
     </div>
   </div>
 </div>

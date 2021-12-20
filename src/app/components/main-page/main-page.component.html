@@ -19,27 +19,28 @@
       </div>
       <div class="posts-container">
         <div class="main-posts">
-          <div *ngFor="let post of allPosts" class="example">
-            <mat-card class="example-card">
-              <mat-card-title-group style="flex-direction: column">
-                <mat-card-title>{{post.title}}
-                  <div style="float: right" *ngIf="!hidenButton">
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin"
-                            (click)="editPostForAdmin(post.id)">
-                      <mat-icon color="accent">edit</mat-icon>
-                    </button>
-                    <button style="background: transparent; border: 0; cursor: pointer" [hidden]="!isSuperAdmin && !isAdmin">
-                      <mat-icon color="warn">delete_outline</mat-icon>
-                    </button>
-                  </div>
-                </mat-card-title>
-                <mat-card-subtitle class="desc">{{post.category}} </mat-card-subtitle>
-              </mat-card-title-group>
-              <mat-card-content [innerHTML]="post.content">
-              </mat-card-content>
-
-            </mat-card>
-          </div>
+            <div *ngFor="let post of allPosts" class="example">
+              <mat-card class="example-card">
+                <mat-card-title-group style="flex-direction: column">
+                  <mat-card-title>{{post.title}}
+                    <div style="float: right" *ngIf="!hidenButton">
+                      <button style="background: transparent; border: 0; cursor: pointer"
+                              [hidden]="!isSuperAdmin && !isAdmin"
+                              (click)="editPostForAdmin(post.id)">
+                        <mat-icon color="accent">edit</mat-icon>
+                      </button>
+                      <button style="background: transparent; border: 0; cursor: pointer"
+                              [hidden]="!isSuperAdmin && !isAdmin">
+                        <mat-icon color="warn">delete_outline</mat-icon>
+                      </button>
+                    </div>
+                  </mat-card-title>
+                  <mat-card-subtitle class="desc">{{post.category}} </mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-content [innerHTML]="post.content">
+                </mat-card-content>
+              </mat-card>
+            </div>
         </div>
       </div>
     </div>
