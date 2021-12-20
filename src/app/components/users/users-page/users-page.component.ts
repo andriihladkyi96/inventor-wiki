@@ -11,8 +11,6 @@ import { ChangesMessageComponent } from '../changes-message/changes-message.comp
   providers: [UsersService],
 })
 export class UsersPageComponent implements OnInit {
-  users: User[] = [];
-  id: string | undefined;
   isActive: boolean;
 
   constructor(private usersService: UsersService, private dialog: MatDialog) {}
@@ -37,17 +35,7 @@ export class UsersPageComponent implements OnInit {
       });
     }
 
-    this.authService.registerUser(email, password).then(
-      (u) => {
-        user.id = u.user?.uid
-        this.usersService.addUser(user)
-      }
-    ).catch(
-      (err) => {
-        this.isError = true
-        this.errorMessage = err.message
-      }
-    )
+ 
 
   }
 }

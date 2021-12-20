@@ -2,10 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ValidatorDirective } from 'src/app/directive/validator.directive';
 import { Role, Permissions } from 'src/app/models/Role';
 import { RoleService } from 'src/app/services/role.service';
-import { ValidatorService } from 'src/app/services/validator.service';
 import { WarningComponent, warningDialogData } from '../warning/warning.component';
 
 
@@ -18,7 +16,7 @@ export class CreateRoleFormComponent implements OnInit {
 
   allRoles: Role[];
 
-  constructor(public router: Router, public dialogRef: MatDialog, private roleService: RoleService, private validatorService: ValidatorService) { }
+  constructor(public router: Router, public dialogRef: MatDialog, private roleService: RoleService) { }
 
   roleForm = new FormGroup({
     roleName: new FormControl('', [Validators.required, Validators.minLength(2)]),

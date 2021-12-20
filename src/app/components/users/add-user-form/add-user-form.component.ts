@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user-form',
@@ -34,7 +35,8 @@ export class AddUserFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    public dialogRef: MatDialogRef<AddUserFormComponent>
+    public dialogRef: MatDialogRef<AddUserFormComponent>,
+    private router: Router
   ) {}
 
   registerForm = new FormGroup(
@@ -88,6 +90,7 @@ export class AddUserFormComponent implements OnInit {
 
   isError: boolean = false;
   errorMessage: string = '';
+  isFetching: boolean = false
 
   createUser() {
     const { email, password, firstName, lastName } = this.registerForm.value;
@@ -99,17 +102,28 @@ export class AddUserFormComponent implements OnInit {
       isActive: true
     };
 
-    this.authService.registerUser(email, password).subscribe(
+    this.authService.registerUser(email, password).then(
       (u) => {
-        user.id = u.user?.uid;
-        this.usersService.addUser(user);
-      },
-      (err) => {
-        this.isError = true;
-        this.errorMessage = err.message;
-      }
-    );
-    this.dialogRef.close();
+        user.id = u.user?.uid
+        this.usersService.addUser(user)
+        this.authService.signIn(email, password).then(
+          (u) => {
+            this.usersService.getUser(u.user?.uid).subscribe(
+              (u) => {
+                this.usersService.setCurrentUser(u)
+                this.router.navigate(['/'])
+              }
+            )
+          }
+        )
+      }).catch(
+        (err) => {
+          this.isError = true
+          this.errorMessage = err.message
+        }
+      ).finally(
+        () => this.isFetching = false
+      )
   }
 
   ngOnInit(): void {}
