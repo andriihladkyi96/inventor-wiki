@@ -27,6 +27,7 @@ export class EditCategoryComponent implements OnInit {
   form: FormGroup;
   subCategoryArray: Array<any>;
   roleList: Role[];
+  readonly:boolean = true;
 
   constructor(private router: Router,
               private categoryService: CategoriesService,
@@ -43,12 +44,13 @@ export class EditCategoryComponent implements OnInit {
           Validators.maxLength(20),
           Validators.pattern('^[A-Z].*')]);
       })
-    } else {
+    }
+    else {
       this.subCategoryArray = []
     }
 
     this.form = new FormGroup({
-      category: new FormControl(this.categoryInfo.name, [
+      category: new FormControl({value:this.categoryInfo.name, disabled:true}, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
@@ -57,23 +59,17 @@ export class EditCategoryComponent implements OnInit {
       categoryByRole: new FormControl(this.categoryInfo.role),
       subCategories: new FormArray(this.subCategoryArray,
         [])
-    }, { validators: this.identityRevealedValidator });
-
-
+    }
+    )
   }
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
   }
 
-  identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    let allCategories:Array<string> = []
-    this.categoryService.getCategoryList().subscribe(value => {
-      value.forEach(category => allCategories.push(category.name))
-    });
-    const category = control.get('category');
-    return category && allCategories && allCategories.some(categoryName => category.value === categoryName) ? { identityNotRevealed: true } : null;
-  };
+  get category() {
+    return this.form.get('category') as FormControl;
+  }
 
   updateCategory():any {
     const subCategories = this.form.controls['subCategories'].value.map((sub: any) => ({
@@ -83,12 +79,11 @@ export class EditCategoryComponent implements OnInit {
     const category = {
       id: this.categoryInfo.id,
       name: this.form.controls['category'].value,
-      subCategories: subCategories.length ? subCategories : [],
+      subCategories: subCategories.length ? subCategories: [],
       role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
     }
-    const allCategoryNames = this.allCategory.map(value => ({
-      name:value.name
-    }))
+    this.categoryService.updateCategory(category)
+
     // let newCategoryNamesArr = [];
     // for (let category of allCategoryNames) {
     //   newCategoryNamesArr.push(category.name)
@@ -110,12 +105,6 @@ export class EditCategoryComponent implements OnInit {
     //     }
     //   }
     // }
-
-
-
-    if (this.allCategory.some(value => value.name === this.form.value.category)) {
-      alert('this category already exist');
-    }
     // else {}
     //   const category = {
     //     id: this.categoryInfo.id,
@@ -123,12 +112,6 @@ export class EditCategoryComponent implements OnInit {
     //     subCategories: subCategories.length ? subCategories : [],
     //     role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
     //   }
-
-      this.categoryService.updateCategory(category)
-
-    // if (this.allCateg.find(value => value.name === this.form.value.category)) {
-    //   return alert('category already exist');
-    // }
   }
 
   ngOnInit(): void {
@@ -145,8 +128,6 @@ export class EditCategoryComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(20),
       Validators.pattern('^[A-Z].*')]));
-    console.log(this.form.value)
-    console.log(this.form.controls)
   }
 
   removeSubCategories(index: number) {

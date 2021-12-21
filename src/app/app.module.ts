@@ -45,6 +45,7 @@ import { SanitizeHtmlPipe } from './components/post/pipes/sanitize-html.pipe';
 import { PostFormDialogComponent } from './components/post/post-form-dialog/post-form-dialog.component';
 import { TimeAgoPipe } from './components/post/pipes/timeAgo.pipe';
 import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
+import { WarningComponent } from './components/add-category/warning/warning.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
     PostViewWrapperComponent,
     PostFormDialogComponent,
     TimeAgoPipe,
-    ReadingTimePipe
+    ReadingTimePipe,
+    WarningComponent
   ],
   imports: [
     BrowserModule,

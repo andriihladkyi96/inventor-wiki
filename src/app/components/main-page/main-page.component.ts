@@ -38,7 +38,6 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
-
   }
 
   getCurrentUser() {
@@ -47,6 +46,7 @@ export class MainPageComponent implements OnInit {
   }
 
   getAllPost() {
+    // this.postService.getPostList().subscribe(value => this.allPosts = value);
     this.allPosts = [];
     this.allCategories.forEach(category => this.postService.getPostsByCategory(category.name).
     subscribe(posts => {

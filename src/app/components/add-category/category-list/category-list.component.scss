@@ -1,14 +1,13 @@
 .material-icons {
   font-size: 16px;
-
 }
-
 li, .list_category {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-top: 8px;
   padding-bottom: 8px;
   background-color: #1c1e27;
+  align-items: center;
   box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
   font-weight: 500;
   text-align: center;
@@ -19,17 +18,25 @@ li, .list_category {
   color: #3884ff;
   max-width: 250px;
 }
-
+.list_category > span {
+  width: 86%;
+}
+.subcateg_list > ul li span{
+  width: 86%;
+}
 ul {
   position: relative;
   list-style: none;
   margin-left: 50px;
-
 }
-
 li::before {
   content: '▶';
   position: absolute;
   left: 25px;
-  color: honeydew;
+  color: #111314;
+}
+.edit-btn {
+  background:transparent;
+  border: 0;
+  cursor: pointer;
 }
