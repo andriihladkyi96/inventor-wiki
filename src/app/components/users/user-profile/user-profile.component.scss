@@ -5,137 +5,7 @@
   background-color: #1f2329;
   font-family: Inter, sans-serif;
   color: #fff;
-  border-top .profile {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background-color: #1f2329;
-    font-family: Inter, sans-serif;
-    color: #fff;
-    border-top-color: #3884ff;
-    border-top-style: solid;
-
-    h1 {
-      padding-top: 5rem;
-      margin-top: 0;
-      text-align: center;
-      color: #3884ff;
-    }
-
-    .manage {
-      text-align: center;
-      display: flex;
-      width: 70%;
-      margin-left: 12%;
-    }
-
-    .info {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
-      background-color: #181c1f;
-      color: #fff;
-      border-radius: 7px;
-      text-align: left;
-      margin-top: 5rem;
-      margin-bottom: 5rem;
-      margin-left: 18%;
-      border-color: #3884ff;
-      border-width: 2px;
-      border-style: solid;
-
-      .section {
-        background-color: #1d2025;
-        border-radius: 7px;
-        text-align: center;
-        display: block;
-        border-color: #3884ff;
-        border-width: 2px;
-        border-style: solid;
-      }
-
-      .title {
-        margin: 0.5rem;
-        padding: 1rem;
-        font-weight: 500;
-        text-align: center;
-        color: grey;
-      }
-      .user-info {
-        margin: 0.5rem;
-        margin-left: 5%;
-        color: #fff;
-        padding-bottom: 1rem;
-        font-weight: 800;
-      }
-
-      .input-style {
-        background-color: transparent;
-        color: #fff;
-        padding: 0.7rem;
-        font-weight: 800;
-        text-align: center;
-        font-size: 1rem;
-        border-color: #3884ff;
-        border-radius: 6px;
-        width: 50%;
-      }
-
-      .full-width {
-        width: 50%;
-        border-color: #3884ff solid 2px;
-      }
-
-      .edit {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        padding-bottom: 1rem;
-
-        .outlined-btn {
-          border: 2px solid #3884ff;
-          border-radius: 6px;
-          background-color: transparent;
-          color: #fff;
-          font-weight: 700;
-          text-align: center;
-          letter-spacing: 0.4px;
-          text-decoration: none;
-          padding-left: 3rem;
-          padding-right: 3rem;
-        }
-
-        [disabled] {
-          border: 2px solid red;
-        }
-
-        .error {
-          font-size: 5px;
-          width: 50%;
-        }
-        #block {
-          border-color: red;
-          height: 3rem;
-        }
-      }
-      #title-delete {
-        color: red;
-      }
-
-      .red {
-        color: red;
-      }
-    }
-
-    #info-block {
-      border-color: red;
-    }
-
-    #section-block {
-      border-color: red;
-    }
-  }
-  -color: #3884ff;
+  border-top-color: #3884ff;
   border-top-style: solid;
 
   h1 {
@@ -184,58 +54,8 @@
       text-align: center;
       color: grey;
     }
-    .user-info {
-      margin: 0.5rem;
-      margin-left: 5%;
-      color: #fff;
-      padding-bottom: 1rem;
-      font-weight: 800;
-    }
-
-    .input-style {
-      background-color: transparent;
-      color: #fff;
-      padding: 0.7rem;
-      font-weight: 800;
-      text-align: center;
-      font-size: 1rem;
-      border-color: #3884ff;
-      border-radius: 6px;
-      width: 50%;
-    }
-
-    .full-width {
-      width: 50%;
-      border-color: #3884ff solid 2px;
-    }
 
     .edit {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      padding-bottom: 1rem;
-
-      .outlined-btn {
-        border: 2px solid #3884ff;
-        border-radius: 6px;
-        background-color: transparent;
-        color: #fff;
-        font-weight: 700;
-        text-align: center;
-        letter-spacing: 0.4px;
-        text-decoration: none;
-        padding-left: 3rem;
-        padding-right: 3rem;
-      }
-
-      [disabled] {
-        border: 2px solid red;
-      }
-
-      .error {
-        font-size: 5px;
-        width: 50%;
-      }
       #block {
         border-color: red;
         height: 3rem;
@@ -257,6 +77,116 @@
   #section-block {
     border-color: red;
   }
+}
+
+h1 {
+  padding-top: 5rem;
+  margin-top: 0;
+  text-align: center;
+  color: #3884ff;
+}
+
+.manage {
+  text-align: center;
+  display: flex;
+  width: 70%;
+  margin-left: 12%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  background-color: #181c1f;
+  color: #fff;
+  border-radius: 7px;
+  text-align: left;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  margin-left: 18%;
+  border-color: #3884ff;
+  border-width: 2px;
+  border-style: solid;
+
+  .section {
+    background-color: #1d2025;
+    border-radius: 7px;
+    text-align: center;
+    display: block;
+    border-color: #3884ff;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  .title {
+    margin: 0.5rem;
+    padding: 1rem;
+    font-weight: 500;
+    text-align: center;
+    color: grey;
+  }
+
+  .input-style {
+    background-color: transparent;
+    color: #fff;
+    padding: 0.7rem;
+    font-weight: 800;
+    text-align: center;
+    font-size: 1rem;
+    border-color: #3884ff;
+    border-radius: 6px;
+    width: 65%;
+  }
+
+  .full-width {
+    width: 50%;
+    border-color: #3884ff solid 2px;
+  }
+
+  .edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+
+    .outlined-btn {
+      border: 2px solid #3884ff;
+      border-radius: 6px;
+      background-color: #3884ff;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+      padding: 0.5rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    [disabled] {
+      border: 2px solid red;
+    }
+
+    #two {
+      height: 3rem;
+      width: 15%;
+    }
+  }
+  #title-delete {
+    color: red;
+  }
+
+  .red {
+    color: red;
+  }
+}
+
+#info-block {
+  border-color: red;
+}
+
+#section-block {
+  border-color: red;
 }
 
 @media (max-width: 375px) {
@@ -297,8 +227,12 @@
         padding-bottom: 0.5rem;
 
         .outlined-btn {
-          padding-left: 1rem;
-          padding-right: 1rem;
+          padding: 0.5rem;
+        }
+
+        #two {
+          height: 2rem;
+          width: 30%;
         }
       }
     }

@@ -35,7 +35,6 @@ import { AddCategoryComponent } from "./components/add-category/add-category.com
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MatCardModule } from "@angular/material/card";
 import { HeaderComponent } from './components/header/header.component';
-import { ChangesMessageComponent } from './components/users/changes-message/changes-message.component';
 import { AddUserFormComponent } from './components/users/add-user-form/add-user-form.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
@@ -68,7 +67,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AddCategoryComponent,
     MainPageComponent,
     HeaderComponent,
-    ChangesMessageComponent,
     AddUserFormComponent,
     SanitizeHtmlPipe,
     CreateRoleFormComponent,
