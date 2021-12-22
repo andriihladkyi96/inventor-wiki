@@ -32,28 +32,23 @@
 
 <div class="card__info" *ngIf="info">
   <ul>
-    <li *ngIf="role.permissions.create === true">
-      <p class="permission">Crate new posts</p>
-    </li>
-    <li *ngIf="role.permissions.read === true">
-      <p class="permission">Read posts in all categories</p>
-    </li>
+
     <li *ngIf="role.permissions.update === true">
-      <p class="permission">Update all post and change users data</p>
+      <p class="permission">Update Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, aspernatur?</p>
     </li>
     <li *ngIf="role.permissions.remove === true">
-      <p class="permission">Remove posts / deactivate users</p>
+      <p class="permission">Remove Lorem ipsum dolor sit amet.</p>
     </li>
     <li *ngIf="role.permissions.createCategory === true">
-      <p class="permission">Create new categories</p>
+      <p class="permission">Create Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, error.</p>
     </li>
   </ul>
 </div>
 
 <div class="role__form__container" *ngIf="editState">
   <form class="role__form" [formGroup]="roleForm">
-    <mat-form-field>
-      <mat-label>Role Name</mat-label>
+    <!-- <mat-form-field >
+      <mat-label>Role name</mat-label>
       <input
         type="text"
         matInput
@@ -61,18 +56,9 @@
         formControlName="roleName"
         [value]="role.roleName"
       />
-    </mat-form-field>
+    </mat-form-field> -->
     <section class="check-box__group">
-      <div class="about">
-        <mat-checkbox formControlName="create" matTooltip="some description"
-          >create</mat-checkbox
-        >
-      </div>
-      <div class="about">
-        <mat-checkbox formControlName="read" matTooltip="some description"
-          >read</mat-checkbox
-        >
-      </div>
+
       <div class="about">
         <mat-checkbox formControlName="update" matTooltip="some description"
           >update</mat-checkbox

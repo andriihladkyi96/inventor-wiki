@@ -26,24 +26,31 @@ const routes: Routes = [
     // canActivate: [AngularFireAuthGuard],
     // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  { path: 'login', component: LoginFormComponent,
+  { 
+    path: 'login', component: LoginFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  { path: 'register', component: RegisterFormComponent,
+  { 
+    path: 'register', component: RegisterFormComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToMain }
   },
-  { path: 'add-category', component: AddCategoryComponent,
+  { 
+    path: 'add-category', component: AddCategoryComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
    },
-  {path:'add-category/:id', component:EditCategoryComponent},
-  { path: 'posts', component: UserPostsComponent,
+  {
+    path:'add-category/:id', component:EditCategoryComponent
+  },
+  { 
+    path: 'posts', component: UserPostsComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
-  { path: 'role', component: RolePageComponent,
+  { 
+    path: 'role', component: RolePageComponent,
     canActivate: [AngularFireAuthGuard, RoleGuard],
     data: {
       authGuardPipe: redirectUnauthorizedToLogin,
