@@ -40,7 +40,9 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
-    this.getAllCategories();
+    if (this.currentUser) {
+      this.getAllCategories();
+    }
     this.router.events.subscribe(
       () => {
         this.dialog.closeAll();
@@ -94,7 +96,7 @@ export class MainPageComponent implements OnInit {
   }
 
   editPostForAdmin(post: Post) {
-   this.dialog.open(PostFormDialogComponent, {
+    this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
       width: 'auto',
       height: 'auto',
@@ -104,7 +106,7 @@ export class MainPageComponent implements OnInit {
   }
 
   addPost() {
-   this.dialog.open(PostFormDialogComponent, {
+    this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
       width: 'auto',
       height: 'auto',
@@ -143,8 +145,6 @@ export class MainPageComponent implements OnInit {
   get isGuest(): boolean {
     return !this.currentUser;
   }
-
-
 
   getSubCategoryList(post: Category) {
     this.collapseSubCategory = !this.collapseSubCategory;
