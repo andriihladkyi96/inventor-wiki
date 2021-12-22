@@ -50,7 +50,7 @@ import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
 import { CreateRoleFormComponent } from './components/role/create-role-form/create-role-form.component';
 import { WarningComponent } from './components/role/warning/warning.component';
 import { RoleItemComponent } from './components/role/role-item/role-item.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {WarningCategoryComponent} from "./components/add-category/warning/warning-category.component";
 
 @NgModule({
   declarations: [
@@ -81,7 +81,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PostViewWrapperComponent,
     PostFormDialogComponent,
     TimeAgoPipe,
-    ReadingTimePipe
+    ReadingTimePipe,
+    WarningCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +108,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCheckboxModule,
     MatCardModule,
     NgxEditorModule.forRoot(environment.editorConfig),
-    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

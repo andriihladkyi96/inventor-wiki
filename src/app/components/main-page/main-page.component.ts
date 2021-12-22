@@ -83,6 +83,10 @@ export class MainPageComponent implements OnInit {
         this.categoriesService.getCategoryList().subscribe(categories => this.allCategories = categories)
       }
       this.getAllPost();
+      this.allCategories.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+        this.allCategories.map((a: any) => {
+          a.subCategories?.
+          ((a: any, b: any) => (a.name > b.name) ? 1 : -1)
     }
   }
 
@@ -147,7 +151,7 @@ export class MainPageComponent implements OnInit {
   }
 
   getSubCategoryList(post: Category) {
-    this.collapseSubCategory = !this.collapseSubCategory;
+    this.collapseSubCategory = true;
     return this.categoryInfo = post
   }
 }
