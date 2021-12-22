@@ -45,8 +45,10 @@ import { SanitizeHtmlPipe } from './components/post/pipes/sanitize-html.pipe';
 import { PostFormDialogComponent } from './components/post/post-form-dialog/post-form-dialog.component';
 import { TimeAgoPipe } from './components/post/pipes/timeAgo.pipe';
 import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
-import { WarningComponent } from './components/add-category/warning/warning.component';
-
+import { CreateRoleFormComponent } from './components/role/create-role-form/create-role-form.component';
+import { WarningComponent } from './components/role/warning/warning.component';
+import { RoleItemComponent } from './components/role/role-item/role-item.component';
+import {WarningCategoryComponent} from "./components/add-category/warning/warning-category.component";
 
 @NgModule({
   declarations: [
@@ -65,6 +67,9 @@ import { WarningComponent } from './components/add-category/warning/warning.comp
     MainPageComponent,
     HeaderComponent,
     SanitizeHtmlPipe,
+    CreateRoleFormComponent,
+    WarningComponent,
+    RoleItemComponent,
     CategoryListComponent,
     EditCategoryComponent,
     SearchPipe,
@@ -73,7 +78,7 @@ import { WarningComponent } from './components/add-category/warning/warning.comp
     PostFormDialogComponent,
     TimeAgoPipe,
     ReadingTimePipe,
-    WarningComponent
+    WarningCategoryComponent
   ],
   imports: [
     BrowserModule,

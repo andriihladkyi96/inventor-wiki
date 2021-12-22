@@ -72,11 +72,12 @@ export class UsersPageComponent implements OnInit {
       isActive: true
     }
 
-    this.authService.registerUser(email, password).subscribe(
+    this.authService.registerUser(email, password).then(
       (u) => {
         user.id = u.user?.uid
         this.usersService.addUser(user)
-      },
+      }
+    ).catch(
       (err) => {
         this.isError = true
         this.errorMessage = err.message

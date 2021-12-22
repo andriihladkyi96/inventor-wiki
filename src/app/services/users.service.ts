@@ -58,8 +58,8 @@ export class UsersService {
   }
 
 
-  deleteUser(id: string) {
-    this.usersRef.remove(id)
+  deleteUser(key: string) {
+    this.usersRef.remove(key)
   }
 
 }

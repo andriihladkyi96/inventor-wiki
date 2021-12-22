@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface warningDialogData {
-  title?: string;
-  message?: string;
+  title: string;
+  message: string;
 }
 
 @Component({

@@ -10,7 +10,7 @@ import {
 } from "@angular/forms";
 import {Role} from "../../../models/Role";
 import {RoleService} from "../../../services/role.service";
-import {WarningComponent, warningDialogData} from "../warning/warning.component";
+import {WarningCategoryComponent, warningDialogData} from "../warning/warning-category.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -93,7 +93,7 @@ export class EditCategoryComponent implements OnInit {
   }
 
   modalDialog(dialogData: warningDialogData): any {
-    const dialogRef = this.dialog.open(WarningComponent, {
+    const dialogRef = this.dialog.open(WarningCategoryComponent, {
       data: dialogData
     })
 

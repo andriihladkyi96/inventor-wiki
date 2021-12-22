@@ -7,7 +7,7 @@ import {Role} from "../../models/Role";
 import {UsersService} from "../../services/users.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
-import {WarningComponent, warningDialogData} from "./warning/warning.component";
+import {WarningCategoryComponent, warningDialogData} from "./warning/warning-category.component";
 
 @Component({
   selector: 'app-add-category',
@@ -52,7 +52,7 @@ export class AddCategoryComponent implements OnInit {
   }
 
   modalDialog(dialogData: warningDialogData): any {
-    const dialogRef = this.dialog.open(WarningComponent, {
+    const dialogRef = this.dialog.open(WarningCategoryComponent, {
       data: dialogData
     })
     this.router.events.subscribe(() => {
