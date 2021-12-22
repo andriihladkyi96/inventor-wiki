@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { User } from 'src/app/models/User';
 import { UsersService } from 'src/app/services/users.service';
+import { WarningDialogComponent } from '../../post/post-dialogs/warning-dialog/warning-gialog.component';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
-import { ChangesMessageComponent } from '../changes-message/changes-message.component';
 @Component({
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
@@ -12,6 +11,12 @@ import { ChangesMessageComponent } from '../changes-message/changes-message.comp
 })
 export class UsersPageComponent implements OnInit {
   isActive: boolean;
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  };
 
   constructor(private usersService: UsersService, private dialog: MatDialog) {}
   users$ = this.usersService.getUsers();
@@ -19,23 +24,36 @@ export class UsersPageComponent implements OnInit {
   ngOnInit(): void {}
   showForm() {
     this.dialog.open(AddUserFormComponent, {
-      width: '800px',
-      height: '800px',
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
+      
     });
   }
 
   isActiveToogle(id: string | undefined, value: boolean) {
     if (id !== undefined) {
-      this.usersService.updateUser(id, 'isActive', value).then(() => {
-        this.isActive = value;
-        this.dialog.open(ChangesMessageComponent, {
-          width: '30%',
-          height: '30%',
+      this.dialog
+        .open(WarningDialogComponent, {
+          data: {
+            title: "User's changes are expected",
+            message: 'Do you confirm the changes?',
+            firstButtonText: 'Cancel',
+            secondButtonText: 'Confirm',
+          },
+          ...this.matDialogConfig,
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          if (result) {
+            {
+              this.usersService.updateUser(id, 'isActive', value).then(() => {
+                this.isActive = value;
+              });
+            }
+          }
         });
-      });
     }
-
- 
-
   }
 }

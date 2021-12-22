@@ -7,11 +7,9 @@
 
 .users {
   padding: auto;
-  margin-left: 15%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  width: 80%;
+  justify-content: center;
 }
 
 .user {
@@ -53,7 +51,7 @@
     .btn {
       margin-left: 7%;
       margin-top: 8px;
-      padding: 10px 20px;
+      padding: 0.5rem;
       border: 2px solid #3884ff;
       border-radius: 6px;
       width: 6rem;
@@ -79,18 +77,12 @@
 }
 
 @media (max-width: 375px) {
-  .users {
-    margin-left: 2%;
-    width: 70%;
-  }
-
   .user {
     .user-information {
       width: 20rem;
     }
   }
 }
-
 .dialog-btn {
   position: fixed;
   bottom: 19px;

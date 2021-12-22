@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChangesMessageComponent } from '../changes-message/changes-message.component';
-import { MatDialog } from '@angular/material/dialog';
 import { RoleService } from 'src/app/services/role.service';
+import { WarningDialogComponent } from '../../post/post-dialogs/warning-dialog/warning-gialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-edit-form',
@@ -17,27 +16,46 @@ export class UserEditFormComponent implements OnInit {
   isActive: boolean;
   roles$ = this.roleService.getAllRoles();
   role: string;
-  
-  
+  result: any;
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  };
 
   constructor(
     private roleService: RoleService,
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') as string;
-    console.log(this.roles$);
   }
-  updateUser(id: string | undefined, key: string, value: string) {
-    if (id !== undefined) {
-      this.usersService.updateUser(id, key, value);
-      this.dialog.open(ChangesMessageComponent, {
-        width: '30%',
-        height: '30%',
+
+  // updateUser(id: string | undefined, key: string, value: string) {
+  //   if (id !== undefined) {
+  //     this.usersService.updateUser(id, key, value);
+  //   }
+  // }
+  updateUserNow(id: string | undefined, user: any) {
+    this.dialog
+      .open(WarningDialogComponent, {
+        data: {
+          title: 'You want to change your name',
+          message: 'Do you confirm the changes?',
+          firstButtonText: 'Cancel',
+          secondButtonText: 'Confirm',
+        },
+        ...this.matDialogConfig,
+      })
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result && id !== undefined) {
+          this.usersService.updateUserNow(id, user);
+        }
       });
-    }
   }
+  
 }

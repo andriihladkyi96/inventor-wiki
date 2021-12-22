@@ -19,6 +19,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-user-form.component.scss'],
 })
 export class AddUserFormComponent implements OnInit {
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  }
+  
   identityRevealedValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
