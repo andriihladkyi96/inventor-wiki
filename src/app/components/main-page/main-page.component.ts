@@ -40,7 +40,11 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
-
+    this.router.events.subscribe(
+      () => {
+        this.dialog.closeAll();
+      }
+    );
   }
 
   getCurrentUser() {
@@ -57,7 +61,7 @@ export class MainPageComponent implements OnInit {
               category => {
                 return category.name === post.category
               }
-            ) 
+            )
           }
         )
       )
@@ -118,7 +122,7 @@ export class MainPageComponent implements OnInit {
   }
 
   editPostForAdmin(post: Post) {
-    this.dialog.open(PostFormDialogComponent, {
+    const dialogRef = this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
       width: 'auto',
       height: 'auto',
@@ -128,7 +132,7 @@ export class MainPageComponent implements OnInit {
   }
 
   addPost() {
-    this.dialog.open(PostFormDialogComponent, {
+    const dialogRef = this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
       width: 'auto',
       height: 'auto',
@@ -163,7 +167,7 @@ export class MainPageComponent implements OnInit {
   get isAdmin(): boolean {
     return this.currentUser?.role === "Admin"
   }
-  
+
   get isGuest(): boolean {
     return !this.currentUser;
   }
