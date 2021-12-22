@@ -28,7 +28,7 @@ export class UsersPageComponent implements OnInit {
       height: 'auto',
       maxHeight: '100vh',
       maxWidth: '94vw',
-      
+    
     });
   }
 

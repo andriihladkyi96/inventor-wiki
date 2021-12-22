@@ -29,6 +29,14 @@ export class MainPageComponent implements OnInit {
   categoryInfo: Category;
   currentUser?: User;
 
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+    "z-index": 10,
+  };
+
 
   constructor(private postService: PostsService,
     private categoriesService: CategoriesService,
@@ -102,20 +110,14 @@ export class MainPageComponent implements OnInit {
     editPostForAdmin(post: Post) {
       this.dialog.open(PostFormDialogComponent, {
         data: { operatingMode: OperatingMode.Edit, post: post },
-        width: 'auto',
-        height: 'auto',
-        maxHeight: '100vh',
-        maxWidth: '94vw',
+        ...this.matDialogConfig
       });
     }
 
     addPost() {
       this.dialog.open(PostFormDialogComponent, {
         data: { operatingMode: OperatingMode.Create, post: undefined },
-        width: 'auto',
-        height: 'auto',
-        maxHeight: '100vh',
-        maxWidth: '94vw',
+        ...this.matDialogConfig
       });
     }
 
