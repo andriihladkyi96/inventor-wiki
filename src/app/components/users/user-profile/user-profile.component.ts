@@ -25,7 +25,8 @@ export class UserProfileComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private router: Router
-  ) {}
+  ) { }
+
 
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();

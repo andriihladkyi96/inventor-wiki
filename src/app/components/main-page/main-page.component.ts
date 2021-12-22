@@ -99,61 +99,61 @@ export class MainPageComponent implements OnInit {
   }
 
 
-    getQueryFromCategory(category: string) {
-      this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
-    }
+  getQueryFromCategory(category: string) {
+    this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
+  }
 
-    getQueryFromSubCategories(subCategories: string) {
-      this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
-    }
+  getQueryFromSubCategories(subCategories: string) {
+    this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
+  }
 
-    editPostForAdmin(post: Post) {
-      this.dialog.open(PostFormDialogComponent, {
-        data: { operatingMode: OperatingMode.Edit, post: post },
-        ...this.matDialogConfig
-      });
-    }
+  editPostForAdmin(post: Post) {
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Edit, post: post },
+      ...this.matDialogConfig
+    });
+  }
 
-    addPost() {
-      this.dialog.open(PostFormDialogComponent, {
-        data: { operatingMode: OperatingMode.Create, post: undefined },
-        ...this.matDialogConfig
-      });
-    }
+  addPost() {
+    this.dialog.open(PostFormDialogComponent, {
+      data: { operatingMode: OperatingMode.Create, post: undefined },
+      ...this.matDialogConfig
+    });
+  }
 
-    deletePostForAdmin(id: string) {
-      this.dialog.open(WarningDialogComponent, {
-        data: {
-          title: "Delete post",
-          message: "This post and its content will be deleted. You won't be able to resume this post.",
-          firstButtonText: 'Cancel',
-          secondButtonText: 'Delete'
-        }
-      }).afterClosed().subscribe(result => {
-        if (result) {
-          this.postService.deletePost(id);
-        }
-      })
-    }
+  deletePostForAdmin(id: string) {
+    this.dialog.open(WarningDialogComponent, {
+      data: {
+        title: "Delete post",
+        message: "This post and its content will be deleted. You won't be able to resume this post.",
+        firstButtonText: 'Cancel',
+        secondButtonText: 'Delete'
+      }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.postService.deletePost(id);
+      }
+    })
+  }
 
-    navigate(url: string, postId: string) {
-      this.router.navigate([url, postId]);
-    }
+  navigate(url: string, postId: string) {
+    this.router.navigate([url, postId]);
+  }
 
   get isSuperAdmin(): boolean {
-      return this.currentUser?.role === "SuperAdmin"
-    }
+    return this.currentUser?.role === "SuperAdmin"
+  }
 
   get isAdmin(): boolean {
-      return this.currentUser?.role === "Admin"
-    }
+    return this.currentUser?.role === "Admin"
+  }
 
   get isGuest(): boolean {
-      return !this.currentUser;
-    }
-
-    getSubCategoryList(post: Category) {
-      this.collapseSubCategory = true;
-      return this.categoryInfo = post
-    }
+    return !this.currentUser;
   }
+
+  getSubCategoryList(post: Category) {
+    this.collapseSubCategory = true;
+    return this.categoryInfo = post
+  }
+}
