@@ -1,4 +1,4 @@
-import { Role } from 'src/app/models/Role';
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { PostsService } from "../../services/posts.service";
@@ -39,13 +39,15 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCurrentUser();
-
-  }
-
-  getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();
-    this.getAllCategories();
+    if (this.currentUser) {
+      this.getAllCategories();
+    }
+    this.router.events.subscribe(
+      () => {
+        this.dialog.closeAll();
+      }
+    );
   }
 
   getAllPost() {
@@ -57,7 +59,7 @@ export class MainPageComponent implements OnInit {
               category => {
                 return category.name === post.category
               }
-            ) 
+            )
           }
         )
       )
@@ -66,7 +68,7 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  private getAllCategories() {
+  getAllCategories() {
     if (this.currentUser) {
       let roleUser = this.currentUser.role;
       if (!(roleUser === "Admin" || roleUser === "SuperAdmin")) {
@@ -83,30 +85,6 @@ export class MainPageComponent implements OnInit {
       this.getAllPost();
     }
   }
-
-  // getAllCategories() {
-  //   this.categoriesService.getCategoryList().subscribe(allCategories => {
-  //     if (this.currentUser) {
-  //       if (this.currentUser?.role === "Admin" || this.currentUser?.role === 'SuperAdmin') {
-  //         this.allCategories = allCategories
-  //       } else {
-  //         this.allCategories = allCategories.filter(category => {
-  //           return category.role.find(role => {
-  //             if (role == 'All') {
-  //               return true
-  //             }
-  //             return role == this.currentUser?.role;
-  //           });
-  //         }
-  //         )
-  //       }
-  //     } else {
-  //       this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'))
-  //     }
-  //     this.getAllPost();
-  //   }
-  //   )
-  // }
 
 
   getQueryFromCategory(category: string) {
@@ -163,12 +141,10 @@ export class MainPageComponent implements OnInit {
   get isAdmin(): boolean {
     return this.currentUser?.role === "Admin"
   }
-  
+
   get isGuest(): boolean {
     return !this.currentUser;
   }
-
-
 
   getSubCategoryList(post: Category) {
     this.collapseSubCategory = !this.collapseSubCategory;
