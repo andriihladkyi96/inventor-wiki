@@ -45,10 +45,10 @@ export class PostViewWrapperComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscriptionUser) {
+    if (this.subscriptionPost) {
       this.subscriptionPost.unsubscribe();
     }
-    if (this.subscriptionUser) {
+    if (this.subscriptionId) {
       this.subscriptionId.unsubscribe();
     }
     if (this.subscriptionUser) {
