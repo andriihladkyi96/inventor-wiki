@@ -143,8 +143,9 @@ mat-card-title {
   color: #fff;
   font-size: 20px;
   font-weight: 700;
-  overflow-wrap: break-word;
   max-width: 87%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .desc {
@@ -166,9 +167,9 @@ mat-card-content {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-all;
 
 }
-
 
 .main-posts {
   display: flex;

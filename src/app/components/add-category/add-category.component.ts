@@ -63,6 +63,7 @@ export class AddCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.getCategoryList().subscribe(allCategory => this.allCategory = allCategory);
+
   }
 
   saveSubCategory(index: any): void {

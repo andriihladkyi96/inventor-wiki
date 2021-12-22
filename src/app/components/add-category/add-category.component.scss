@@ -92,7 +92,13 @@ mat-select-trigger {
   color: #a2a9b9 ;
 }
 ::ng-deep .mat-select-panel {
+  min-width: auto!important;
   border-radius: 0 !important;
+}
+::ng-deep .cdk-overlay-pane {
+  top: 166.5px !important;
+  left: 834px !important;
+  transform: translateX(39px) translateY(-26px) !important;
 }
 ::ng-deep .mat-select-panel-wrap {
   flex-basis: auto!important;

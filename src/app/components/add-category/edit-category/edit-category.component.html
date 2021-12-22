@@ -53,7 +53,7 @@
           <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
             <mat-form-field class="mat_field_category" appearance="fill" >
               <mat-label>Sub-category</mat-label>
-              <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i" [disabled]="true"> <!--[attr.disabled]="subCategory.valid"-->
+              <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i" autocomplete="false">
               <mat-error *ngIf="subCategory.invalid && subCategory.dirty || subCategory.touched">
                 <mat-error *ngIf="subCategory.errors?.pattern">Start with a capital letter</mat-error>
                 <mat-error class="error" *ngIf="subCategory.errors?.required">Field is required</mat-error>

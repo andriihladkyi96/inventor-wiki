@@ -38,7 +38,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.categoryInfo.subCategories?.length) {
 
       this.subCategoryArray = this.categoryInfo.subCategories?.map(sub => {
-        return new FormControl(sub.name, [
+        return new FormControl({value:sub.name, disabled:true}, [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20),
@@ -72,8 +72,8 @@ export class EditCategoryComponent implements OnInit {
   }
 
   updateCategory():any {
-    const subCategories = this.form.controls['subCategories'].value.map((sub: any) => ({
-      name: sub
+    const subCategories = this.form.getRawValue().subCategories.map((sub:any) => ({
+      name:sub
     }))
 
     const category = {
@@ -116,6 +116,7 @@ export class EditCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategoryList().subscribe(value => this.allCategory = value);
+    console.log(this.form.getRawValue().subCategories)
   }
 
   deleteCategory(id: string) {

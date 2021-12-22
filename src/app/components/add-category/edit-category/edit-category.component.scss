@@ -58,12 +58,12 @@ form {
   }
 
   input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #1c1e27 inset;
-    -webkit-text-fill-color: #999;
+    -webkit-box-shadow: 0 0 0 30px #1c1e27 inset!important;
+    -webkit-text-fill-color: #a2a9b9!important;
   }
 
   input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #a2a9b9;
+    -webkit-text-fill-color: #a2a9b9!important;
   }
 
   input {
@@ -97,8 +97,13 @@ mat-select-trigger {
 }
 
 ::ng-deep .mat-select-panel {
+  min-width: auto!important;
   border-radius: 0 !important;
-
+}
+::ng-deep .cdk-overlay-pane {
+  top: 294.5px!important;
+  left: 643px!important;
+  transform: translateX(23px) translateY(14px) !important;
 }
 ::ng-deep .mat-select-panel-wrap {
    flex-basis: auto!important;
@@ -160,9 +165,6 @@ mat-select-trigger {
     ::ng-deep.mat-form-field-flex {
       width: auto !important;
     }
-    //::ng-deep.mat-form-field-infix {
-    //  width: auto!important;
-    //}
     ::ng-deep.mat-form-field-wrapper{
       width: 125px !important;
     }
