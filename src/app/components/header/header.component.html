@@ -1,55 +1,122 @@
-  <div class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium"
-       data-duration="600" data-doc-height="1"
-       style="will-change:background; background-color: #1f2329"
-       *ngIf="router.url !== '/login' && router.url !== '/register'">
-    <div class="container height-100 w-container">
-      <div class="nav-flex">
-        <a href="/" class="brand w-nav-brand">
-          <h2 style="width: 146px; height: 30px; color: white">InventorWiki</h2>
-        </a>
-        <nav  class="nav-menu w-nav-menu">
-          <div class="nav-menu-content">
-            <div class="nav-links-wrapper">
-              <div class="wrapper-links__nav-bar">
-                <a [routerLink]="['']" class="nav-link-wrap w-inline-block w--current">
-                  <div>Home</div>
+<div class="navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium"
+      data-duration="600" data-doc-height="1"
+      style="will-change:background; background-color: #1f2329"
+      *ngIf="router.url !== '/login' && router.url !== '/register' && router.url !== '/reset-password'">
+      <header class="header__body">
+        <h2 class="header__logo">InventorWiki </h2>
+
+        <div [ngClass]="{ hiden: !isOpen }" class="header__nav">
+              <a [routerLink]="['']" class="nav-link-wrap w-inline-block w--current">
+                <p (click)="toggle(false)">Home</p>
+              </a>
+              <a [routerLink]="['role']" class="nav-link-wrap w-inline-block" *ngIf="isSuperAdmin">
+                <p (click)="toggle(false)">Roles page</p>
+              </a>
+              <a [routerLink]="['users']" class="nav-link-wrap w-inline-block" *ngIf="isGuest || isSuperAdmin"  >
+                <p (click)="toggle(false)">Users</p>
+              </a>
+              <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block"  *ngIf="isGuest"  >
+                <p (click)="toggle(false)">My posts</p>
+              </a>
+              <a [routerLink]="['add-category']" class="nav-link-wrap w-inline-block" *ngIf="isGuest" >
+                <p (click)="toggle(false)">Category</p>
+              </a>
+              
+              <div class="header__logOut">
+                <a [routerLink]="['profile_settings']" class="filled-btn-arrow no-margin-top nonauth w-inline-block" *ngIf="isGuest" >
+                  <div class="filled-btn-arrow-text"  (click)="toggle(false)">
+                    {{currentUserNme}}
+                  </div>
                 </a>
-                <a [routerLink]="['role']" class="nav-link-wrap w-inline-block" *ngIf="isSuperAdmin">
-                  <div>Roles page</div>
+                <a href="/" class="nav-link-wrap nonauth w-inline-block" *ngIf="isGuest" >
+                  <p (click)="logOut()">
+                    LogOut
+                  </p>
                 </a>
-                <a [routerLink]="['users']" class="nav-link-wrap w-inline-block" *ngIf="isGuest" >
-                  <div>Users</div>
+                <a [routerLink]="['login']" class="nav-link-wrap nonauth w-inline-block" *ngIf="!isGuest">
+                  <p (click)="logOut()">
+                    Sing In
+                  </p>
                 </a>
-                <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block" style="opacity: 1;"  *ngIf="isGuest"  >
-                  <div>My posts</div>
-                </a>
-                <a [routerLink]="['add-category']" class="nav-link-wrap w-inline-block" *ngIf="isGuest" >
-                  <div>Category</div>
+                <a [routerLink]="['/register']" class="nav-link-wrap nonauth w-inline-block" *ngIf="!isGuest">
+                  <p (click)="toggle(false)">
+                    Sing Up
+                  </p>
                 </a>
               </div>
-              <a [routerLink]="['profile_settings']" class="filled-btn-arrow no-margin-top nonauth w-inline-block" *ngIf="isGuest" >
-                <div class="filled-btn-arrow-text" >
-                  {{currentUserNme}}
+            </div>
+
+            <div class="header__burger">
+              <button mat-icon-button="accent" >
+                <div *ngIf="!isOpen">
+                  <mat-icon (click)="toggle(true)"> menu </mat-icon>
                 </div>
-              </a>
-              <a href="/" class="nav-link-wrap nonauth w-inline-block" style="opacity: 1;" *ngIf="isGuest" >
-                <div (click)="logOut()">
-                  LogOut
+                <div *ngIf="isOpen">
+                  <mat-icon (click)="toggle(false)"> closed </mat-icon>
                 </div>
+              </button>
+            </div>
+      </header>
+  <!-- <header class="container height-100 w-container">
+    <div class="nav-flex">
+        <h2 class="header__logo" >InventorWiki</h2>
+      <nav  class="header__menu">
+        <div class="heade__body">
+          <div class="nav-links-wrapper">
+            <div class="header__nav">
+              <a [routerLink]="['']" class="nav-link-wrap w-inline-block w--current">
+                <div>Home</div>
               </a>
-              <a [routerLink]="['login']" class="nav-link-wrap nonauth w-inline-block" style="opacity: 1;" *ngIf="!isGuest">
-                <div (click)="logOut()">
-                  Sing In
+              <a [routerLink]="['role']" class="nav-link-wrap w-inline-block" *ngIf="isSuperAdmin">
+                <div>Roles page</div>
+              </a>
+              <a [routerLink]="['users']" class="nav-link-wrap w-inline-block" *ngIf="isGuest || isSuperAdmin"  >
+                <div>Users</div>
+              </a>
+              <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block"  *ngIf="isGuest"  >
+                <div>My posts</div>
+              </a>
+              <a [routerLink]="['add-category']" class="nav-link-wrap w-inline-block" *ngIf="isGuest" >
+                <div>Category</div>
+              </a>
+              
+              <div class="header__logOut">
+                <a [routerLink]="['profile_settings']" class="filled-btn-arrow no-margin-top nonauth w-inline-block" *ngIf="isGuest" >
+                  <div class="filled-btn-arrow-text" >
+                    {{currentUserNme}}
+                  </div>
+                </a>
+                <a href="/" class="nav-link-wrap nonauth w-inline-block" *ngIf="isGuest" >
+                  <div (click)="logOut()">
+                    LogOut
+                  </div>
+                </a>
+                <a [routerLink]="['login']" class="nav-link-wrap nonauth w-inline-block" *ngIf="!isGuest">
+                  <div (click)="logOut()">
+                    Sing In
+                  </div>
+                </a>
+                <a [routerLink]="['/register']" class="nav-link-wrap nonauth w-inline-block" *ngIf="!isGuest">
+                  <div>
+                    Sing Up
+                  </div>
+                </a>
+              </div>
+            </div>
+              
+            <div class="header__burger">
+              <button mat-icon-button="accent" >
+                <div *ngIf="!isOpen">
+                  <mat-icon (click)="toggle(true)"> menu </mat-icon>
                 </div>
-              </a>
-              <a [routerLink]="['/register']" class="nav-link-wrap nonauth w-inline-block" style="opacity: 1;" *ngIf="!isGuest">
-                <div>
-                  Sing Up
+                <div *ngIf="isOpen">
+                  <mat-icon (click)="toggle(false)"> closed </mat-icon>
                 </div>
-              </a>
+              </button>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </div>
-  </div>
+  </header> -->
+</div>
