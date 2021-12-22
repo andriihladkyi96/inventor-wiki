@@ -71,6 +71,10 @@
         &:hover {
             background-color: rgb(54 60 65);
         }
+        &__title{
+            display: block;
+            max-height: 66px;
+        }
     }
     .create-btn {
         display: block;

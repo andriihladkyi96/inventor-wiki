@@ -89,6 +89,7 @@ export class RegisterFormComponent implements OnInit {
       ).finally(
         () => this.isFetching = false
       )
+
   }
 
   ngOnInit(): void {

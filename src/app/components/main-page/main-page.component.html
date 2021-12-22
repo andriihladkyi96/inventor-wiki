@@ -65,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="mat-fab-container">
+  <div class="mat-fab-container" [hidden]="isGuest">
     <button mat-fab class="dialog-btn" color="primary" (click)="addPost()">
       <mat-icon>add</mat-icon>
     </button>

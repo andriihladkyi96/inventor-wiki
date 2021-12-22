@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import { User } from 'src/app/models/User';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Subscription } from 'rxjs';
@@ -7,6 +8,7 @@ import { Post } from 'src/app/models/Post';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { UsersService } from 'src/app/services/users.service';
+import { filter, map } from 'rxjs/operators';
 
 export interface PostData {
   operatingMode: OperatingMode;
@@ -36,6 +38,7 @@ export class PostFormDialogComponent implements OnInit {
   isContentValid = false;
   isTitleValid = false;
   isCategoryValid = false;
+  currentUser: User;
 
   toolbar: Toolbar = [
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
@@ -56,11 +59,12 @@ export class PostFormDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initializeCurrentUser();
     if (this.data.operatingMode == OperatingMode.Create) {
-      this.initializeUserId();
+      this.initializeCurrentUserId();
     }
     if (this.data.operatingMode == OperatingMode.Edit && this.data.post != undefined) {
-      this.post = {...this.data.post};
+      this.post = { ...this.data.post };
       this.isCategoryValid = true;
       this.isTitleValid = true;
       this.isContentValid = true;
@@ -126,13 +130,15 @@ export class PostFormDialogComponent implements OnInit {
     this.isContentValid = extractContent.length > 9;
   }
 
-  private initializeUserId() {
-    const currentUser = this.usersService.getCurrentUser();
-    if (currentUser.id) {
-      this.post.authorId = currentUser.id;
-    }
+  private initializeCurrentUser() {
+    this.currentUser = this.usersService.getCurrentUser();
   }
 
+  private initializeCurrentUserId() {
+    if (this.currentUser && this.currentUser.id) {
+      this.post.authorId = this.currentUser.id;
+    }
+  }
 
   onPaste(event: ClipboardEvent) {
     this.post.content = this.cleanInnerStyles(this.post.content);
@@ -158,8 +164,16 @@ export class PostFormDialogComponent implements OnInit {
   }
 
   private initializeCategories() {
-    this.subscription = this.categoriesService.getCategoryList().subscribe(
-      categories => this.categories = categories
-    )
+    if (!(this.currentUser.role === "Admin" || this.currentUser.role === "SuperAdmin")) {
+      this.subscription = this.categoriesService.getCategoryList().pipe(
+        map(categories => {
+          return categories.filter(category => {
+            return category.role.some(role => role === this.currentUser.role || role === "All")
+          })
+        })
+      ).subscribe(categories => this.categories = categories)
+    } else {
+      this.subscription = this.categoriesService.getCategoryList().subscribe(categories => this.categories = categories)
+    }
   }
 }
