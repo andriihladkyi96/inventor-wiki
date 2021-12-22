@@ -19,14 +19,19 @@ export class RoleItemComponent implements OnInit {
   info: boolean = false
   infoItem: Role
 
+  // matDialogConfig = {
+  //   width: 'auto',
+  //   height: 'auto',
+  //   maxHeight: '100vh',
+  //   maxWidth: '94vw',
+  // }
+
   @Input() role: any
 
   constructor(private dialog: MatDialog, private usersService: UsersService, private roleService: RoleService, public router: Router) { }
 
   roleForm = new FormGroup({
     roleName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    create: new FormControl(false),
-    read: new FormControl(false),
     update: new FormControl(false),
     remove: new FormControl(false),
     createCategory: new FormControl(false)
@@ -34,14 +39,6 @@ export class RoleItemComponent implements OnInit {
 
   get roleName() {
     return this.roleForm.get('roleName') as FormControl
-  }
-
-  get create() {
-    return this.roleForm.get('create') as FormControl
-  }
-
-  get read() {
-    return this.roleForm.get('read') as FormControl
   }
 
   get update() {
@@ -53,10 +50,8 @@ export class RoleItemComponent implements OnInit {
   }
 
   get roleData() {
-    const { roleName, create, read, update, remove, createCategory } = this.roleForm.value
+    const { roleName, update, remove, createCategory } = this.roleForm.value
     const permissions: Permissions = {
-      create,
-      read,
       update,
       remove,
       createCategory
@@ -68,9 +63,9 @@ export class RoleItemComponent implements OnInit {
     return newRole
   }
 
-  modalDialog(dialogData: warningDialogData) {
+  modalDialog(dialogData: warningDialogData ) {
     const dialogRef = this.dialog.open(WarningComponent, {
-      data: dialogData
+      data: dialogData,
     })
     this.router.events.subscribe(() => {
       this.dialog.closeAll();
@@ -83,21 +78,22 @@ export class RoleItemComponent implements OnInit {
   }
 
   editRole(role: Role) {
+    // debugger
     if (role.roleName === 'SuperAdmin') {
       return this.modalDialog(
         {
           title: "Warning!",
           message: "SuperAdmin Role can not be changed!"
-        }
+        },
+
       )
     }
     return this.editState = !this.editState,
       this.roleForm.patchValue({
         roleName: this.role.roleName,
-        create: this.role.permissions.create,
-        update: this.role.permissions.update,
         read: this.role.permissions.read,
         remove: this.role.permissions.remove,
+        createCategory: this.role.permissions.createCategory,
       })
   }
 
@@ -138,9 +134,6 @@ export class RoleItemComponent implements OnInit {
     )
   }
 
-
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

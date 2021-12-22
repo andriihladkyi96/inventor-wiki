@@ -14,26 +14,17 @@
           <mat-error *ngIf="roleName.errors?.minlength"
             >Min length is 2 characters</mat-error
           >
-          <mat-error *ngIf="roleName.errors?.NameNotAllowed"
-            >this Name exist</mat-error
-          >
         </mat-error>
       </mat-form-field>
       <section class="checkbox__group">
-        <mat-checkbox formControlName="create" class="example-margin"
-          >create</mat-checkbox
-        >
-        <mat-checkbox formControlName="read" class="example-margin"
-          >read all posts</mat-checkbox
-        >
         <mat-checkbox formControlName="update" class="example-margin"
-          >update all posts/users data and roles</mat-checkbox
+          >update</mat-checkbox
         >
         <mat-checkbox formControlName="createCategory" class="subtask.color"
         >create categories</mat-checkbox
         >
         <mat-checkbox formControlName="remove" class="subtask.color"
-          >remove posts/users</mat-checkbox
+          >remove</mat-checkbox
         >
       </section>
 

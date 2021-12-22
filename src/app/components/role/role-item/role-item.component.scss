@@ -1,3 +1,10 @@
+h2 {
+  margin-left: 1em;
+}
+
+li {
+  list-style-type: none;
+}
 .card__header {
   display: flex;
   align-items: center;
@@ -6,21 +13,18 @@
 
 .card__title {
   display: flex;
-  // width: auto;
 }
 
 .role__form__container {
   display: flex;
   justify-content: center;
   border-top: 2px solid #3884ff;
-  // width: 80vh;
 }
 
 .role__form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // width: 80vh;
 }
 
 .role__form__btn {
@@ -33,6 +37,7 @@
   justify-content: space-between;
   margin-top: 1em;
   width: 100px;
+  transition: 0.5s;
 }
 
 .check-box__group {
@@ -45,7 +50,6 @@
 }
 
 mat-icon {
-  // padding: 2em;
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -69,14 +73,14 @@ mat-icon {
   width: 20vh;
 }
 
-h2 {
-  margin-left: 1em;
-}
+@media (max-width: 815px) {
+  .check-box__group {
+    width: auto;
+  }
 
-// ul {
-//   padding-inline-start: 0px;
-// }
-
-li {
-  list-style-type: none;
+  mat-icon {
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+    transition: 0.5s;
+  }
 }

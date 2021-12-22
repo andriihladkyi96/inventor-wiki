@@ -28,6 +28,6 @@ export class RolePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.roleService.getAllRoles().subscribe(value => this.allRoles = value)
-    console.log(this.allRoles); }
+  }
 
 }
