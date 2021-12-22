@@ -4,6 +4,7 @@
       <div class="list list_category">
         <span>{{category.name}}</span>
         <button class="edit-btn"
+                [hidden]="!isAdmin && !isSuperAdmin"
                 (click)="editCategory()">
           <mat-icon color="accent">edit</mat-icon>
         </button>

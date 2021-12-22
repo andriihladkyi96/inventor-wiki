@@ -100,11 +100,11 @@ mat-select-trigger {
   min-width: auto!important;
   border-radius: 0 !important;
 }
-::ng-deep .cdk-overlay-pane {
-  top: 294.5px!important;
-  left: 643px!important;
-  transform: translateX(23px) translateY(14px) !important;
-}
+//::ng-deep .cdk-overlay-pane {
+  //top: 294.5px!important;
+  //left: 643px!important;
+  //transform: translateX(23px) translateY(14px) !important;
+//}
 ::ng-deep .mat-select-panel-wrap {
    flex-basis: auto!important;
 }
@@ -150,6 +150,11 @@ mat-select-trigger {
 .btn-wrapper {
   margin: 20px 0 0 0;
 }
+//::ng-deep mat-dialog-actions .btn{
+//  background-color: yellow!important;
+//  color: black!important;
+//  border-color: #d33d3d!important;
+//}
 
 @media screen and (max-width: 560px) {
   ::ng-deep.mat-form-field-infix {

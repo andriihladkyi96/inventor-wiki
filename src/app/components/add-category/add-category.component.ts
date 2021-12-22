@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoriesService} from "../../services/categories.service";
 import {Category} from "../../models/Category";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RoleService} from "../../services/role.service";
 import {Role} from "../../models/Role";
 import {UsersService} from "../../services/users.service";
@@ -15,9 +15,7 @@ import {WarningComponent, warningDialogData} from "./warning/warning.component";
   styleUrls: ['./add-category.component.scss']
 })
 
-
 export class AddCategoryComponent implements OnInit {
-
   form: FormGroup;
   allCategory: Category[];
   isHiden: boolean = true;
@@ -37,8 +35,9 @@ export class AddCategoryComponent implements OnInit {
 
   constructor(private categoryService: CategoriesService,
               private roleService: RoleService,
-              private dialog:MatDialog,
-              private router:Router) {
+              private userService: UsersService,
+              private dialog: MatDialog,
+              private router: Router) {
     this.roleService.getAllRoles().subscribe(role => this.roleList = role)
     this.form = new FormGroup({
       category: new FormControl('', [
@@ -51,7 +50,8 @@ export class AddCategoryComponent implements OnInit {
       subCategories: new FormArray([])
     });
   }
-  modalDialog(dialogData: warningDialogData):any {
+
+  modalDialog(dialogData: warningDialogData): any {
     const dialogRef = this.dialog.open(WarningComponent, {
       data: dialogData
     })
@@ -62,14 +62,15 @@ export class AddCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryService.getCategoryList().subscribe(allCategory => this.allCategory = allCategory);
+    this.categoryService.getCategoryList().subscribe(allCategory => this.allCategory = allCategory.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+    );
 
   }
 
   saveSubCategory(index: any): void {
     const subCategory = {name: this.subCategoriesFormArray.value[index]}
-
     let category = this.allCategory.find(categories => categories.name === this.form.value.category)
+
     if (category?.subCategories?.find(subCategories => subCategories.name === subCategory.name)) {
       this.disabledSubCategBtn = false
       return this.modalDialog({
@@ -131,5 +132,13 @@ export class AddCategoryComponent implements OnInit {
     this.showCategoryBtn = false
     this.isHiden = true
     this.disabledSubCategBtn = false
+  }
+
+  get isSuperAdmin(): boolean {
+    return this.userService.checkUserRole() === "SuperAdmin"
+  }
+
+  get isAdmin(): boolean {
+    return this.userService.checkUserRole() === "Admin"
   }
 }

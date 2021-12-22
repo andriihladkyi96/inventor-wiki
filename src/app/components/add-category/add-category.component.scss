@@ -34,7 +34,7 @@ h2 {
   max-width: 1328px;
   margin: 24px auto 24px auto;
   background-color: #1c1e27;
-  min-height: 200px;
+  min-height: 250px;
   height: fit-content;
   padding: 4px;
   background-position: 0 60%;
@@ -96,9 +96,9 @@ mat-select-trigger {
   border-radius: 0 !important;
 }
 ::ng-deep .cdk-overlay-pane {
-  top: 166.5px !important;
-  left: 834px !important;
-  transform: translateX(39px) translateY(-26px) !important;
+  //top: 228.5px!important;
+//  left: 834px !important;
+  transform: translateX(23px) translateY(-58px) !important;
 }
 ::ng-deep .mat-select-panel-wrap {
   flex-basis: auto!important;

@@ -48,15 +48,16 @@ export class CategoryListComponent implements OnInit {
             )
           }
         } else {
-          this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'))
+          this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'));
         }
       }
     )
+    this.category.subCategories?.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1);
   }
 
   editCategory() {
     this.router.navigate([this.category.id],
-      {relativeTo: this.activatedRoute, state: this.category})
+      {relativeTo: this.activatedRoute, state: this.category});
   }
 
   get isSuperAdmin(): boolean {

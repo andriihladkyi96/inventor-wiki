@@ -46,12 +46,11 @@ export class MainPageComponent implements OnInit {
   }
 
   getAllPost() {
-    // this.postService.getPostList().subscribe(value => this.allPosts = value);
     this.allPosts = [];
-    this.allCategories.forEach(category => this.postService.getPostsByCategory(category.name).
-    subscribe(posts => {
+    this.allCategories.forEach(category => this.postService.getPostsByCategory(category.name).subscribe(posts => {
       this.allPosts = [...this.allPosts, ...posts]
     }))
+    this.collapseSubCategory = false;
   }
 
   getAllCategories() {
@@ -74,7 +73,10 @@ export class MainPageComponent implements OnInit {
           this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'))
         }
         this.getAllPost();
-
+        this.allCategories.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+        this.allCategories.map((a: any) => {
+          a.subCategories?.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+        })
       }
     )
   }
@@ -137,7 +139,7 @@ export class MainPageComponent implements OnInit {
 
 
   getSubCategoryList(post: Category) {
-    this.collapseSubCategory = !this.collapseSubCategory;
+    this.collapseSubCategory = true;
     return this.categoryInfo = post
   }
 }

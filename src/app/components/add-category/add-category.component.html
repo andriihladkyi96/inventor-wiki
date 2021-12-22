@@ -22,30 +22,30 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="mat_field_role"
-                        appearance="fill">
-          <mat-label>Role</mat-label>
-          <mat-select #categoryByRole formControlName="categoryByRole" multiple>
-            <mat-select-trigger>
-              {{categoryByRole.value ? categoryByRole.value[0] : ''}}
-              <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
+        <span [hidden]="!isAdmin && !isSuperAdmin">
+            <mat-form-field class="mat_field_role"
+                            appearance="fill">
+              <mat-label>Role</mat-label>
+              <mat-select #categoryByRole formControlName="categoryByRole" multiple>
+                <mat-select-trigger>
+                  {{categoryByRole.value ? categoryByRole.value[0] : ''}}
+                  <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
         (+{{categoryByRole.value.length - 1}} {{categoryByRole.value?.length === 2 ? 'other' : 'others'}})
       </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+                </mat-select-trigger>
+                <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </span>
 
         <button class="button" (click)="addSubCategory()"
                 [hidden]="!showCategoryBtn"
-                [disabled]="disabledSubCategBtn">+
-        </button>
-
+                [disabled]="disabledSubCategBtn">+</button>
 
       </div>
-
       <div class="sub-category-form" formArrayName="subCategories">
         <div *ngFor="let control of subCategoriesFormArray.controls; let i = index">
+
           <mat-form-field class="mat_field_category" appearance="fill">
             <mat-label>Sub-category</mat-label>
             <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
@@ -56,28 +56,23 @@
               <mat-error class="error" *ngIf="control.errors?.maxlength">Maximum length is 20 characters</mat-error>
             </mat-error>
           </mat-form-field>
-          <button class="sub_button"
-                  mat-flat-button
-                  color="accent"
-                  type="submit"
-                  [disabled]="form.invalid"
-                  (click)="saveSubCategory(i)"
-                  >
-            Save
-          </button>
+
+          <button class="sub_button" mat-flat-button color="accent" type="submit"
+            [disabled]="form.invalid"
+            (click)="saveSubCategory(i)">Save</button>
+
           <button class="sub_button" mat-flat-button style="color: red" type="submit"
-                  (click)="removeControl(i)">Remove
-          </button>
+                  (click)="removeControl(i)">Remove</button>
+
         </div>
       </div>
+
       <button mat-flat-button type="submit" (click)="saveCategory()" [disabled]="form.invalid"
-              class="main-btn" [class]="{hiden:!isHiden}">
-        Save category
-      </button>
+              class="main-btn" [class]="{hiden:!isHiden}">Save category</button>
+
       <button mat-flat-button type="button" [class]="{hiden:isHiden}" (click)="resetForm()"
-              class="main-btn">
-        New category
-      </button>
+              class="main-btn">New category</button>
+
     </form>
   </div>
   <div>
