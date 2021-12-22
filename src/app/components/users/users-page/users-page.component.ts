@@ -24,8 +24,11 @@ export class UsersPageComponent implements OnInit {
   ngOnInit(): void {}
   showForm() {
     this.dialog.open(AddUserFormComponent, {
-      width: '800px',
-      height: '800px',
+      width: 'auto',
+      height: 'auto',
+      maxHeight: '100vh',
+      maxWidth: '94vw',
+      
     });
   }
 
