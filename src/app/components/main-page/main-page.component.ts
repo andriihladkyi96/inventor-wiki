@@ -84,74 +84,74 @@ export class MainPageComponent implements OnInit {
       }
       this.getAllPost();
       this.allCategories.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
-        this.allCategories.map((a: any) => {
-          a.subCategories?.
-          ((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+      this.allCategories.map((a: any) => {
+        a.subCategories?.((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+      })
     }
   }
 
 
-  getQueryFromCategory(category: string) {
-    this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
-  }
+    getQueryFromCategory(category: string) {
+      this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
+    }
 
-  getQueryFromSubCategories(subCategories: string) {
-    this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
-  }
+    getQueryFromSubCategories(subCategories: string) {
+      this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
+    }
 
-  editPostForAdmin(post: Post) {
-    this.dialog.open(PostFormDialogComponent, {
-      data: { operatingMode: OperatingMode.Edit, post: post },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
-    });
-  }
+    editPostForAdmin(post: Post) {
+      this.dialog.open(PostFormDialogComponent, {
+        data: { operatingMode: OperatingMode.Edit, post: post },
+        width: 'auto',
+        height: 'auto',
+        maxHeight: '100vh',
+        maxWidth: '94vw',
+      });
+    }
 
-  addPost() {
-    this.dialog.open(PostFormDialogComponent, {
-      data: { operatingMode: OperatingMode.Create, post: undefined },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
-    });
-  }
+    addPost() {
+      this.dialog.open(PostFormDialogComponent, {
+        data: { operatingMode: OperatingMode.Create, post: undefined },
+        width: 'auto',
+        height: 'auto',
+        maxHeight: '100vh',
+        maxWidth: '94vw',
+      });
+    }
 
-  deletePostForAdmin(id: string) {
-    this.dialog.open(WarningDialogComponent, {
-      data: {
-        title: "Delete post",
-        message: "This post and its content will be deleted. You won't be able to resume this post.",
-        firstButtonText: 'Cancel',
-        secondButtonText: 'Delete'
-      }
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        this.postService.deletePost(id);
-      }
-    })
-  }
+    deletePostForAdmin(id: string) {
+      this.dialog.open(WarningDialogComponent, {
+        data: {
+          title: "Delete post",
+          message: "This post and its content will be deleted. You won't be able to resume this post.",
+          firstButtonText: 'Cancel',
+          secondButtonText: 'Delete'
+        }
+      }).afterClosed().subscribe(result => {
+        if (result) {
+          this.postService.deletePost(id);
+        }
+      })
+    }
 
-  navigate(url: string, postId: string) {
-    this.router.navigate([url, postId]);
-  }
+    navigate(url: string, postId: string) {
+      this.router.navigate([url, postId]);
+    }
 
   get isSuperAdmin(): boolean {
-    return this.currentUser?.role === "SuperAdmin"
-  }
+      return this.currentUser?.role === "SuperAdmin"
+    }
 
   get isAdmin(): boolean {
-    return this.currentUser?.role === "Admin"
-  }
+      return this.currentUser?.role === "Admin"
+    }
 
   get isGuest(): boolean {
-    return !this.currentUser;
-  }
+      return !this.currentUser;
+    }
 
-  getSubCategoryList(post: Category) {
-    this.collapseSubCategory = true;
-    return this.categoryInfo = post
+    getSubCategoryList(post: Category) {
+      this.collapseSubCategory = true;
+      return this.categoryInfo = post
+    }
   }
-}
