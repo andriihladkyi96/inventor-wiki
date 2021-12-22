@@ -1,16 +1,17 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss']
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent implements OnInit, OnDestroy {
 
   identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
@@ -55,6 +56,7 @@ export class RegisterFormComponent implements OnInit {
   isFetching: boolean = false
   isError: boolean = false
   errorMessage: string = ''
+  subscription: Subscription
 
   createUser() {
     this.isFetching = true
@@ -77,6 +79,7 @@ export class RegisterFormComponent implements OnInit {
               (u) => {
                 this.usersService.setCurrentUser(u)
                 this.router.navigate(['/'])
+                this.isFetching = false
               }
             )
           }
@@ -85,13 +88,18 @@ export class RegisterFormComponent implements OnInit {
         (err) => {
           this.isError = true
           this.errorMessage = err.message
+          this.isFetching = false
         }
-      ).finally(
-        () => this.isFetching = false
       )
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
 }

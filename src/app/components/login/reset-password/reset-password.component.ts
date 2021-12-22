@@ -24,16 +24,21 @@ export class ResetPasswordComponent implements OnInit {
   isDone: boolean = false
   isError: boolean = false
   errorMessage: string = ''
+  isFetching: boolean = false
 
   SendForReset() {
-
+    this.isFetching = true
     this.authService.resetPassword(this.email.value)
       .then(
-        () => this.isDone = true)
+        () => {
+          this.isDone = true
+          this.isFetching = false
+        })
       .catch(
         (err) => {
           this.isError = true
           this.errorMessage = err.message
+          this.isFetching = false
         }
       )
   }

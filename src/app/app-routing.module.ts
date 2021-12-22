@@ -21,7 +21,9 @@ const redirectLoggedInToMain = () => redirectLoggedInTo([''])
 const routes: Routes = [
 
   {
-    path: '', component: MainPageComponent
+    path: '', component: MainPageComponent,
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'login', component: LoginFormComponent,
@@ -43,6 +45,14 @@ const routes: Routes = [
     path: 'posts', component: UserPostsComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  {
+    path: 'role', component: RolePageComponent,
+    canActivate: [AngularFireAuthGuard, RoleGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+      role: ["SuperAdmin"]
+    }
   },
   {
     path: 'role', component: RolePageComponent,
