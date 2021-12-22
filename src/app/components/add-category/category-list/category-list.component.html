@@ -1,17 +1,22 @@
-<div class="main_category_list" >
-  <div class="list list_category" > {{category.name}}
-    <button style="background:
-  transparent;
-  border: 0;
-  cursor: pointer"
-            (click)="editCategory()">
-      <mat-icon  color="accent">edit</mat-icon>
-    </button>
-  </div>
-  <div class="subcateg_list" *ngIf="category.subCategories" >
-    <ul  *ngFor="let c of category.subCategories">
-      <li>{{c.name}}</li>
-    </ul>
-  </div>
+<div class="main_category_list">
+  <ng-container *ngFor="let categ of allCategories">
+    <ng-container *ngIf="categ.name === category.name">
+      <div class="list list_category">
+        <span>{{category.name}}</span>
+        <button class="edit-btn"
+                [hidden]="!isAdmin && !isSuperAdmin"
+                (click)="editCategory()">
+          <mat-icon color="accent">edit</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+    <div class="subcateg_list" *ngIf="categ.name ===category.name">
+      <ul *ngFor="let categ of category.subCategories">
+        <li>
+         <span> {{categ.name}}</span>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
 </div>
 

@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="section blog wf-section">
+  <div class="section">
     <div class="container w-container">
       <h2 class="purple-header">Powered by InventorWiki</h2>
       <p class="paragraph-580px left-660px">Individuals and teams from all over the world are publishing amazing content
@@ -8,45 +8,66 @@
   <div class="section_content">
     <div class="container_main container ">
       <div class="list_div">
-        <div *ngFor="let post of postCategories">
+        <div>
           <ul class="list">
-            <li><a
-              [routerLink]="['']"
-              (click)="getQueryFromCategory(post.name)">
-              {{post.name}}</a></li>
+            <li (click)="getAllPost()">All posts</li>
           </ul>
+        </div>
+        <div *ngFor="let category of allCategories">
+          <ul class="list" id="category_menu">
+            <li
+              (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+              {{category.name}}
+            </li>
+          </ul>
+          <div *ngIf="collapseSubCategory && categoryInfo.id === category.id">
+            <ng-container *ngFor="let subCategory of category.subCategories">
+              <ul class="sub-ul">
+                <li class="sub-li">
+                  <a
+                    (click)="getQueryFromSubCategories(subCategory.name)">
+                    {{subCategory.name}}
+                  </a>
+                </li>
+              </ul>
+            </ng-container>
+          </div>
         </div>
       </div>
       <div class="posts-container">
         <div class="main-posts">
-            <div *ngFor="let post of allPosts" class="example">
-              <mat-card class="example-card">
-                <mat-card-title-group style="flex-direction: column">
-                  <mat-card-title>{{post.title}}
-                    <div style="float: right" *ngIf="!hidenButton">
-                      <button style="background: transparent; border: 0; cursor: pointer"
-                              [hidden]="!isSuperAdmin && !isAdmin"
-                              (click)="editPostForAdmin(post.id)">
-                        <mat-icon color="accent">edit</mat-icon>
-                      </button>
-                      <button style="background: transparent; border: 0; cursor: pointer"
-                              [hidden]="!isSuperAdmin && !isAdmin">
-                        <mat-icon color="warn">delete_outline</mat-icon>
-                      </button>
-                    </div>
-                  </mat-card-title>
-                  <mat-card-subtitle class="desc">{{post.category}} </mat-card-subtitle>
-                </mat-card-title-group>
-                <mat-card-content [innerHTML]="post.content">
-                </mat-card-content>
-              </mat-card>
+          <div class="wrapper_empty_posts" *ngIf="!(allPosts.length > 0)">
+            <h1>No posts found</h1>
+          </div>
+          <div *ngFor="let post of allPosts" class="example">
+            <mat-card class="example-card" [routerLink]="['/post', post.id]">
+              <mat-card-title-group style="flex-direction: column">
+                <mat-card-title>{{post.title}}</mat-card-title>
+                <mat-card-subtitle class="desc">{{post.category}} </mat-card-subtitle>
+              </mat-card-title-group>
+              <mat-card-content [innerHTML]="post.content">
+              </mat-card-content>
+            </mat-card>
+            <div class="post-buttons" *ngIf="!hidenButton">
+              <button style="background: transparent; border: 0; cursor: pointer; z-index: 3;"
+                      [hidden]="!isSuperAdmin && !isAdmin"
+                      (click)="editPostForAdmin(post); $event.preventDefault();">
+                <mat-icon color="accent">edit</mat-icon>
+              </button>
+              <button style="background: transparent; border: 0; cursor: pointer; z-index: 3;"
+                      [hidden]="!isSuperAdmin && !isAdmin"
+                      (click)="deletePostForAdmin(post.id); $event.preventDefault();">
+                <mat-icon color="warn">delete_outline</mat-icon>
+              </button>
             </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer container">
-    <div><h4 style="color: #fff; margin-right: 15px"> All right reserved by </h4></div>
-    <div><h4 class="footer">InventorWiki</h4></div>
+  <div class="mat-fab-container" [hidden]="isGuest">
+    <button mat-fab class="dialog-btn" color="primary" (click)="addPost()">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 </div>

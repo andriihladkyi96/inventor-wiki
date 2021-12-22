@@ -2,7 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from "../../../models/Category";
 import {Router} from "@angular/router";
 import {CategoriesService} from "../../../services/categories.service";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
+import {Role} from "../../../models/Role";
+import {RoleService} from "../../../services/role.service";
+import {WarningCategoryComponent, warningDialogData} from "../warning/warning-category.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-edit-category',
@@ -10,83 +19,106 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
   styleUrls: ['./edit-category.component.scss']
 })
 export class EditCategoryComponent implements OnInit {
-categoryInfo:Category;
+  allCategory: Category[];
+  categoryInfo: Category;
   form: FormGroup;
-  subCategoryArray:Array<any>;
-  allCateg:Category[];
+  subCategoryArray: Array<any>;
+  roleList: Role[];
+  isUpdatedBtnActive: boolean = false
 
-
-  constructor(private router:Router,
-              private categoryService:CategoriesService,
-              ) {
-    this.categoryInfo = this.router.getCurrentNavigation()?.extras.state as Category;
-    this.categoryService.getCategoryList().subscribe(category => this.allCateg = category )
+  constructor(private router: Router,
+              private categoryService: CategoriesService,
+              private roleService: RoleService,
+              private dialog: MatDialog
+  ) {
+    this.roleService.getAllRoles().subscribe(role => this.roleList = role);
+    this.categoryInfo = this.router.getCurrentNavigation()?.extras.state as Category
     if (this.categoryInfo.subCategories?.length) {
 
       this.subCategoryArray = this.categoryInfo.subCategories?.map(sub => {
-        return new FormControl(sub.name, [
+        return new FormControl({value: sub.name, disabled: true}, [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.pattern('^[A-Z].*')]);
-      } )
-    }
-    else {
+      })
+    } else {
       this.subCategoryArray = []
     }
 
     this.form = new FormGroup({
-      category: new FormControl( this.categoryInfo.name,[
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
-        Validators.pattern('^[A-Z].*')
-      ]),
-      subCategories: new FormArray(this.subCategoryArray,
-        [])
-    });
-
+        category: new FormControl({value: this.categoryInfo.name, disabled: true}, [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern('^[A-Z].*')
+        ]),
+        categoryByRole: new FormControl(this.categoryInfo.role),
+        subCategories: new FormArray(this.subCategoryArray,
+          [])
+      }
+    )
   }
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
   }
 
-  updateCategory() {
-    const subCategories = this.form.controls['subCategories'].value.map((sub:any) => ({
-      name:sub
-    }))
-    const category = {
-      id:this.categoryInfo.id,
-      name:this.form.controls['category'].value,
-      subCategories: subCategories.length ? subCategories : []
-    }
-    // if (this.allCateg.find(value => value.name === category.name)) {
-    //   return alert('category already exist');
-    //
-    // }
+  get category() {
+    return this.form.get('category') as FormControl;
+  }
 
-        this.categoryService.updateCategory(category)
+  updateCategory(): any {
+    const subCategories = this.form.getRawValue().subCategories.map((sub: any) => ({
+      name: sub
+    }))
+
+    const category = {
+      id: this.categoryInfo.id,
+      name: this.form.controls['category'].value,
+      subCategories: subCategories.length ? subCategories : [],
+      role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
+    }
+
+    this.categoryService.updateCategory(category);
+    this.isUpdatedBtnActive = false;
+
+    return this.modalDialog({
+      message: 'Updated'
+    })
   }
 
   ngOnInit(): void {
+    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value)
   }
 
-  deleteCategory(id:string) {
+  modalDialog(dialogData: warningDialogData): any {
+    const dialogRef = this.dialog.open(WarningCategoryComponent, {
+      data: dialogData
+    })
+
+    this.router.events.subscribe(() => {
+      this.dialog.closeAll();
+    })
+
+    return dialogRef.afterClosed();
+  }
+
+  deleteCategory(id: string) {
     this.categoryService.deleteCategory(id);
   }
 
   addSubCategory() {
-    this.subCategoriesFormArray.push(new FormControl(null,[
+    this.subCategoriesFormArray.push(new FormControl(null, [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(20),
       Validators.pattern('^[A-Z].*')]));
-    console.log(this.form.value)
-    console.log(this.form.controls)
+    this.isUpdatedBtnActive = true
   }
 
-  removeSubCategories(index:number) {
-      this.subCategoriesFormArray.removeAt(index);
-    }
+  removeSubCategories(index: number) {
+    this.subCategoriesFormArray.removeAt(index);
+    this.isUpdatedBtnActive = true;
+  }
 }

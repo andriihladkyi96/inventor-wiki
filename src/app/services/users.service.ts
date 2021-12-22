@@ -52,11 +52,7 @@ export class UsersService {
     return this.getCurrentUser() ? this.getCurrentUser().role : false
   }
 
-  // updateUser(id: string, data: any) {
-  //   return this.usersRef.update(id, data)
-  // }
-
-  updateUser(id: string, key: string, value: string) {
+  updateUser(id: string, key: string, value: string | boolean) {
     return this.usersRef.update(id, { [key]: value })
   }
 

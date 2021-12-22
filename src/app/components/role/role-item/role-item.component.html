@@ -1,0 +1,87 @@
+<div class="card__header">
+  <div class="card__title">
+    <h2>{{ role.roleName }}</h2>
+    </div>
+  <div class="btn__group">
+    <div *ngIf="!info">
+      <mat-icon
+        matTooltip="Show role description "
+        (click)="getInfo(true)"
+        >description</mat-icon
+      >
+    </div>
+    <div *ngIf="info">
+      <mat-icon
+        matTooltip="Hide role description"
+        (click)="getInfo(false)"
+        >description</mat-icon
+      >
+    </div>
+    <div>
+      <mat-icon matTooltip="Edit role" (click)="editRole(role)"
+        >edit</mat-icon
+      >
+    </div>
+    <div>
+      <mat-icon matTooltip="Delete role" (click)="deleteRole(role)"
+        >delete</mat-icon
+      >
+    </div>
+  </div>
+</div>
+
+<div class="card__info" *ngIf="info">
+  <ul>
+
+    <li *ngIf="role.permissions.update === true">
+      <p class="permission">Update Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, aspernatur?</p>
+    </li>
+    <li *ngIf="role.permissions.remove === true">
+      <p class="permission">Remove Lorem ipsum dolor sit amet.</p>
+    </li>
+    <li *ngIf="role.permissions.createCategory === true">
+      <p class="permission">Create Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, error.</p>
+    </li>
+  </ul>
+</div>
+
+<div class="role__form__container" *ngIf="editState">
+  <form class="role__form" [formGroup]="roleForm">
+    <!-- <mat-form-field >
+      <mat-label>Role name</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Type Role Name"
+        formControlName="roleName"
+        [value]="role.roleName"
+      />
+    </mat-form-field> -->
+    <section class="check-box__group">
+
+      <div class="about">
+        <mat-checkbox formControlName="update" matTooltip="some description"
+          >update</mat-checkbox
+        >
+      </div>
+      <div class="about">
+        <mat-checkbox formControlName="createCategory" matTooltip="some description"
+          >createCategory</mat-checkbox
+        >
+      </div>
+      <div class="about">
+        <mat-checkbox formControlName="remove" matTooltip="some description"
+          >remove</mat-checkbox
+        >
+      </div>
+    </section>
+    <button
+      mat-raised-button
+      class="btn__submit"
+      (click)="updateRole(role)"
+      [disabled]="roleForm.invalid"
+    >
+      Change
+    </button>
+  </form>
+</div>

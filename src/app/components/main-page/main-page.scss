@@ -13,8 +13,10 @@
   line-height: 20px;
 }
 
-.section.blog {
-  padding-bottom: 40px;
+.mat-fab-container{
+  position: fixed;
+  bottom: 19px;
+  right: 19px;
 }
 
 .purple-header {
@@ -56,15 +58,16 @@ p {
 .list {
   margin-bottom: 0;
   font-family: Inter, sans-serif;
-  color: #fff;
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;
   letter-spacing: .2px;
   list-style-type: none;
   width: 200px;
-  background: #292929;
   padding-left: 0;
+  color: #3884ff;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 li {
@@ -78,7 +81,18 @@ li {
   border-radius: 8px;
   transition: .2s;
 }
-
+.sub-li::before {
+    content: '▶';
+    position: absolute;
+    left: 15px;
+    color: #111314;
+  }
+.sub-ul {
+  position: relative;
+  list-style: none;
+  margin-left: 20px;
+  cursor: pointer;
+}
 a {
   background-color: transparent;
   font-family: Inter, sans-serif;
@@ -97,13 +111,14 @@ a {
   overflow: hidden;
 }
 
-.example-card:active {
-  overflow: visible;
-  max-height: 100%;
-  cursor: none;
+.post-buttons{
+  position: absolute;
+  top: 18px;
+  right: 10px;
 }
 
 .example {
+  position: relative;
   margin-bottom: 24px;
   padding: 4px;
   border-radius: 6px;
@@ -115,6 +130,9 @@ a {
   -o-object-fit: fill;
   object-fit: fill;
 }
+.example:nth-child(2n) {
+  margin-left: 25px;
+}
 
 mat-card {
   background-color: #1c1e27;
@@ -122,9 +140,13 @@ mat-card {
 }
 
 mat-card-title {
+  white-space: nowrap;
   color: #fff;
   font-size: 20px;
   font-weight: 700;
+  max-width: 87%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .desc {
@@ -141,6 +163,14 @@ mat-card-subtitle, mat-card-content {
   line-height: 1.4em;
 }
 
+mat-card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-all;
+
+}
 
 .main-posts {
   display: flex;
@@ -156,8 +186,10 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section_content {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  // padding-top: 60px;
+  // padding-bottom: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .container_main {
@@ -168,8 +200,7 @@ mat-card-subtitle, mat-card-content {
 }
 
 .section {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 30px;
 }
 
 .w-container {
@@ -185,39 +216,94 @@ mat-card-subtitle, mat-card-content {
   padding-right: 48px;
   padding-left: 48px;
 }
-
-.modal-footer {
-  display: flex;
-  background-color: #1d1e22;
-  min-height: 100px;
-  align-items: center;
+/////// Text for empty CATEGORY
+.wrapper_empty_posts {
+  text-align: center;
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+    background: linear-gradient(to right, #673ab7 10%, #25abe8 50%, #d757d3 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 1.5s linear infinite;
+    display: inline-block;
+  }
 }
-
-.footer {
-  background-image: url("https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png");
-  margin-bottom: 24px;
-  background-position: 0 15%;
-  background-size: cover;
-  font-size: 1.2rem;
-  line-height: 1.2em;
-  font-weight: 900;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 1290px) {
-  .main-posts {
-    display: block;
+@keyframes textclip {
+  to {
+    background-position: 200% center;
   }
 }
 
-@media (max-width: 1290px) {
+@media screen and (max-width: 1399px) {
+  .main-posts {
+    display: block;
+    align-content: center;
+  }
   .example-card {
-    width: auto;
-    min-width: 350px;
+    width: 50vw;
+    min-width: 440px;
     max-width: 700px;
     height: 100%;
     max-height: 300px;
     overflow: hidden;
   }
+  .example {
+    left: 8vw;
+  }
+  .example:not(:first-child) {
+    margin: 25px 0 0 0;
+  }
+  @media screen and (max-width: 1000px){
+
+    .example-card {
+      max-width: 50vw;
+    }
+    .list {
+      width: 165px;
+    }
+    @media screen and (max-width: 850px) {
+      .example {
+        left: auto;
+      }
+    }
+  }
 }
+@media screen and (max-width: 870px) {
+  .purple-header {
+    font-size: 2.5rem;
+  }
+}
+@media screen and (max-width: 780px) {
+  .example-card {
+    min-width: 55vw;
+  }
+}
+  @media screen and (max-width: 780px){
+    .container_main {
+      display: block;
+    }
+    .list {
+      width: 88%;
+    }
+    .list_div {
+      display: block;
+      text-align: -webkit-center;
+    }
+    .sub-ul {
+      width: 40%;
+    }
+    .example-card {
+      min-width: 100%;
+    }
+    @media screen and (max-width: 600px) {
+      .list {
+        width: 83%;
+      }
+    }
+}
+
+

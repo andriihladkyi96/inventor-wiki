@@ -91,6 +91,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
           this.isFetching = false
         }
       )
+
   }
 
   ngOnInit(): void {

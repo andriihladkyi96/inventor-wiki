@@ -6,6 +6,10 @@
     display: flex;
     flex-direction: column;
     padding: 10px;
+    @media screen and (max-width: 500px) {
+        width: auto;
+        max-width: 420;
+    }
 }
 
 .title {

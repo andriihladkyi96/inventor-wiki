@@ -22,6 +22,7 @@
     margin-right: 1rem;
     text-align: center;
     border-radius: 15px;
+    border: solid blue 2px;
     width: 25rem;
     margin: 1rem;
     height: 15rem;
@@ -52,12 +53,12 @@
     }
 
     .btn {
-      margin-left: 60%;
-      margin-top: 16px;
-      margin-right: 16px;
+      margin-left: 7%;
+      margin-top: 8px;
       padding: 10px 20px;
       border: 2px solid #3884ff;
       border-radius: 6px;
+      width: 6rem;
       background-color: transparent;
       color: #fff;
       font-size: 12px;
@@ -68,53 +69,29 @@
       text-transform: capitalize;
       cursor: pointer;
     }
-  }
-}
 
+    .block {
+      border-color: red;
+    }
 
-.form {
-  &__container {
-    padding: 40px;
-    background: #7b3fe1;
-    width: 400px;
-    margin: 0 auto;
-    transform: translateY(100px);
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    .form {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-
-      mat-form-field {
-        input:-webkit-autofill {
-          -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
-          -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
-        }
-        .mat-icon {
-          padding-right: 10px;
-        }
-      }
-
-      &__btn {
-        margin: 20px 0px;
-        background: #1f2329;
-      }
-
-      &__link {
-        text-align: center;
-      }
+    .text-block {
+      color: red;
     }
   }
+}
 
-  &__title {
-    color: inherit;
-    text-align: center;
-    font-weight: normal;
+@media (max-width: 375px) {
+  
+  .users {
+    margin-left: 2%;
+    width: 70%;
+  }
+  
+  .user {
+    .user-information {
+      width: 20rem;
+  
+    }
   }
 }
-.page {
-  min-width: 100vw;
-  min-height: 100vh;
-  background: #1f2329;
-}
+
