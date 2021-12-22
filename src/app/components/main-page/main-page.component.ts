@@ -1,4 +1,4 @@
-import { Role } from 'src/app/models/Role';
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { PostsService } from "../../services/posts.service";
@@ -39,17 +39,13 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.currentUser = this.userService.getCurrentUser();
+    this.getAllCategories();
     this.router.events.subscribe(
       () => {
         this.dialog.closeAll();
       }
     );
-  }
-
-  getCurrentUser() {
-    this.currentUser = this.userService.getCurrentUser();
-    this.getAllCategories();
   }
 
   getAllPost() {
@@ -70,7 +66,7 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  private getAllCategories() {
+  getAllCategories() {
     if (this.currentUser) {
       let roleUser = this.currentUser.role;
       if (!(roleUser === "Admin" || roleUser === "SuperAdmin")) {
@@ -88,30 +84,6 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  // getAllCategories() {
-  //   this.categoriesService.getCategoryList().subscribe(allCategories => {
-  //     if (this.currentUser) {
-  //       if (this.currentUser?.role === "Admin" || this.currentUser?.role === 'SuperAdmin') {
-  //         this.allCategories = allCategories
-  //       } else {
-  //         this.allCategories = allCategories.filter(category => {
-  //           return category.role.find(role => {
-  //             if (role == 'All') {
-  //               return true
-  //             }
-  //             return role == this.currentUser?.role;
-  //           });
-  //         }
-  //         )
-  //       }
-  //     } else {
-  //       this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'))
-  //     }
-  //     this.getAllPost();
-  //   }
-  //   )
-  // }
-
 
   getQueryFromCategory(category: string) {
     this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
@@ -122,7 +94,7 @@ export class MainPageComponent implements OnInit {
   }
 
   editPostForAdmin(post: Post) {
-    const dialogRef = this.dialog.open(PostFormDialogComponent, {
+   this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
       width: 'auto',
       height: 'auto',
@@ -132,7 +104,7 @@ export class MainPageComponent implements OnInit {
   }
 
   addPost() {
-    const dialogRef = this.dialog.open(PostFormDialogComponent, {
+   this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
       width: 'auto',
       height: 'auto',

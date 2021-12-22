@@ -51,7 +51,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
-  private getPostsByUserId() {
+  getPostsByUserId() {
     if (this.userId) {
       this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
         if (posts.length !== 0) {
@@ -90,9 +90,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
       ...this.matDialogConfig
-    })
-      .afterClosed()
-      .subscribe(
+    }).afterClosed().subscribe(
         (result) => {
           if (result) {
             this.isInFocus(this.posts[this.posts.length - 1])
