@@ -12,7 +12,7 @@
               <a [routerLink]="['role']" class="nav-link-wrap w-inline-block" *ngIf="isSuperAdmin">
                 <p (click)="toggle(false)">Roles page</p>
               </a>
-              <a [routerLink]="['users']" class="nav-link-wrap w-inline-block" *ngIf="isGuest || isSuperAdmin"  >
+              <a [routerLink]="['users']" class="nav-link-wrap w-inline-block" *ngIf="isSuperAdmin || Admin"  >
                 <p (click)="toggle(false)">Users</p>
               </a>
               <a [routerLink]="['posts']" class="nav-link-wrap w-inline-block"  *ngIf="isGuest"  >
