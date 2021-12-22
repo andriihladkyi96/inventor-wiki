@@ -32,6 +32,12 @@ export class HeaderComponent implements OnInit {
     }
     return this.usersService.getCurrentUser().role === "SuperAdmin"
   }
+  get Admin(): boolean {
+    if (!this.usersService.getCurrentUser()) {
+      return false
+    }
+    return this.usersService.getCurrentUser().role === "Admin"
+  }
 
   get isGuest(): boolean {
     return this.usersService.checkUserRole()

@@ -1,5 +1,4 @@
 <div class="profile" *ngIf="user|async; let user">
-  >
   <h1>
     ACCOUNT SETTINGS OF USER:
     <span class="user-name"
@@ -25,7 +24,6 @@
         dashes cannot be the first character.</span
       >
     </p>
-
     <div class="edit">
       <input
         class="form-control"
@@ -39,13 +37,6 @@
         pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
         #firstName="ngModel"
       />
-      <button
-        class="outlined-btn"
-        (click)="updateUser(user.key, 'firstName', user.firstName)"
-        [disabled]="firstName.invalid"
-      >
-        SAVE
-      </button>
     </div>
     <p class="title">
       Last name (Here you can edit user's data). Please, enter a correct last
@@ -68,19 +59,6 @@
         pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
         #lastName="ngModel"
       />
-
-      <button
-        class="outlined-btn"
-        (click)="updateUser(user?.key, 'lastName', user?.lastName!)"
-        [disabled]="lastName.invalid"
-      >
-        SAVE
-      </button>
-    </div>
-  </div>
-  <div class="info" id="info">
-    <div class="section" id="section">
-      <h2>USER'S ROLE</h2>
     </div>
     <p class="title">
       This role manage user's activity on this app. Lorem ipsum dolor sit amet
@@ -99,16 +77,17 @@
           {{role.roleName}}</option
         ></select
       >
-
+    </div>
+    <div class="edit">
       <button
         class="outlined-btn"
-        (click)="updateUser(user?.key, 'role', user.role)"
+        (click)="updateUserNow(user.key, user)"
+        [disabled]="lastName.invalid || firstName.invalid"
       >
         SAVE
       </button>
     </div>
   </div>
-
   <div class="info" id="info">
     <div class="section" id="section">
       <h2>LOGIN DETAILS</h2>
@@ -122,7 +101,7 @@
       voluptatibus eos laboriosam quae quia corrupti?
     </p>
     <div class="edit">
-      <p>{{user?.email}}</p>
+      <p>{{user.email}}</p>
     </div>
   </div>
 </div>

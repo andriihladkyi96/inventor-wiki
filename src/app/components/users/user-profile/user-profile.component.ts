@@ -4,18 +4,22 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
-import { ChangesMessageComponent } from '../changes-message/changes-message.component';
-
+import { WarningDialogComponent } from '../../post/post-dialogs/warning-dialog/warning-gialog.component';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
-
 export class UserProfileComponent implements OnInit {
-
   user: User;
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  };
+
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
@@ -23,19 +27,29 @@ export class UserProfileComponent implements OnInit {
     private router: Router
   ) { }
 
+
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();
   }
 
-  updateUser(id: string | undefined, key: string, value: string) {
-    if (id !== undefined) {
-      this.usersService.updateUser(id, key, value);
-      this.usersService.setCurrentUser(this.user);
-      this.dialog.open(ChangesMessageComponent, {
-        width: '30%',
-        height: '30%',
+  updateUserNow(id: string | undefined, user: User) {
+    this.dialog
+      .open(WarningDialogComponent, {
+        data: {
+          title: 'You want to change your name',
+          message: 'Do you confirm the changes?',
+          firstButtonText: 'Cancel',
+          secondButtonText: 'Confirm',
+        },
+        ...this.matDialogConfig,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result && id !== undefined) {
+          this.usersService.updateUserNow(id, user);
+          this.usersService.setCurrentUser(this.user);
+        }
       });
-    }
   }
 
   updateUserEmail(
@@ -44,25 +58,68 @@ export class UserProfileComponent implements OnInit {
     value: string,
     email: string
   ) {
-    if (id !== undefined) {
-      this.authService.updateEmail(email);
-      this.usersService.updateUser(id, key, value).then(() => {
-        this.usersService.setCurrentUser(this.user);
-        this.dialog.open(ChangesMessageComponent, {
-          width: '30%',
-          height: '30%',
-        });
+    this.dialog
+      .open(WarningDialogComponent, {
+        data: {
+          title: 'You want to change your email',
+          message: 'Do you confirm the changes?',
+          firstButtonText: 'Cancel',
+          secondButtonText: 'Confirm',
+        },
+        ...this.matDialogConfig,
       })
-    }
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          if (id !== undefined) {
+            this.authService.updateEmail(email);
+            this.usersService.updateUser(id, key, value).then(() => {
+              this.usersService.setCurrentUser(this.user);
+            });
+          }
+        }
+      });
   }
 
   updatePassword(password: string) {
-    this.authService.updatePassword(password);
+    this.dialog
+      .open(WarningDialogComponent, {
+        data: {
+          title: 'You want to change your password',
+          message: 'Do you confirm the changes?',
+          firstButtonText: 'Cancel',
+          secondButtonText: 'Confirm',
+        },
+        ...this.matDialogConfig,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.authService.updatePassword(password);
+        }
+      });
   }
 
   deleteUserAccount(key: string | undefined) {
     if (key !== undefined) {
-      this.authService.deleteAccount(key);
+      this.dialog
+
+        .open(WarningDialogComponent, {
+          data: {
+            title: 'You are about to delete your account',
+            message: 'Delete this profile?',
+            firstButtonText: 'Cancel',
+            secondButtonText: 'Confirm',
+          },
+          ...this.matDialogConfig,
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          if (result) {
+            this.authService.deleteAccount(key);
+            this.router.navigate(['/']);
+          }
+        });
     }
   }
 }
