@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
-import { TestComponent } from './components/login/test/test.component';
 import { UsersPageComponent } from './components/users/users-page/users-page.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
@@ -57,7 +56,6 @@ import {WarningCategoryComponent} from "./components/add-category/warning/warnin
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    TestComponent,
     UsersPageComponent,
     UserProfileComponent,
     UserEditFormComponent,

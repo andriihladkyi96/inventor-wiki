@@ -6,23 +6,30 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ChangesMessageComponent } from '../changes-message/changes-message.component';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
+
 export class UserProfileComponent implements OnInit {
+
   user: User;
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
     private dialog: MatDialog,
     private router: Router
-  ) {}
-
+  ) { }
+  
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();
   }
+
+
+  updatePassword(password: string) {
+    this.authService.updatePassword(password);
 
   updateUser(id: string | undefined, key: string, value: string) {
     if (id !== undefined) {
@@ -55,13 +62,11 @@ export class UserProfileComponent implements OnInit {
 
   updatePassword(password: string) {
     this.authService.updatePassword(password);
-    
   }
 
   deleteUserAccount(key: string | undefined) {
     if (key !== undefined) {
       this.authService.deleteAccount(key);
-      this.router.navigate(['/'])
     }
   }
 }
