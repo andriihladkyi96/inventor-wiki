@@ -22,14 +22,10 @@ export class UserProfileComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router
   ) { }
-  
+
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();
   }
-
-
-  updatePassword(password: string) {
-    this.authService.updatePassword(password);
 
   updateUser(id: string | undefined, key: string, value: string) {
     if (id !== undefined) {
@@ -50,15 +46,15 @@ export class UserProfileComponent implements OnInit {
   ) {
     if (id !== undefined) {
       this.authService.updateEmail(email);
-      this.usersService.updateUser(id, key, value).then(()=> {
-      this.usersService.setCurrentUser(this.user);
-      this.dialog.open(ChangesMessageComponent, {
-        width: '30%',
-        height: '30%',
-      });
-    })
+      this.usersService.updateUser(id, key, value).then(() => {
+        this.usersService.setCurrentUser(this.user);
+        this.dialog.open(ChangesMessageComponent, {
+          width: '30%',
+          height: '30%',
+        });
+      })
+    }
   }
-}
 
   updatePassword(password: string) {
     this.authService.updatePassword(password);

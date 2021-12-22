@@ -84,9 +84,10 @@ export class MainPageComponent implements OnInit {
       }
       this.getAllPost();
       this.allCategories.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
-        this.allCategories.map((a: any) => {
-          a.subCategories?.
+      this.allCategories.map((a: any) => {
+        a.subCategories?.
           ((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+      })
     }
   }
 
