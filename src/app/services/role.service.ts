@@ -31,14 +31,15 @@ export class RoleService {
     return this.roles$
   }
 
-  getRole(id: string | undefined): Observable<Role | undefined> {
+  getRole(roleName: string | undefined) {
     const role$ = this.roles$.pipe(
       map(roles => {
-        return roles.find(r => r.id === id)
+        return roles.find(r => r.roleName === roleName)
       })
     )
     return role$
   }
+
 
   updateRole(item: any, data: any) {
     this.rolesRef.update(item.id, data)

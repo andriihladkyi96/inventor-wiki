@@ -20,8 +20,6 @@ export class CreateRoleFormComponent implements OnInit {
 
   roleForm = new FormGroup({
     roleName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    create: new FormControl(false),
-    read: new FormControl(false),
     update: new FormControl(false),
     remove: new FormControl(false),
     createCategory: new FormControl(false)
@@ -29,14 +27,6 @@ export class CreateRoleFormComponent implements OnInit {
 
   get roleName() {
     return this.roleForm.get('roleName') as FormControl
-  }
-
-  get create() {
-    return this.roleForm.get('create') as FormControl
-  }
-
-  get read() {
-    return this.roleForm.get('read') as FormControl
   }
 
   get update() {
@@ -48,10 +38,8 @@ export class CreateRoleFormComponent implements OnInit {
   }
 
   get roleData() {
-    const { roleName, create, read, update, remove, createCategory } = this.roleForm.value
+    const { roleName, update, remove, createCategory } = this.roleForm.value
     const permissions: Permissions = {
-      create,
-      read,
       update,
       remove,
       createCategory
@@ -65,7 +53,9 @@ export class CreateRoleFormComponent implements OnInit {
 
   modalDialog(dialogData: warningDialogData) {
     const dialogRef = this.dialogRef.open(WarningComponent, {
-      data: dialogData
+      data: dialogData,
+      height: '80%',
+      width: '80%',
     })
     this.router.events.subscribe(() => {
       this.dialogRef.closeAll();
@@ -78,7 +68,7 @@ export class CreateRoleFormComponent implements OnInit {
       return this.modalDialog(
         {
           title: "Warning!",
-          message: "This name already!"
+          message: "This name already exists!"
         }
       )
     }
@@ -88,8 +78,6 @@ export class CreateRoleFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.roleService.getAllRoles().subscribe(value => this.allRoles = value)
-    console.log(this.allRoles);
-
   }
 
 }

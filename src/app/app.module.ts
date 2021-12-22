@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
 import { AngularFireModule } from '@angular/fire/compat';
-import { TestComponent } from './components/login/test/test.component';
 import { UsersPageComponent } from './components/users/users-page/users-page.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { UserEditFormComponent } from './components/users/user-edit-form/user-edit-form.component';
@@ -49,14 +48,13 @@ import { ReadingTimePipe } from './components/post/pipes/readingTime.pipe';
 import { CreateRoleFormComponent } from './components/role/create-role-form/create-role-form.component';
 import { WarningComponent } from './components/role/warning/warning.component';
 import { RoleItemComponent } from './components/role/role-item/role-item.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {WarningCategoryComponent} from "./components/add-category/warning/warning-category.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    TestComponent,
     UsersPageComponent,
     UserProfileComponent,
     UserEditFormComponent,
@@ -79,7 +77,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PostViewWrapperComponent,
     PostFormDialogComponent,
     TimeAgoPipe,
-    ReadingTimePipe
+    ReadingTimePipe,
+    WarningCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +104,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCheckboxModule,
     MatCardModule,
     NgxEditorModule.forRoot(environment.editorConfig),
-    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

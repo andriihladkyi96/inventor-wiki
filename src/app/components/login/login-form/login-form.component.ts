@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -10,7 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private usersService: UsersService, private router: Router) { }
 
@@ -30,6 +31,7 @@ export class LoginFormComponent implements OnInit {
   isFetching: boolean = false
   isError: boolean = false
   errorMessage: string = ''
+  subscription: Subscription
 
 
   logIn() {
@@ -38,16 +40,18 @@ export class LoginFormComponent implements OnInit {
     this.authService.signIn(email, password)
       .then(
         (u) => {
-          this.usersService.getUser(u.user?.uid).subscribe(
+          this.subscription = this.usersService.getUser(u.user?.uid).subscribe(
             u => {
               if (!u?.isActive) {
                 this.authService.signOut()
                 this.router.navigate(['login'])
                 this.isError = true
                 this.errorMessage = 'User is deactivated by Super Admin'
+                this.isFetching = false
               } else {
                 this.usersService.setCurrentUser(u)
                 this.router.navigate(['/'])
+                this.isFetching = false
               }
             })
         })
@@ -56,12 +60,17 @@ export class LoginFormComponent implements OnInit {
           this.password.setValue('')
           this.isError = true
           this.errorMessage = err.message
-        }).finally(
-          () => this.isFetching = false
-        )
+          this.isFetching = false
+        })
   }
 
   ngOnInit(): void {
+
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 
 }

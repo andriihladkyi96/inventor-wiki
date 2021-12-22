@@ -10,68 +10,72 @@
   <div class="main_form_div">
     <form [formGroup]="form">
       <div>
-        <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
-                        style="margin-bottom: 20px">
-          <mat-label>Enter category</mat-label>
-          <input matInput #inputCategory [placeholder]="'category'" formControlName="category">
-<!--          <ng-container *ngIf="!(inputCategory.value[0] === inputCategory.value[0].toUpperCase())">-->
-<!--            <mat-hint> should start with upper case</mat-hint>-->
-<!--          </ng-container>-->
-          <mat-hint align="end">{{inputCategory.value?.length || 0}}/20</mat-hint>
+
+        <mat-form-field class="mat_field_category" appearance="fill">
+          <mat-label>Category</mat-label>
+          <input matInput [placeholder]="'category name'" formControlName="category">
+          <mat-error *ngIf="category?.invalid && category?.dirty || category?.touched">
+            <mat-error *ngIf="category?.errors?.pattern">Start with a capital letter</mat-error>
+            <mat-error class="error" *ngIf="category?.errors?.required">Field is required</mat-error>
+            <mat-error class="error" *ngIf="category?.errors?.minlength">Minimum length is 3 characters</mat-error>
+            <mat-error class="error" *ngIf="category?.errors?.maxlength">Maximum length is 20 characters</mat-error>
+          </mat-error>
         </mat-form-field>
 
-        <mat-form-field  appearance="fill" style="background: floralwhite; margin-left: 15px; border-radius: 10px">
-          <mat-label >Role</mat-label>
-          <mat-select #categoryByRole formControlName="categoryByRole" multiple>
-            <mat-select-trigger >
-              {{categoryByRole.value ? categoryByRole.value[0] : ''}}
-              <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
+        <span [hidden]="!isAdmin && !isSuperAdmin">
+            <mat-form-field class="mat_field_role"
+                            appearance="fill">
+              <mat-label>Role</mat-label>
+              <mat-select #categoryByRole formControlName="categoryByRole" multiple>
+                <mat-select-trigger>
+                  {{categoryByRole.value ? categoryByRole.value[0] : ''}}
+                  <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
         (+{{categoryByRole.value.length - 1}} {{categoryByRole.value?.length === 2 ? 'other' : 'others'}})
       </span>
-            </mat-select-trigger >
-            <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+                </mat-select-trigger>
+                <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </span>
 
+        <button class="button" (click)="addSubCategory()"
+                [hidden]="!showCategoryBtn"
+                [disabled]="disabledSubCategBtn">+</button>
 
-        <button class="button" (click)="addSubCategory()" [hidden]="!showCategoryBtn"
-                [disabled]="disabledSubCategBtn">+
-        </button>
       </div>
-      <div formArrayName="subCategories" style="margin-left: 100px; margin-top: 24px">
+      <div class="sub-category-form" formArrayName="subCategories">
         <div *ngFor="let control of subCategoriesFormArray.controls; let i = index">
-          <mat-form-field class="mat_field" hintLabel="Min 3 characters, Max 20" appearance="fill"
-                          style="margin-bottom: 20px">
-            <mat-label>Enter sub-category</mat-label>
-            <input matInput #inputSubcategory [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
-            <mat-hint align="end">{{inputSubcategory.value?.length || 0}}/20</mat-hint>
+
+          <mat-form-field class="mat_field_category" appearance="fill">
+            <mat-label>Sub-category</mat-label>
+            <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+            <mat-error *ngIf="control.invalid && control.dirty || control.touched">
+              <mat-error *ngIf="control.errors?.pattern">Start with a capital letter</mat-error>
+              <mat-error class="error" *ngIf="control.errors?.required">Field is required</mat-error>
+              <mat-error class="error" *ngIf="control.errors?.minlength">Minimum length is 3 characters</mat-error>
+              <mat-error class="error" *ngIf="control.errors?.maxlength">Maximum length is 20 characters</mat-error>
+            </mat-error>
           </mat-form-field>
-          <button class="sub_button hidenSub"
-                  mat-flat-button
-                  color="accent"
-                  type="submit"
-                  [disabled]="form.invalid"
-                  (click)="saveSubCategory(i)"
-                  style="color:green">
-          <!--  [class]="{hiden:isHiden}"-->
-                  Save sub-category
-          </button>
-          <button class="sub_button" mat-flat-button color="warn" type="submit" (click)="removeControl(i)">Remove
-          </button>
+
+          <button class="sub_button" mat-flat-button color="accent" type="submit"
+            [disabled]="form.invalid"
+            (click)="saveSubCategory(i)">Save</button>
+
+          <button class="sub_button" mat-flat-button style="color: red" type="submit"
+                  (click)="removeControl(i)">Remove</button>
+
         </div>
       </div>
 
-      <button mat-flat-button color="primary" type="submit" (click)="saveCategory()" [disabled]="form.invalid"
-              class="hiden" [class]="{hiden:!isHiden}">Save
-        category
-      </button>
-      <button style="margin-left: 1rem" (click)="resetForm()" mat-flat-button color="primary" type="button"
-      >New
-        category
-      </button>
+      <button mat-flat-button type="submit" (click)="saveCategory()" [disabled]="form.invalid"
+              class="main-btn" [class]="{hiden:!isHiden}">Save category</button>
+
+      <button mat-flat-button type="button" [class]="{hiden:isHiden}" (click)="resetForm()"
+              class="main-btn">New category</button>
+
     </form>
-    <button mat-flat-button color="accent" [routerLink]="''" style="margin-bottom: 10px ">Back</button>
   </div>
   <div>
   </div>
 </div>
+

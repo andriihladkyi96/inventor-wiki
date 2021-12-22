@@ -7,6 +7,7 @@ import { PostsService } from '../../../services/posts.service';
 import { WarningDialogComponent } from '../post-dialogs/warning-dialog/warning-gialog.component';
 import { User } from 'src/app/models/User';
 import { OperatingMode, PostFormDialogComponent } from '../post-form-dialog/post-form-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-posts',
@@ -31,7 +32,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     maxWidth: '94vw',
   }
 
-  constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService) { }
+  constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService, private router: Router) { }
 
   ngOnInit() {
     this.currentUser = this.usersService.getCurrentUser();
@@ -39,13 +40,18 @@ export class UserPostsComponent implements OnInit, OnDestroy {
       this.userId = this.currentUser.id;
       this.getPostsByUserId();
     }
+    this.router.events.subscribe(
+      () => {
+        this.dialog.closeAll();
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
 
-  private getPostsByUserId() {
+  getPostsByUserId() {
     if (this.userId) {
       this.subscription = this.postsService.getPostsByUserId(this.userId).subscribe(posts => {
         if (posts.length !== 0) {
@@ -71,16 +77,20 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
       ...this.matDialogConfig
-    })
+    }).afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.isInFocus(this.posts[this.postInFocusPosition])
+        }
+      }
+    )
   }
 
   addPost() {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
       ...this.matDialogConfig
-    })
-      .afterClosed()
-      .subscribe(
+    }).afterClosed().subscribe(
         (result) => {
           if (result) {
             this.isInFocus(this.posts[this.posts.length - 1])
@@ -127,7 +137,9 @@ export class UserPostsComponent implements OnInit, OnDestroy {
   togglePostVisibility() {
     if (this.postInFocus) {
       this.postInFocus = { ...this.postInFocus, isVisible: !this.postInFocus.isVisible }
-      this.postsService.updatePost(this.postInFocus);
+      this.postsService.updatePost(this.postInFocus).then(()=>{
+        this.postInFocus = this.posts[this.postInFocusPosition];
+      })
     }
   }
 }

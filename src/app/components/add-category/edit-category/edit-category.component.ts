@@ -3,18 +3,15 @@ import {Category} from "../../../models/Category";
 import {Router} from "@angular/router";
 import {CategoriesService} from "../../../services/categories.service";
 import {
-  AbstractControl,
   FormArray,
-  FormBuilder,
   FormControl,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
   Validators
 } from "@angular/forms";
 import {Role} from "../../../models/Role";
 import {RoleService} from "../../../services/role.service";
-import {newArray} from "@angular/compiler/src/util";
+import {WarningCategoryComponent, warningDialogData} from "../warning/warning-category.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-edit-category',
@@ -27,17 +24,19 @@ export class EditCategoryComponent implements OnInit {
   form: FormGroup;
   subCategoryArray: Array<any>;
   roleList: Role[];
+  isUpdatedBtnActive: boolean = false
 
   constructor(private router: Router,
               private categoryService: CategoriesService,
-              private roleService: RoleService
+              private roleService: RoleService,
+              private dialog: MatDialog
   ) {
     this.roleService.getAllRoles().subscribe(role => this.roleList = role);
     this.categoryInfo = this.router.getCurrentNavigation()?.extras.state as Category
     if (this.categoryInfo.subCategories?.length) {
 
       this.subCategoryArray = this.categoryInfo.subCategories?.map(sub => {
-        return new FormControl(sub.name, [
+        return new FormControl({value: sub.name, disabled: true}, [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20),
@@ -48,35 +47,29 @@ export class EditCategoryComponent implements OnInit {
     }
 
     this.form = new FormGroup({
-      category: new FormControl(this.categoryInfo.name, [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
-        Validators.pattern('^[A-Z].*')
-      ]),
-      categoryByRole: new FormControl(this.categoryInfo.role),
-      subCategories: new FormArray(this.subCategoryArray,
-        [])
-    }, { validators: this.identityRevealedValidator });
-
-
+        category: new FormControl({value: this.categoryInfo.name, disabled: true}, [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern('^[A-Z].*')
+        ]),
+        categoryByRole: new FormControl(this.categoryInfo.role),
+        subCategories: new FormArray(this.subCategoryArray,
+          [])
+      }
+    )
   }
 
   get subCategoriesFormArray() {
     return this.form.get('subCategories') as FormArray;
   }
 
-  identityRevealedValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    let allCategories:Array<string> = []
-    this.categoryService.getCategoryList().subscribe(value => {
-      value.forEach(category => allCategories.push(category.name))
-    });
-    const category = control.get('category');
-    return category && allCategories && allCategories.some(categoryName => category.value === categoryName) ? { identityNotRevealed: true } : null;
-  };
+  get category() {
+    return this.form.get('category') as FormControl;
+  }
 
-  updateCategory():any {
-    const subCategories = this.form.controls['subCategories'].value.map((sub: any) => ({
+  updateCategory(): any {
+    const subCategories = this.form.getRawValue().subCategories.map((sub: any) => ({
       name: sub
     }))
 
@@ -86,53 +79,29 @@ export class EditCategoryComponent implements OnInit {
       subCategories: subCategories.length ? subCategories : [],
       role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
     }
-    const allCategoryNames = this.allCategory.map(value => ({
-      name:value.name
-    }))
-    // let newCategoryNamesArr = [];
-    // for (let category of allCategoryNames) {
-    //   newCategoryNamesArr.push(category.name)
-    //   for (let i = 0; i < newCategoryNamesArr.length; i++)
-    //   {
-    //     if (newCategoryNamesArr.indexOf(newCategoryNamesArr[i]) === newCategoryNamesArr.lastIndexOf(newCategoryNamesArr[i])) {
-    //       return alert('this categories already exist');
-    //     }
-    //   }
-    // }
 
-    // let newSubArr = [];
-    // for (let sub of subCategories) {
-    //   newSubArr.push(sub.name)
-    //   for (let i = 0; i < newSubArr.length; i++)
-    //   {
-    //     if (newSubArr.indexOf(newSubArr[i]) !== newSubArr.lastIndexOf(newSubArr[i])) {
-    //       return alert('this sub-categories already exist');
-    //     }
-    //   }
-    // }
+    this.categoryService.updateCategory(category);
+    this.isUpdatedBtnActive = false;
 
-
-
-    if (this.allCategory.some(value => value.name === this.form.value.category)) {
-      alert('this category already exist');
-    }
-    // else {}
-    //   const category = {
-    //     id: this.categoryInfo.id,
-    //     name: this.form.controls['category'].value,
-    //     subCategories: subCategories.length ? subCategories : [],
-    //     role: this.form.controls['categoryByRole'].value.length ? this.form.controls['categoryByRole'].value : ['All']
-    //   }
-
-      this.categoryService.updateCategory(category)
-
-    // if (this.allCateg.find(value => value.name === this.form.value.category)) {
-    //   return alert('category already exist');
-    // }
+    return this.modalDialog({
+      message: 'Updated'
+    })
   }
 
   ngOnInit(): void {
-    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value);
+    this.categoryService.getCategoryList().subscribe(value => this.allCategory = value)
+  }
+
+  modalDialog(dialogData: warningDialogData): any {
+    const dialogRef = this.dialog.open(WarningCategoryComponent, {
+      data: dialogData
+    })
+
+    this.router.events.subscribe(() => {
+      this.dialog.closeAll();
+    })
+
+    return dialogRef.afterClosed();
   }
 
   deleteCategory(id: string) {
@@ -145,11 +114,11 @@ export class EditCategoryComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(20),
       Validators.pattern('^[A-Z].*')]));
-    console.log(this.form.value)
-    console.log(this.form.controls)
+    this.isUpdatedBtnActive = true
   }
 
   removeSubCategories(index: number) {
     this.subCategoriesFormArray.removeAt(index);
+    this.isUpdatedBtnActive = true;
   }
 }

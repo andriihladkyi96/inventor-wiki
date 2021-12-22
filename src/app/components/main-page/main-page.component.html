@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="section blog wf-section">
+  <div class="section">
     <div class="container w-container">
       <h2 class="purple-header">Powered by InventorWiki</h2>
       <p class="paragraph-580px left-660px">Individuals and teams from all over the world are publishing amazing content
@@ -9,42 +9,35 @@
     <div class="container_main container ">
       <div class="list_div">
         <div>
-          <ul class="list" style="cursor: pointer">
-            <li><a (click)="getAllPost()"
-            >All posts</a></li>
+          <ul class="list">
+            <li (click)="getAllPost()">All posts</li>
           </ul>
         </div>
-        <span >
-          <div *ngFor="let category of allCategories">
-            <ul class="list">
-              <li>
-                <a
-                  [routerLink]="['']"
-                  (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
-                  {{category.name}}
-                </a>
-              </li>
-            </ul>
-            <div *ngIf="collapseSubCategory && categoryInfo.id === category.id">
-              <ng-container *ngFor="let subCategory of category.subCategories">
-                <ul class="sub-ul">
-                  <li class="sub-li">
-                    <a [routerLink]="['']"
-                       (click)="getQueryFromSubCategories(subCategory.name)">
-                      {{subCategory.name}}
-                    </a>
-                  </li>
-                </ul>
-              </ng-container>
-            </div>
+        <div *ngFor="let category of allCategories">
+          <ul class="list" id="category_menu">
+            <li
+              (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+              {{category.name}}
+            </li>
+          </ul>
+          <div *ngIf="collapseSubCategory && categoryInfo.id === category.id">
+            <ng-container *ngFor="let subCategory of category.subCategories">
+              <ul class="sub-ul">
+                <li class="sub-li">
+                  <a
+                    (click)="getQueryFromSubCategories(subCategory.name)">
+                    {{subCategory.name}}
+                  </a>
+                </li>
+              </ul>
+            </ng-container>
           </div>
-        </span>
+        </div>
       </div>
       <div class="posts-container">
         <div class="main-posts">
-
           <div class="wrapper_empty_posts" *ngIf="!(allPosts.length > 0)">
-            <h1>No posts in this category or sub-category</h1>
+            <h1>No posts found</h1>
           </div>
           <div *ngFor="let post of allPosts" class="example">
             <mat-card class="example-card" [routerLink]="['/post', post.id]">
@@ -72,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="mat-fab-container">
+  <div class="mat-fab-container" [hidden]="isGuest">
     <button mat-fab class="dialog-btn" color="primary" (click)="addPost()">
       <mat-icon>add</mat-icon>
     </button>

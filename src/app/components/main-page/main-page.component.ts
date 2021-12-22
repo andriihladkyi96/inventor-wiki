@@ -1,15 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {PostsService} from "../../services/posts.service";
-import {Post} from "../../models/Post";
-import {Category} from "../../models/Category";
-import {CategoriesService} from "../../services/categories.service";
-import {UsersService} from "../../services/users.service";
-import {MatDialog} from '@angular/material/dialog';
-import {WarningDialogComponent} from '../post/post-dialogs/warning-dialog/warning-gialog.component';
-import {OperatingMode, PostFormDialogComponent} from '../post/post-form-dialog/post-form-dialog.component';
-import {Router} from '@angular/router';
-import {User} from "../../models/User";
+
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../services/auth.service";
+import { PostsService } from "../../services/posts.service";
+import { Post } from "../../models/Post";
+import { Category } from "../../models/Category";
+import { CategoriesService } from "../../services/categories.service";
+import { UsersService } from "../../services/users.service";
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialogComponent } from '../post/post-dialogs/warning-dialog/warning-gialog.component';
+import { OperatingMode, PostFormDialogComponent } from '../post/post-form-dialog/post-form-dialog.component';
+import { Router } from '@angular/router';
+import { User } from "../../models/User";
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-page-with-posts',
@@ -29,54 +31,63 @@ export class MainPageComponent implements OnInit {
 
 
   constructor(private postService: PostsService,
-              private categoriesService: CategoriesService,
-              private authService: AuthService,
-              private userService: UsersService,
-              private router: Router,
-              private dialog: MatDialog) {
+    private categoriesService: CategoriesService,
+    private authService: AuthService,
+    private userService: UsersService,
+    private router: Router,
+    private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.getCurrentUser();
-
-  }
-
-  getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();
-    this.getAllCategories();
+    if (this.currentUser) {
+      this.getAllCategories();
+    }
+    this.router.events.subscribe(
+      () => {
+        this.dialog.closeAll();
+      }
+    );
   }
 
   getAllPost() {
-    this.allPosts = [];
-    this.allCategories.forEach(category => this.postService.getPostsByCategory(category.name).
-    subscribe(posts => {
-      this.allPosts = [...this.allPosts, ...posts]
-    }))
-  }
-
-  getAllCategories() {
-    this.categoriesService.getCategoryList().subscribe(allCategories => {
-        if (this.currentUser) {
-          if (this.currentUser?.role === "Admin" || this.currentUser?.role === 'SuperAdmin') {
-            this.allCategories = allCategories
-          } else {
-            this.allCategories = allCategories.filter(category => {
-                return category.role.find(role => {
-                  if (role == 'All') {
-                    return true
-                  }
-                  return role == this.currentUser?.role;
-                });
+    this.postService.getPostList().pipe(
+      map(
+        posts => posts.filter(
+          post => {
+            return this.allCategories.find(
+              category => {
+                return category.name === post.category
               }
             )
           }
-        } else {
-          this.allCategories = allCategories.filter(category => category.role.find(role => role == 'All'))
-        }
-        this.getAllPost();
+        )
+      )
+    ).subscribe(posts => {
+      this.allPosts = posts
+    })
+  }
 
+  getAllCategories() {
+    if (this.currentUser) {
+      let roleUser = this.currentUser.role;
+      if (!(roleUser === "Admin" || roleUser === "SuperAdmin")) {
+        this.categoriesService.getCategoryList().pipe(
+          map(categories => {
+            return categories.filter(category => {
+              return category.role.some(role => role === roleUser || role === "All")
+            })
+          })
+        ).subscribe(categories => this.allCategories = categories)
+      } else {
+        this.categoriesService.getCategoryList().subscribe(categories => this.allCategories = categories)
       }
-    )
+      this.getAllPost();
+      this.allCategories.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+        this.allCategories.map((a: any) => {
+          a.subCategories?.
+          ((a: any, b: any) => (a.name > b.name) ? 1 : -1)
+    }
   }
 
 
@@ -90,7 +101,7 @@ export class MainPageComponent implements OnInit {
 
   editPostForAdmin(post: Post) {
     this.dialog.open(PostFormDialogComponent, {
-      data: {operatingMode: OperatingMode.Edit, post: post},
+      data: { operatingMode: OperatingMode.Edit, post: post },
       width: 'auto',
       height: 'auto',
       maxHeight: '100vh',
@@ -100,7 +111,7 @@ export class MainPageComponent implements OnInit {
 
   addPost() {
     this.dialog.open(PostFormDialogComponent, {
-      data: {operatingMode: OperatingMode.Create, post: undefined},
+      data: { operatingMode: OperatingMode.Create, post: undefined },
       width: 'auto',
       height: 'auto',
       maxHeight: '100vh',
@@ -128,16 +139,19 @@ export class MainPageComponent implements OnInit {
   }
 
   get isSuperAdmin(): boolean {
-    return this.userService.checkUserRole() === "SuperAdmin"
+    return this.currentUser?.role === "SuperAdmin"
   }
 
   get isAdmin(): boolean {
-    return this.userService.checkUserRole() === "Admin"
+    return this.currentUser?.role === "Admin"
   }
 
+  get isGuest(): boolean {
+    return !this.currentUser;
+  }
 
   getSubCategoryList(post: Category) {
-    this.collapseSubCategory = !this.collapseSubCategory;
+    this.collapseSubCategory = true;
     return this.categoryInfo = post
   }
 }

@@ -1,7 +1,7 @@
 .container {
   cursor: default;
   border-radius: 8px;
-  width: auto;
+  width: 420px;
   max-height: 577px;
   padding: 10px;
   display: flex;
@@ -32,11 +32,5 @@
   .mat-dialog-container {
     background-color: #181c1f;
     color: rgb(234, 242, 247);
-  }
-}
-
-@media screen and(width: 600px) {
-  .container {
-    width: auto;
   }
 }

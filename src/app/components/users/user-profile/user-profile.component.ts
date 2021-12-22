@@ -6,12 +6,15 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WarningDialogComponent } from '../../post/post-dialogs/warning-dialog/warning-gialog.component';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
+
 export class UserProfileComponent implements OnInit {
+
   user: User;
   matDialogConfig = {
     width: 'auto',
@@ -25,11 +28,12 @@ export class UserProfileComponent implements OnInit {
     private authService: AuthService,
     private dialog: MatDialog,
     private router: Router
-  ) {}
-
+  ) { }
+  
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();
   }
+
 
   updateUserNow(id: string | undefined, user: User) {
     this.dialog
@@ -48,6 +52,19 @@ export class UserProfileComponent implements OnInit {
           this.usersService.updateUserNow(id, user);
           this.usersService.setCurrentUser(this.user);
         }
+
+
+  updatePassword(password: string) {
+    this.authService.updatePassword(password);
+
+  updateUser(id: string | undefined, key: string, value: string) {
+    if (id !== undefined) {
+      this.usersService.updateUser(id, key, value);
+      this.usersService.setCurrentUser(this.user);
+      this.dialog.open(ChangesMessageComponent, {
+        width: '30%',
+        height: '30%',
+
       });
   }
 
@@ -81,6 +98,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   updatePassword(password: string) {
+
     this.dialog
       .open(WarningDialogComponent, {
         data: {
@@ -97,12 +115,13 @@ export class UserProfileComponent implements OnInit {
           this.authService.updatePassword(password);
         }
       });
+    this.authService.updatePassword(password);
+
   }
 
   deleteUserAccount(key: string | undefined) {
     if (key !== undefined) {
       this.dialog
-
         .open(WarningDialogComponent, {
           data: {
             title: 'You are about to delete your account',
@@ -119,6 +138,7 @@ export class UserProfileComponent implements OnInit {
             this.router.navigate(['/']);
           }
         });
+      this.authService.deleteAccount(key);
     }
   }
 }

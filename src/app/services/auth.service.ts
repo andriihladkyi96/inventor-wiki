@@ -9,11 +9,13 @@ import { UsersService } from './users.service';
   providedIn: 'root',
 })
 export class AuthService {
+  
   constructor(
     private auth: AngularFireAuth,
     private router: Router,
     private usersService: UsersService
   ) {}
+  
 
   signIn(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password);
@@ -32,10 +34,11 @@ export class AuthService {
   deleteAccount(key: string) {
     this.auth.currentUser.then(
       (u) => {
-        this.usersService.deleteUser(key)
         localStorage.removeItem('currentUser')
-        u?.delete()
-        this.router.navigate(['/login'])
+        u?.delete().then(() => {
+          this.usersService.deleteUser(key)
+          this.router.navigate(['login'])
+        })
       }
     )
   }

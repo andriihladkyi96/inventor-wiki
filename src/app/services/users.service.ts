@@ -30,8 +30,12 @@ export class UsersService {
   }
 
   getCurrentUser() {
-    const user = localStorage.getItem('currentUser') as string;
-    return JSON.parse(user);
+
+    const user = localStorage.getItem('currentUser') as string
+    if (user) {
+      return JSON.parse(user)
+    }
+    return
   }
 
   addUser(user: User) {
