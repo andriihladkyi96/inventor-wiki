@@ -10,7 +10,6 @@ import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
   providers: [UsersService],
 })
 export class UsersPageComponent implements OnInit {
-  isActive: boolean;
   matDialogConfig = {
     width: 'auto',
     height: 'auto',
@@ -28,11 +27,10 @@ export class UsersPageComponent implements OnInit {
       height: 'auto',
       maxHeight: '100vh',
       maxWidth: '94vw',
-      
     });
   }
 
-  isActiveToogle(id: string | undefined, value: boolean) {
+  isActiveToggle(id: string | undefined, value: boolean) {
     if (id !== undefined) {
       this.dialog
         .open(WarningDialogComponent, {
@@ -47,11 +45,7 @@ export class UsersPageComponent implements OnInit {
         .afterClosed()
         .subscribe((result) => {
           if (result) {
-            {
-              this.usersService.updateUser(id, 'isActive', value).then(() => {
-                this.isActive = value;
-              });
-            }
+            this.usersService.updateUser(id, 'isActive', value)
           }
         });
     }

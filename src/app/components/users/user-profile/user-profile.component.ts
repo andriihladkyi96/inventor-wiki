@@ -26,8 +26,6 @@ export class UserProfileComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router
   ) { }
-
-
   ngOnInit(): void {
     this.user = this.usersService.getCurrentUser();
   }

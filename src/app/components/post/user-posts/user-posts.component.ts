@@ -30,7 +30,7 @@ export class UserPostsComponent implements OnInit, OnDestroy {
     height: 'auto',
     maxHeight: '100vh',
     maxWidth: '94vw',
-  }
+  };
 
   constructor(private postsService: PostsService, public dialog: MatDialog, private usersService: UsersService, private router: Router) { }
 

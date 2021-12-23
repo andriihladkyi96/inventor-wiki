@@ -31,6 +31,14 @@ export class MainPageComponent implements OnInit {
   catIndex: number
   subIndex: number | null
 
+  matDialogConfig = {
+    width: 'auto',
+    height: 'auto',
+    maxHeight: '100vh',
+    maxWidth: '94vw',
+  };
+
+
   constructor(private postService: PostsService,
     private categoriesService: CategoriesService,
     private authService: AuthService,
@@ -94,6 +102,7 @@ export class MainPageComponent implements OnInit {
   }
 
 
+
   getQueryFromCategory(category: string, catIndex: number) {
     this.catIndex = catIndex
     this.subIndex = null
@@ -108,20 +117,14 @@ export class MainPageComponent implements OnInit {
   editPostForAdmin(post: Post) {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Edit, post: post },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
+      ...this.matDialogConfig
     });
   }
 
   addPost() {
     this.dialog.open(PostFormDialogComponent, {
       data: { operatingMode: OperatingMode.Create, post: undefined },
-      width: 'auto',
-      height: 'auto',
-      maxHeight: '100vh',
-      maxWidth: '94vw',
+      ...this.matDialogConfig
     });
   }
 
