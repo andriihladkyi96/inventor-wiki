@@ -34,7 +34,6 @@ export class MainPageComponent implements OnInit {
     height: 'auto',
     maxHeight: '100vh',
     maxWidth: '94vw',
-    "z-index": 10,
   };
 
 

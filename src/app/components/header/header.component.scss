@@ -13,14 +13,14 @@ a {
 .w-nav {
   position: relative;
   background: #ddd;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .navbar {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 99;
   height: 80px;
   -webkit-box-align: center;
   -webkit-align-items: center;
