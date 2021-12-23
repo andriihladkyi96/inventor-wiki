@@ -96,7 +96,7 @@ export class MainPageComponent implements OnInit {
       })
     }
   }
-        }
+        
 
 
   getQueryFromCategory(category: string) {

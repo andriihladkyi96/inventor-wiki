@@ -114,12 +114,7 @@ export class AddUserFormComponent implements OnInit {
       .then((u) => {
         user.id = u.user?.uid;
         this.usersService.addUser(user);
-        this.authService.signIn(email, password).then((u) => {
-          this.usersService.getUser(u.user?.uid).subscribe((u) => {
-            this.usersService.setCurrentUser(u);
-            this.router.navigate(['/']);
-          });
-        });
+        this.authService.signIn(email, password);
       })
       .catch((err) => {
         this.isError = true;
