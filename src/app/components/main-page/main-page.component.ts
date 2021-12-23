@@ -28,7 +28,8 @@ export class MainPageComponent implements OnInit {
   collapseSubCategory: boolean = false;
   categoryInfo: Category;
   currentUser?: User;
-
+  catIndex: number
+  subIndex: number | null
 
   constructor(private postService: PostsService,
     private categoriesService: CategoriesService,
@@ -51,6 +52,8 @@ export class MainPageComponent implements OnInit {
   }
 
   getAllPost() {
+    this.catIndex = 0
+
     this.postService.getPostList().pipe(
       map(
         posts => posts.filter(
@@ -91,11 +94,14 @@ export class MainPageComponent implements OnInit {
   }
 
 
-  getQueryFromCategory(category: string) {
+  getQueryFromCategory(category: string, catIndex: number) {
+    this.catIndex = catIndex
+    this.subIndex = null
     this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
   }
 
-  getQueryFromSubCategories(subCategories: string) {
+  getQueryFromSubCategories(subCategories: string, subIndex: number) {
+    this.subIndex = subIndex
     this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
   }
 
