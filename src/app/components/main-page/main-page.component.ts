@@ -27,13 +27,14 @@ export class MainPageComponent implements OnInit {
   collapseSubCategory: boolean = false;
   categoryInfo: Category;
   currentUser?: User;
+  catIndex: number
+  subIndex: number | null
 
   matDialogConfig = {
     width: 'auto',
     height: 'auto',
     maxHeight: '100vh',
     maxWidth: '94vw',
-    "z-index": 10,
   };
 
 
@@ -58,6 +59,8 @@ export class MainPageComponent implements OnInit {
   }
 
   getAllPost() {
+    this.catIndex = 0
+
     this.postService.getPostList().pipe(
       map(
         posts => posts.filter(
@@ -99,11 +102,15 @@ export class MainPageComponent implements OnInit {
   }
 
 
-  getQueryFromCategory(category: string) {
+
+  getQueryFromCategory(category: string, catIndex: number) {
+    this.catIndex = catIndex
+    this.subIndex = null
     this.postService.getPostsByCategory(category).subscribe(onePost => this.allPosts = onePost)
   }
 
-  getQueryFromSubCategories(subCategories: string) {
+  getQueryFromSubCategories(subCategories: string, subIndex: number) {
+    this.subIndex = subIndex
     this.postService.getPostsBySubCategory(subCategories).subscribe(subCategory => this.allPosts = subCategory)
   }
 

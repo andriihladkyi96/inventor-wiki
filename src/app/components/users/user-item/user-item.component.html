@@ -1,0 +1,29 @@
+<div class="colourful-callout">
+  <div class="user-information">
+    <h3 class="name" [style.color]="this.user.isActive ? '#3884ff' : 'red'">
+      {{user.firstName | uppercase}} {{user.lastName | uppercase}}
+    </h3>
+    <p *ngIf="!this.user.isActive" class="text-block">
+      This user is blocked. If you want to unblock it, please, press the button.
+    </p>
+    <p *ngIf="this.user.isActive">
+      You can limit this user by blocking his profile. Enter an appropriate
+      button.
+    </p>
+    <p class="email">User's email: {{user.email}}</p>
+    <p class="email">Role: {{user.role}}</p>
+    <div [hidden]="isSuperAdmin">
+      <button
+        class="btn"
+        *ngIf="this.user.isActive"
+        (click)="onToggle( false )"
+      >
+        BLOCK
+      </button>
+      <button class="btn" *ngIf="!this.user.isActive" (click)="onToggle(true )">
+        UNBLOCK
+      </button>
+      <button class="btn" routerLink="/user/{{user.id}}">CHANGE</button>
+    </div>
+  </div>
+</div>

@@ -26,9 +26,16 @@
             &:focus {
                 outline: none;
             }
-            // &:hover{
-            //     border: 0.07em solid rgb(52, 109, 219);
-            // }
+            @media screen and (max-width: 600px) {
+                font-size: 24px;
+                line-height: 30px;
+                margin-bottom: 14px;
+            }
+            @media screen and (max-width: 490px) {
+                font-size: 22px;
+                line-height: 24px;
+                margin-bottom: 14px;
+            }
         }
     }
     &-category {
@@ -79,13 +86,18 @@
             color: rgb(52, 109, 219);
             border-color: rgb(52, 109, 219);
         }
-        // &:disabled {
-        //     color: rgb(162, 169, 185);
-        //     &:hover {
-        //         border: 1px solid #374151;
-        //         color: rgb(162, 169, 185);
-        //     }
-        // }
+    }
+    @media screen and (max-width: 600px) {
+        margin-top: 11px;
+        &__item {
+            margin-bottom: 0px;
+        }
+    }
+    @media screen and (max-height: 490px) {
+        &__item {
+            line-height: 10px;
+            font-size: 14px;
+        }
     }
 }
 

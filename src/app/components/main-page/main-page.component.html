@@ -3,31 +3,30 @@
     <div class="container">
       <h2 class="purple-header">Powered by InventorWiki</h2>
       <p class="paragraph-580px left-660px">Individuals and teams from all over the world are publishing amazing content
-        on InventorWiki. Discover more about their stories.</p></div>
+        on InventorWiki. Discover more about their stories.</p>
+    </div>
   </div>
   <div class="section_content">
     <div class="container_main container ">
       <div class="list_div">
         <div>
           <ul class="list">
-            <li (click)="getAllPost()">All posts</li>
+            <li [class]="{active: catIndex === 0}" (click)="getAllPost()">All posts</li>
           </ul>
         </div>
-        <div *ngFor="let category of allCategories">
+        <div *ngFor="let category of allCategories; let i = index">
           <ul class="list" id="category_menu">
-            <li
-              (click)="getQueryFromCategory(category.name); getSubCategoryList(category)">
+            <li [class]="{active: catIndex === i+1}"
+              (click)="getQueryFromCategory(category.name, i+1); getSubCategoryList(category)">
               {{category.name}}
             </li>
           </ul>
           <div *ngIf="collapseSubCategory && categoryInfo.id === category.id">
-            <ng-container *ngFor="let subCategory of category.subCategories">
+            <ng-container *ngFor="let subCategory of category.subCategories; let i = index">
               <ul class="sub-ul">
-                <li class="sub-li">
-                  <a
-                    (click)="getQueryFromSubCategories(subCategory.name)">
-                    {{subCategory.name}}
-                  </a>
+                <li [class]="{active: subIndex === i}" class="sub-li"
+                  (click)="getQueryFromSubCategories(subCategory.name, i)">
+                  {{subCategory.name}}
                 </li>
               </ul>
             </ng-container>
@@ -50,13 +49,11 @@
             </mat-card>
             <div class="post-buttons" *ngIf="!hidenButton">
               <button style="background: transparent; border: 0; cursor: pointer; z-index: 3;"
-                      [hidden]="!isSuperAdmin && !isAdmin"
-                      (click)="editPostForAdmin(post); $event.preventDefault();">
+                [hidden]="!isSuperAdmin && !isAdmin" (click)="editPostForAdmin(post); $event.preventDefault();">
                 <mat-icon color="accent">edit</mat-icon>
               </button>
               <button style="background: transparent; border: 0; cursor: pointer; z-index: 3;"
-                      [hidden]="!isSuperAdmin && !isAdmin"
-                      (click)="deletePostForAdmin(post.id); $event.preventDefault();">
+                [hidden]="!isSuperAdmin && !isAdmin" (click)="deletePostForAdmin(post.id); $event.preventDefault();">
                 <mat-icon color="warn">delete_outline</mat-icon>
               </button>
             </div>

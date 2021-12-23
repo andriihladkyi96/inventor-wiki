@@ -20,7 +20,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         [style.border-color]="firstName.errors  ? 'red' : '#3884ff'"
         name="firstName"
@@ -41,7 +40,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         [style.border-color]="lastName.errors ? 'red' : '#3884ff'"
         name="lastName"
@@ -78,7 +76,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         [style.border-color]="email.errors ? 'red' : '#3884ff'"
         name="email"
@@ -106,7 +103,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         name="password"
         [style.border-color]="password.errors && (password.dirty || password.touched) ? 'red' : '#3884ff'"
@@ -146,7 +142,7 @@
         id="block"
         (click)="deleteUserAccount(user.key)"
       >
-        DELETE MY PROFILE 
+        DELETE MY PROFILE
       </button>
     </div>
   </div>
