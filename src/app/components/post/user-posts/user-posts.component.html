@@ -1,0 +1,144 @@
+<div class="main-container">
+  <div class="container" *ngIf="!userHasNoPosts && !isLoading && postInFocus">
+    <div class="navigation-group">
+      <div class="navigation-group-posts">
+        <div *ngFor="let post of posts" class="navigation-group__item">
+          <div class="post-item" [ngClass]="{'inFocus': post.id === postInFocus.id}" (click)="isInFocus(post)">
+            <div class="post-item__content">
+              <div *ngIf="!post.isVisible" class="menu-icon-container">
+                <mat-icon class="mat-icon">
+                  visibility_off
+                </mat-icon>
+              </div>
+              <div class="post-title-container">
+                <a class="post-item__title">{{post.title}}</a>
+              </div>
+            </div>
+            <div class="post-item__menu">
+              <button class="post-item__menu-icon" [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu class="mat-menu" #menu="matMenu">
+                <button (click)="editPost(post)" mat-menu-item class="mat-menu__item">
+                  <mat-icon class="mat-icon">
+                    edit_note
+                  </mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item class="mat-menu__item" (click)="deletePost(post)">
+                  <mat-icon class="mat-icon">
+                    delete
+                  </mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility()">
+                  <mat-icon *ngIf="post.isVisible" class="mat-icon">
+                    visibility_off
+                  </mat-icon>
+                  <mat-icon *ngIf="!post.isVisible" class="mat-icon">
+                    visibility_on
+                  </mat-icon>
+                  <span *ngIf="!post.isVisible">Show post</span>
+                  <span *ngIf="post.isVisible">Hide post</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-divider class="mat-divider__navigation"></mat-divider>
+      <button class="create-btn" (click)="addPost()">
+        <mat-icon class="create-btn__icon">
+          post_add
+        </mat-icon>
+        <span class="create-btn__text">New post</span>
+      </button>
+    </div>
+    <div class="content-group">
+      <app-post-view [post]="postInFocus" [user]="currentUser"></app-post-view>
+      <div class="content-group-navigation">
+        <div class="btn-group">
+          <button *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
+            [ngClass]="{'btn-group__item': true,'btn-prev':postInFocusPosition !== posts.length - 1,'button-prev':postInFocusPosition !== posts.length - 1}">
+            <mat-icon class="btn-prev__icon">arrow_back</mat-icon>
+            <span>Previous</span>
+          </button>
+          <button *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
+            [ngClass]="{'btn-group__item': true,'btn-next':postInFocusPosition !== 0, 'button-next':postInFocusPosition !== 0}">
+            <span>Next</span>
+            <mat-icon class="btn-next__icon">arrow_forward</mat-icon>
+          </button>
+        </div>
+        <mat-divider class="mat-divider"></mat-divider>
+        <div class="time" *ngIf="postInFocus">
+          <div class="time-icon">
+            <mat-icon>
+              hourglass_empty
+            </mat-icon>
+          </div>
+          <p>Last modified {{postInFocus.dateLastModification | timeAgo}}</p>
+        </div>
+      </div>
+      <div class="mobile-navigation-group">
+        <div *ngIf="postInFocusPosition !== 0" (click)="prevPost()"
+          [ngClass]="{'mobile-navigation-group-prev': true,'btn-prev':postInFocusPosition !== posts.length - 1}">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </div>
+        <div *ngIf="postInFocusPosition !== posts.length - 1" (click)="nextPost()"
+          [ngClass]="{'mobile-navigation-group-next': true,'btn-next':postInFocusPosition !== 0}">
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </div>
+      </div>
+      <div class="mat-fab-container mat-fab-container-settings">
+        <button mat-fab class="dialog-btn" color="primary" [matMenuTriggerFor]="menu" style="background-color:#14171c;color: rgb(68, 119, 222); border:1px solid rgb(68, 119, 222);">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+      <mat-menu class="mat-menu" #menu="matMenu">
+        <button (click)="editPost(postInFocus)" mat-menu-item class="mat-menu__item">
+          <mat-icon class="mat-icon">
+            edit_note
+          </mat-icon>
+          <span>Edit</span>
+        </button>
+        <button mat-menu-item class="mat-menu__item" (click)="deletePost(postInFocus)">
+          <mat-icon class="mat-icon">
+            delete
+          </mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item class="mat-menu__item" (click)="togglePostVisibility()">
+          <mat-icon *ngIf="postInFocus.isVisible" class="mat-icon">
+            visibility_off
+          </mat-icon>
+          <mat-icon *ngIf="!postInFocus.isVisible" class="mat-icon">
+            visibility_on
+          </mat-icon>
+          <span *ngIf="!postInFocus.isVisible">Show post</span>
+          <span *ngIf="postInFocus.isVisible">Hide post</span>
+        </button>
+      </mat-menu>
+      <div class="mat-fab-container mat-fab-container-add">
+        <button mat-fab class="dialog-btn" color="primary" (click)="addPost()" style="background-color:#14171c; color: rgb(68, 119, 222); border:1px solid rgb(68, 119, 222);" >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="userHasNoPosts && !isLoading">
+    <div class="no-posts">
+      <div class="no-posts-content">
+        <p class="no-posts-title">
+          You don't have any posts.
+          Create your first post.
+        </p>
+        <button class="no-posts-btn" (click)="addPost()">
+          <mat-icon class="no-posts-btn__icon">
+            post_add
+          </mat-icon>
+          <span class="no-posts-btn__text"> Create post </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

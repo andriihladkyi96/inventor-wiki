@@ -1,0 +1,21 @@
+<div class="body">
+  <div class="users" *ngIf="users$ | async; let users">
+    <div class="user" *ngFor="let user of users">
+      <app-user-item
+        [user]="user"
+        (isActiveToggle)="isActiveToggle(user.key, $event)"
+      ></app-user-item>
+    </div>
+  </div>
+  <button
+    mat-fab
+    class="dialog-btn"
+    style="
+      background-color: #14171c;
+      color: rgb(68, 119, 222);
+      border: 1px solid rgb(68, 119, 222);
+    "
+  >
+    <mat-icon (click)="showForm()">add</mat-icon>
+  </button>
+</div>

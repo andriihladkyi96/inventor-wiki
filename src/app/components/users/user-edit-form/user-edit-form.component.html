@@ -1,0 +1,110 @@
+<div class="profile" *ngIf="user|async; let user">
+  <h1>
+    ACCOUNT SETTINGS OF USER:
+    <span class="user-name"
+      >{{user.firstName | uppercase}} {{user.lastName | uppercase}}</span
+    >
+  </h1>
+  <h2> Role: 
+    <span class="user-name"
+      >{{user.role }}</span
+    >
+  </h2>
+  <p class="manage">
+    Manage user's profile, account settings and preferences. Lorem ipsum dolor
+    sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+    ipsum commodi quasi a aliquid modi delectus praesentium fuga, deserunt
+    tempore rerum libero cupiditate ex numquam blanditiis, consectetur odit
+    dicta? Cumque.
+  </p>
+  <div class="info">
+    <div class="section">
+      <h2>PERSONAL INFORMATION</h2>
+    </div>
+    <p class="title">
+      First name (Here you can edit user's data). Please, enter a correct first
+      name.
+      <span [style.color]="firstName.errors  ? 'red' : 'grey'"
+        >First name have to be from 2 to 20 characters, only letters and dashes,
+        dashes cannot be the first character.</span
+      >
+    </p>
+    <div class="edit">
+      <input
+        class="input-style"
+        [style.border-color]="firstName.errors  ? 'red' : '#3884ff'"
+        name="firstName"
+        [(ngModel)]="user.firstName"
+        required
+        minlength="2"
+        maxlength="20"
+        pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
+        #firstName="ngModel"
+      />
+    </div>
+    <p class="title">
+      Last name (Here you can edit user's data). Please, enter a correct last
+      name.
+      <span [style.color]="lastName.errors  ? 'red' : 'grey'"
+        >Last name have to be from 2 to 20 characters, only letters and dashes,
+        dashes cannot be the first character.</span
+      >
+    </p>
+    <div class="edit">
+      <input
+        class="input-style"
+        [style.border-color]="lastName.errors ? 'red' : '#3884ff'"
+        name="lastName"
+        [(ngModel)]="user.lastName"
+        required
+        minlength="2"
+        maxlength="20"
+        pattern="[a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії][a-zA-ZА-ЩЬЮЯҐЄІЇа-щьюяґєії\\-]*"
+        #lastName="ngModel"
+      />
+    </div>
+    <p class="title">
+      This role manage user's activity on this app. Lorem ipsum dolor sit amet
+      consectetur adipisicing elit. Adipisci, hic. Sint, incidunt? Ex a expedita
+      corporis numquam, dolorem aut nihil illo ea aspernatur eius! Sunt at ipsam
+      omnis eligendi dicta.
+    </p>
+    <div class="edit">
+      <select
+        class="input-style"
+        *ngIf="roles$ | async; let roles"
+        #role
+        [(ngModel)]="user.role"
+      >
+        <option *ngFor="let role of roles" required [value]="role.roleName">
+          {{role.roleName}}</option
+        ></select
+      >
+    </div>
+    <div class="edit">
+      <button
+        class="outlined-btn"
+        (click)="updateUserNow(user.key, user)"
+        [disabled]="lastName.invalid || firstName.invalid"
+      >
+        SAVE
+      </button>
+    </div>
+  </div>
+  <div class="info" id="info">
+    <div class="section" id="section">
+      <h2>LOGIN DETAILS</h2>
+    </div>
+    <p class="title">
+      Email (This email user use for login into this site). Please, pay
+      attention, that this email address is used for restoring user's password
+      if he lose it. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Laboriosam, ad! Optio sapiente perferendis quod totam similique
+      repellendus ratione dolore non mollitia, inventore, veritatis labore
+      voluptatibus eos laboriosam quae quia corrupti?
+    </p>
+    <div class="edit">
+      <p>{{user.email}}</p>
+    </div>
+  </div>
+</div>

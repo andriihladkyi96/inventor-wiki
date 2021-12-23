@@ -1,0 +1,42 @@
+.container {
+  cursor: default;
+  border-radius: 8px;
+  width: auto;
+  max-height: 577px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.message {
+  font-size: 1.2rem;
+}
+
+.btn {
+  padding: 14px;
+  background-color: rgb(211, 61, 61);
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+  border-width: 1px;
+  border-color: rgb(211, 61, 61);
+  width: 6em;
+
+  &:hover {
+    background-color: rgb(165, 12, 12);
+  }
+}
+
+::ng-deep {
+  .mat-dialog-container {
+    background-color: #181c1f;
+    color: rgb(234, 242, 247);
+  }
+}
+
+@media screen and(width: 600px) {
+  .container {
+    width: auto;
+  }
+}

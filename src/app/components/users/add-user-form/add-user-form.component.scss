@@ -1,0 +1,55 @@
+.form {
+  display: flex;
+  padding: 0;
+  margin: 0;
+
+  &__container {
+    margin: 0;
+    padding: 40px;
+    background: #3884ff;
+    width: 400px;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    @media screen and (max-width: 600px) {
+      width: auto;
+      padding: 10px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      mat-form-field {
+        input:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
+          -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
+        }
+        .mat-icon {
+          padding-right: 10px;
+        }
+      }
+
+      &__btn {
+        margin: 20px 0px;
+        background: #1f2329;
+        color: #fff;
+      }
+
+      &__link {
+        text-align: center;
+      }
+    }
+  }
+
+  &__title {
+    color: inherit;
+    text-align: center;
+    font-weight: normal;
+  }
+}
+
+::ng-deep {
+  .mat-dialog-container {
+    background-color: #181c1f;
+    color: rgb(234, 242, 247);
+  }
+}

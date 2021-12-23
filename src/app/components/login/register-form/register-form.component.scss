@@ -1,0 +1,58 @@
+.form {
+    &__container {
+        padding: 40px;
+        background: #7b3fe1;
+        width: 400px;
+        margin: 0 auto;
+        transform: translateY(100px);
+        color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        .form {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+
+            mat-form-field {
+                input:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 1000px #7b3fe1 inset !important;
+                    -webkit-text-fill-color: rgba(255, 255, 255, 0.8) !important;
+                }
+                .mat-icon {
+                    padding-right: 10px;
+                }
+            }
+
+            &__btn {
+                margin: 20px 0px;
+                background: #1f2329;
+            }
+
+            &__link {
+                text-align: center;
+            }
+        }
+    }
+
+    &__title {
+        color: inherit;
+        text-align: center;
+        font-weight: normal;
+    }
+}
+
+@media (max-width: 500px) {
+    .form {
+        &__container {
+            padding: 20px;
+            width: auto;
+            height: 100vh;
+            transform: none;
+            border-radius: 0;
+            .form {
+                &__btn {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

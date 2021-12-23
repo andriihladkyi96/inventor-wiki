@@ -1,7 +1,3 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   firebase: {
     projectId: 'project-26c91',
@@ -9,17 +5,45 @@ export const environment = {
     storageBucket: 'project-26c91.appspot.com',
     apiKey: 'AIzaSyDZyUW_OMPVBy_LBU8pL36jEr7Qk3gv4Uw',
     authDomain: 'project-26c91.firebaseapp.com',
+    databaseURL: "https://project-26c91-default-rtdb.europe-west1.firebasedatabase.app",
     messagingSenderId: '213748646652',
     measurementId: 'G-209TRSKTE0',
   },
-  production: false
+  production: false, 
+  editorConfig: {
+    locals: {
+      // menu
+      bold: 'Bold',
+      italic: 'Italic',
+      code: 'Code',
+      blockquote: 'Blockquote',
+      underline: 'Underline',
+      strike: 'Strike',
+      bullet_list: 'Bullet List',
+      ordered_list: 'Ordered List',
+      heading: 'Heading',
+      h1: 'Header 1',
+      h2: 'Header 2',
+      h3: 'Header 3',
+      h4: 'Header 4',
+      h5: 'Header 5',
+      h6: 'Header 6',
+      align_left: 'Left Align',
+      align_center: 'Center Align',
+      align_right: 'Right Align',
+      align_justify: 'Justify',
+      text_color: 'Text Color',
+      background_color: 'Background Color',
+
+      // popups, forms, others...
+      url: 'URL',
+      text: 'Text',
+      openInNewTab: 'Open in new tab',
+      insert: 'Insert',
+      altText: 'Alt Text',
+      title: 'Title',
+      remove: 'Remove',
+    }
+  },
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

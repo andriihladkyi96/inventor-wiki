@@ -1,0 +1,14 @@
+<div class="page">
+  <div class="container" *ngIf="roles$ | async; let roles">
+    <div class="user" *ngFor="let role of roles">
+      <mat-card class="card">
+        <app-role-item [role]="role" ></app-role-item>
+      </mat-card>
+    </div>
+    <div class="create">
+      <button class="create__btn" (click)="showCrateForm()">
+        <h2>Create New role</h2>
+      </button>
+    </div>
+  </div>
+</div>

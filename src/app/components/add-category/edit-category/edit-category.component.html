@@ -1,0 +1,87 @@
+<div class="body_edit_categories">
+  <div class="main_form_div">
+    <form [formGroup]="form">
+
+      <mat-form-field class="mat_field_category" appearance="fill">
+        <mat-label>Category</mat-label>
+          <input matInput [placeholder]="'category name'" formControlName="category">
+        <mat-error *ngIf="category?.invalid && category?.dirty || category?.touched">
+          <mat-error *ngIf="category?.errors?.pattern">Start with a capital letter</mat-error>
+          <mat-error class="error" *ngIf="category?.errors?.required">Field is required</mat-error>
+          <mat-error class="error" *ngIf="category?.errors?.minlength">Minimum length is 3 characters</mat-error>
+          <mat-error class="error" *ngIf="category?.errors?.maxlength">Maximum length is 20 characters</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mat_field_role"
+                      appearance="fill">
+        <mat-label>Role</mat-label>
+        <mat-select #categoryByRole formControlName="categoryByRole" multiple>
+          <mat-select-trigger>
+            {{categoryByRole.value ? categoryByRole.value[0] : ''}}
+            <span *ngIf="categoryByRole.value?.length > 1" class="example-additional-selection">
+        (+{{categoryByRole.value.length - 1}} {{categoryByRole.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let role of roleList" [value]="role.roleName">{{role.roleName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div>
+        <button mat-flat-button class="add-sub-btn" (click)="addSubCategory()">Add sub-category</button>
+      </div>
+      <div *ngIf="!categoryInfo?.subCategories">
+        <div class="sub-category-form" formArrayName="subCategories">
+          <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
+            <mat-form-field class="mat_field_category" appearance="fill">
+              <mat-label>Sub-category</mat-label>
+              <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+              <mat-error *ngIf="subCategory.invalid && subCategory.dirty || subCategory.touched">
+                <mat-error *ngIf="subCategory.errors?.pattern">Start with a capital letter</mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.required">Field is required</mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.minlength">Minimum length is 3 characters
+                </mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.maxlength">Maximum length is 20 characters
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <button mat-button color="warn" (click)="removeSubCategories(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="categoryInfo.subCategories">
+        <div class="sub-category-form" formArrayName="subCategories">
+          <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
+            <mat-form-field class="mat_field_category" appearance="fill" >
+              <mat-label>Sub-category</mat-label>
+              <input matInput [placeholder]="'sub-category ' + (i + 1)" [formControlName]="i">
+              <mat-error *ngIf="subCategory.invalid && subCategory.dirty || subCategory.touched">
+                <mat-error *ngIf="subCategory.errors?.pattern">Start with a capital letter</mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.required">Field is required</mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.minlength">Minimum length is 3 characters
+                </mat-error>
+                <mat-error class="error" *ngIf="subCategory.errors?.maxlength">Maximum length is 20 characters
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+            <button mat-flat-button class="sub_button" (click)="removeSubCategories(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="btn-wrapper">
+        <button mat-flat-button class="sub_button main-btn"
+                [disabled]=" !(form.valid) || !isUpdatedBtnActive && !( form.controls['categoryByRole'].touched)"
+                (click)="updateCategory()"
+                style="color: yellow; margin-left: 0">Update
+        </button>
+        <button class="sub_button delete-btn"
+          [routerLink]="'/add-category'"
+        mat-flat-button style="color: red"
+        (click)="deleteCategory(categoryInfo.id)">Delete Category
+        </button>
+      </div>
+      <button class="main-btn" mat-flat-button [routerLink]="'/add-category'">Cancel</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="header__wrapper"
+  *ngIf="router.url !== '/login' && router.url !== '/register' && router.url !== '/reset-password'">
+  <header class="header__body">
+    <h2 class="header__logo">InventorWiki </h2>
+
+    <div [class]="{hidden: !isOpen}" class="header__nav">
+      <a [routerLink]="['']" routerLinkActive="active" class="nav-link" [routerLinkActiveOptions]="{exact:true}"
+        (click)="toggle(false)">
+        Home
+      </a>
+      <a [routerLink]=" ['role']" routerLinkActive="active" class="nav-link" *ngIf="isSuperAdmin"
+        (click)="toggle(false)">
+        Roles page
+      </a>
+      <a [routerLink]="['users']" routerLinkActive="active" class="nav-link" *ngIf="isSuperAdmin || Admin"
+        (click)="toggle(false)">
+        Users
+      </a>
+      <a [routerLink]="['posts']" routerLinkActive="active" class="nav-link" *ngIf="isGuest" (click)="toggle(false)">
+        My posts
+      </a>
+      <a [routerLink]="['add-category']" routerLinkActive="active" class="nav-link" *ngIf="isGuest"
+        (click)="toggle(false)">
+        Category
+      </a>
+
+      <div class="header__logOut">
+        <a [routerLink]="['profile_settings']" routerLinkActive="active" class="nav-link user-link" *ngIf="isGuest"
+          (click)="toggle(false)">
+          {{currentUserNme}}
+        </a>
+        <a href="/" class="nav-link" *ngIf="isGuest" (click)="logOut()">
+          Log Out
+        </a>
+        <a [routerLink]="['login']" class="nav-link" *ngIf="!isGuest" (click)="logOut()">
+          Sing In
+        </a>
+        <a [routerLink]="['/register']" class="nav-link" *ngIf="!isGuest" (click)="toggle(false)">
+          Sing Up
+        </a>
+      </div>
+    </div>
+
+    <div class="header__burger">
+      <button mat-icon-button="accent">
+        <ng-container *ngIf="!isOpen">
+          <mat-icon (click)="toggle(true)"> menu </mat-icon>
+        </ng-container>
+        <ng-container *ngIf="isOpen">
+          <mat-icon (click)="toggle(false)"> closed </mat-icon>
+        </ng-container>
+      </button>
+    </div>
+  </header>
+</div>
