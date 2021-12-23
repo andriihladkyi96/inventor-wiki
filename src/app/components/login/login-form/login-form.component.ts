@@ -20,7 +20,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
   })
 
-
   get email() {
     return this.loginGroup.get('email') as FormControl
   }

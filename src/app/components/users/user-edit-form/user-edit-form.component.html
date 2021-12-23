@@ -5,6 +5,11 @@
       >{{user.firstName | uppercase}} {{user.lastName | uppercase}}</span
     >
   </h1>
+  <h2> Role: 
+    <span class="user-name"
+      >{{user.role }}</span
+    >
+  </h2>
   <p class="manage">
     Manage user's profile, account settings and preferences. Lorem ipsum dolor
     sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
@@ -26,7 +31,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         [style.border-color]="firstName.errors  ? 'red' : '#3884ff'"
         name="firstName"
@@ -48,7 +52,6 @@
     </p>
     <div class="edit">
       <input
-        class="form-control"
         class="input-style"
         [style.border-color]="lastName.errors ? 'red' : '#3884ff'"
         name="lastName"

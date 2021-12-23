@@ -24,8 +24,8 @@ export class AddUserFormComponent implements OnInit {
     height: 'auto',
     maxHeight: '100vh',
     maxWidth: '94vw',
-  }
-  
+  };
+
   identityRevealedValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
@@ -97,7 +97,7 @@ export class AddUserFormComponent implements OnInit {
 
   isError: boolean = false;
   errorMessage: string = '';
-  isFetching: boolean = false
+  isFetching: boolean = false;
 
   createUser() {
     const { email, password, firstName, lastName } = this.registerForm.value;
@@ -106,31 +106,26 @@ export class AddUserFormComponent implements OnInit {
       firstName,
       lastName,
       role: 'User',
-      isActive: true
+      isActive: true,
     };
 
-    this.authService.registerUser(email, password).then(
-      (u) => {
-        user.id = u.user?.uid
-        this.usersService.addUser(user)
-        this.authService.signIn(email, password).then(
-          (u) => {
-            this.usersService.getUser(u.user?.uid).subscribe(
-              (u) => {
-                this.usersService.setCurrentUser(u)
-                this.router.navigate(['/'])
-              }
-            )
-          }
-        )
-      }).catch(
-        (err) => {
-          this.isError = true
-          this.errorMessage = err.message
-        }
-      ).finally(
-        () => this.isFetching = false
-      )
+    this.authService
+      .registerUser(email, password)
+      .then((u) => {
+        user.id = u.user?.uid;
+        this.usersService.addUser(user);
+        this.authService.signIn(email, password).then((u) => {
+          this.usersService.getUser(u.user?.uid).subscribe((u) => {
+            this.usersService.setCurrentUser(u);
+            this.router.navigate(['/']);
+          });
+        });
+      })
+      .catch((err) => {
+        this.isError = true;
+        this.errorMessage = err.message;
+      })
+      .finally(() => (this.isFetching = false));
   }
 
   ngOnInit(): void {}
