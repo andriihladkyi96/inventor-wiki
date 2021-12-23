@@ -87,8 +87,9 @@ export class MainPageComponent implements OnInit {
         this.allCategories.map((a: any) => {
           a.subCategories?.
           ((a: any, b: any) => (a.name > b.name) ? 1 : -1)
-    }
+        })
   }
+        }
 
 
   getQueryFromCategory(category: string) {

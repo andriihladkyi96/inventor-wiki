@@ -33,12 +33,7 @@ export class UserEditFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // updateUser(id: string | undefined, key: string, value: string) {
-  //   if (id !== undefined) {
-  //     this.usersService.updateUser(id, key, value);
-  //   }
-  // }
+  
   updateUserNow(id: string | undefined, user: any) {
     this.dialog
       .open(WarningDialogComponent, {

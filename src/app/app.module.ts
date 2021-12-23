@@ -49,6 +49,7 @@ import { CreateRoleFormComponent } from './components/role/create-role-form/crea
 import { WarningComponent } from './components/role/warning/warning.component';
 import { RoleItemComponent } from './components/role/role-item/role-item.component';
 import {WarningCategoryComponent} from "./components/add-category/warning/warning-category.component";
+import { UserItemComponent } from './components/users/user-item/user-item.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {WarningCategoryComponent} from "./components/add-category/warning/warnin
     PostFormDialogComponent,
     TimeAgoPipe,
     ReadingTimePipe,
-    WarningCategoryComponent
+    WarningCategoryComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,
