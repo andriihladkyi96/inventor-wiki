@@ -24,16 +24,6 @@
   border-image: url("https://assets-global.website-files.com/600ead1452cf056d0e52dbed/603408f80d379f66929884cf_PurpleBackground%20(1).png") 15 round;
 }
 
-.button {
-  margin-left: 10px;
-  font-size: 44px;
-  text-decoration: none;
-  border: none;
-  background: none;
-  color: green;
-  cursor: pointer;
-}
-
 form {
   margin: 25px 0 25px 25px;
   max-height: 100%;
@@ -124,12 +114,20 @@ mat-select-trigger {
 .cancel-btn {
   margin: 0 0 25px 25px;
 }
-
+.add-sub-btn {
+  background-color: #1c1e27;
+  box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
+  color: #00cb51;
+  border: 2px solid #3884ff;
+  border-radius: 8px;
+  margin-top: inherit;
+  margin-bottom: 15px;
+}
 .main-btn {
   background-color: #1c1e27;
   box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
   color: #3884ff;
-  border: 1px solid #1d1e22;
+  border: 2px solid #3884ff;
   border-radius: 8px;
   margin-top: inherit;
 }
@@ -142,19 +140,19 @@ mat-select-trigger {
   background-color: #1c1e27;
   box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
   color: red;
-  border: 1px solid #1d1e22;
+  border: 2px solid #3884ff;
   border-radius: 8px;
   margin-left: 24px;
+
+}
+.main-btn:disabled {
+  background-color: rgb(67 65 65 / 42%);
+  color: #a5a5a5 !important;
 }
 
 .btn-wrapper {
   margin: 20px 0 0 0;
 }
-//::ng-deep mat-dialog-actions .btn{
-//  background-color: yellow!important;
-//  color: black!important;
-//  border-color: #d33d3d!important;
-//}
 
 @media screen and (max-width: 560px) {
   ::ng-deep.mat-form-field-infix {
@@ -166,7 +164,7 @@ mat-select-trigger {
   .sub_button {
     margin-left: 18px;
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 460px) {
     ::ng-deep.mat-form-field-flex {
       width: auto !important;
     }
@@ -181,22 +179,13 @@ mat-select-trigger {
       margin-left: 15px;
       border-radius: 10px;
     }
-
-    .add-sub-btn {
-      position: absolute;
-      margin-left: 53px;
-      font-size: 38px;
-      text-decoration: none;
-      border: none;
-      background: none;
-      color: green;
-      cursor: pointer;
-    }
-    .sub_button {
-      margin-left: 64px;
-    }
-    .delete-btn {
-      margin-left: 79px;
-    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .sub_button {
+    margin-left: 5px;
+  }
+  form {
+    margin-left: 16px;
   }
 }

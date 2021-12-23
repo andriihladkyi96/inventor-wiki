@@ -20,17 +20,21 @@ export class AddCategoryComponent implements OnInit {
   allCategory: Category[];
   isHiden: boolean = true;
   showCategoryBtn: boolean = false;
-  disabledSubCategBtn = false;
-  disableMultiSelect = false;
+  disabledSubCategBtn: boolean = false;
+  disableMultiSelect: boolean = false;
   sortMenu: string = '';
   roleList: Role[];
 
   get subCategoriesFormArray() {
-    return this.form.get('subCategories') as FormArray;
+    return this.form.get('subCategories') as FormArray
   }
 
   get category() {
-    return this.form.get('category') as FormControl;
+    return this.form.get('category') as FormControl
+  }
+
+  get subCategories() {
+    return this.form.get('subCategories') as FormControl
   }
 
   constructor(private categoryService: CategoriesService,
@@ -39,6 +43,7 @@ export class AddCategoryComponent implements OnInit {
               private dialog: MatDialog,
               private router: Router) {
     this.roleService.getAllRoles().subscribe(role => this.roleList = role)
+
     this.form = new FormGroup({
       category: new FormControl('', [
         Validators.required,
@@ -47,7 +52,12 @@ export class AddCategoryComponent implements OnInit {
         Validators.pattern('^[A-Z].*')
       ]),
       categoryByRole: new FormControl(),
-      subCategories: new FormArray([])
+      subCategories: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+        Validators.pattern('^[A-Z].*')
+      ]),
     });
   }
 
@@ -62,17 +72,16 @@ export class AddCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoryService.getCategoryList().subscribe(allCategory => this.allCategory = allCategory.sort((a: any, b: any) => (a.name > b.name) ? 1 : -1)
-    );
-
+    this.categoryService.getCategoryList().subscribe(allCategory => this.allCategory = allCategory
+      .sort((a: any, b: any) => (a.name > b.name) ? 1 : -1));
   }
 
-  saveSubCategory(index: any): void {
-    const subCategory = {name: this.subCategoriesFormArray.value[index]}
+  saveSubCategory(): void {
+    const subCategory = {name: this.subCategories.value}
     let category = this.allCategory.find(categories => categories.name === this.form.value.category)
-
     if (category?.subCategories?.find(subCategories => subCategories.name === subCategory.name)) {
       this.disabledSubCategBtn = false
+
       return this.modalDialog({
         title: 'Warning'!,
         message: 'This sub-category already exist'
@@ -85,7 +94,7 @@ export class AddCategoryComponent implements OnInit {
       }
       category.subCategories?.push(subCategory)
       this.categoryService.updateCategory(category);
-      this.disabledSubCategBtn = !this.disabledSubCategBtn;
+      this.subCategories.reset()
     } else {
       return
     }
@@ -93,7 +102,6 @@ export class AddCategoryComponent implements OnInit {
 
   saveCategory() {
     if (this.allCategory.find(allCategory => allCategory.name === this.form.value.category)) {
-      this.disabledSubCategBtn = false
       return this.modalDialog({
         title: 'Warning'!,
         message: 'This category already exist'
@@ -107,31 +115,11 @@ export class AddCategoryComponent implements OnInit {
       })
     }
     this.isHiden = !this.isHiden
-    this.showCategoryBtn = !this.showCategoryBtn
-
-  }
-
-  addSubCategory() {
-    this.subCategoriesFormArray.push(new FormControl(null, [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern('^[A-Z].*')
-    ]));
-    this.disabledSubCategBtn = !this.disabledSubCategBtn
-  }
-
-  removeControl(index: number) {
-    this.subCategoriesFormArray.removeAt(index);
-    this.disabledSubCategBtn = false
   }
 
   resetForm() {
-    this.subCategoriesFormArray.clear()
     this.form.reset()
-    this.showCategoryBtn = false
     this.isHiden = true
-    this.disabledSubCategBtn = false
   }
 
   get isSuperAdmin(): boolean {
