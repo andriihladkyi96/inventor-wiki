@@ -39,8 +39,20 @@
         font-weight: normal;
     }
 }
-.page {
-    min-width: 100vw;
-    min-height: 100vh;
-    background: #1f2329;
+
+@media (max-width: 500px) {
+    .form {
+        &__container {
+            padding: 20px;
+            width: auto;
+            height: 100vh;
+            transform: none;
+            border-radius: 0;
+            .form {
+                &__btn {
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
