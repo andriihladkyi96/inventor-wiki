@@ -25,6 +25,8 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .role__form__btn {
@@ -38,6 +40,7 @@ li {
   margin-top: 1em;
   width: 100px;
   transition: 0.5s;
+  margin: 12px;
 }
 
 .check-box__group {
@@ -71,6 +74,23 @@ mat-icon {
 .mat-raised-button {
   margin-top: 3em;
   width: 20vh;
+}
+
+.btn__submit {
+  margin-left: 7%;
+  margin-top: 8px;
+  padding: 0.5rem;
+  border: 2px solid #3884ff;
+  background-color: #3884ff;
+  border-radius: 6px;
+  width: 9rem;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-transform: capitalize;
+  cursor: pointer;
 }
 
 @media (max-width: 815px) {
