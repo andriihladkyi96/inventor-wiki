@@ -27,7 +27,9 @@
         </mat-select>
       </mat-form-field>
 
-      <button class="button add-sub-btn" (click)="addSubCategory()">+</button>
+      <div>
+        <button mat-flat-button class="add-sub-btn" (click)="addSubCategory()">Add sub-category</button>
+      </div>
       <div *ngIf="!categoryInfo?.subCategories">
         <div class="sub-category-form" formArrayName="subCategories">
           <div *ngFor="let subCategory of subCategoriesFormArray.controls let i = index">
@@ -68,8 +70,8 @@
         </div>
       </div>
       <div class="btn-wrapper">
-        <button mat-flat-button class="sub_button"
-                [disabled]=" !(form.valid) || !isUpdatedBtnActive"
+        <button mat-flat-button class="sub_button main-btn"
+                [disabled]=" !(form.valid) || !isUpdatedBtnActive && !( form.controls['categoryByRole'].touched)"
                 (click)="updateCategory()"
                 style="color: yellow; margin-left: 0">Update
         </button>

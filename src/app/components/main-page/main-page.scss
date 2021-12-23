@@ -187,8 +187,6 @@ mat-card-content {
 }
 
 .section_content {
-  // padding-top: 60px;
-  // padding-bottom: 60px;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -199,17 +197,9 @@ mat-card-content {
 .container.height-100 {
   height: 100%;
 }
-
 .section {
   padding-top: 30px;
 }
-
-.w-container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 940px;
-}
-
 .container {
   max-width: 1328px;
   margin-right: auto;
@@ -305,9 +295,33 @@ mat-card-content {
     }
   }
 }
-
+@media screen and (max-width: 780px) {
+  .list {
+    width: 80%;
+  }
+  .sub-ul {
+    width: 60%;
+  }
+  .example-card {
+    padding: 12px;
+  }
+}
 @media screen and (max-width: 450px) {
   .posts-container {
     padding: 40px 0;
+  }
+}
+@media screen  and (max-width: 400px){
+  .list {
+    width: 78%;
+  }
+  .sub-ul {
+    width: 60%;
+  }
+  .example-card {
+    padding: 6px;
+  }
+  .purple-header{
+    font-size: 1.5rem;
   }
 }

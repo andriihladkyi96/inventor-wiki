@@ -18,10 +18,7 @@ h2 {
 .div_body {
   background-color: #1f2329;
   min-height: 100%;
-  //padding-top: 48px;
   display: flex;
-  //height: 100% - 14.1%;
-  //height: calc(100% - 84px);
 }
 .input_sort_category {
   background-color: floralwhite;
@@ -96,8 +93,6 @@ mat-select-trigger {
   border-radius: 0 !important;
 }
 ::ng-deep .cdk-overlay-pane {
-  //top: 228.5px!important;
-//  left: 834px !important;
   transform: translateX(23px) translateY(-58px) !important;
 }
 ::ng-deep .mat-select-panel-wrap {
@@ -122,15 +117,6 @@ form {
 .error {
   font-size: 12px;
 }
-.button {
-  margin-left: 10px;
-  font-size: 44px;
-  text-decoration: none;
-  border: none;
-  background: none;
-  color: green;
-  cursor: pointer;
-}
 .hiden {
   display: none;
 }
@@ -139,23 +125,26 @@ form {
   font-size: 0.75em;
 }
 .sub-category-form {
-  margin-left: 100px;
+  margin-left: 50px;
 }
-.sub_button {
-  background-color: #1c1e27;
-  box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
-  color: green;
-  border: 1px solid #1d1e22;
-  border-radius: 8px;
-  margin-left: 10px;
+.sub-category-display {
+  display: flex;
 }
 .main-btn {
   background-color: #1c1e27;
   box-shadow: 0 1px 0 1px #0c0b0b, 0 3px 3px 1px #111314;
   color: #3884ff;
-  border: 1px solid #1d1e22;
+  border: 2px solid #3884ff;
   border-radius: 8px;
   margin-top: inherit;
+}
+.main-btn:disabled {
+  background-color: rgb(67 65 65 / 42%);
+  color: #a5a5a5 !important;
+}
+.sub-category-display button {
+  margin: 5px 0 0 15px;
+  color: #00cb51;
 }
 
 @media (max-width: 1130px) {
@@ -183,21 +172,13 @@ form {
   .sub-category-form {
     margin-left: 15px;
   }
-  .sub_button {
-    margin-left: 18px!important;
-  }
   @media screen and (max-width: 540px) {
+
     ::ng-deep.mat-form-field-flex {
       width: auto !important;
     }
-    .button {
-      margin-left: 90px;
-    }
-    .sub_button {
-      margin-left: 15px!important;
-    }
     ::ng-deep.mat-form-field-wrapper{
-      width: 130px !important;
+      width: auto !important;
     }
     ::ng-deep .mat-form-field-underline {
       width: auto;
@@ -209,11 +190,8 @@ form {
     }
   }
 }
-@media screen and (max-width: 440px) {
-  .button {
-    right: 28px;
-    left: 182px;
-    top: -103px;
-    position: relative;
+@media screen and (max-width: 400px) {
+  .main_form_div {
+    margin-left: 3px;
   }
 }
