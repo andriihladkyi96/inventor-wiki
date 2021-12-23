@@ -24,6 +24,8 @@
     "@kolkov/angular-editor": "^1.2.0",
     "firebase": "^9.4.0",
     "ngx-editor": "^12.0.0",
+    "all": "0.0.0",
+    "firebase": "^9.4.0",
     "rxfire": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
